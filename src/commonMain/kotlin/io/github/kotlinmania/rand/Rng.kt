@@ -1,6 +1,10 @@
 // port-lint: source rng.rs
 package io.github.kotlinmania.rand
 
+import io.github.kotlinmania.rand.distr.Bernoulli
+import io.github.kotlinmania.rand.distr.Distribution
+import io.github.kotlinmania.rand.distr.Iter
+import io.github.kotlinmania.rand.distr.sampleIter
 import kotlin.random.Random
 
 /**
@@ -30,21 +34,18 @@ public interface SeedableRng : RngCore {
  * User-level interface on RNGs.
  */
 public interface Rng : RngCore {
+    public fun <T> sample(distr: Distribution<T>): T = distr.sample(this)
+
+    public fun <T> sampleIter(distr: Distribution<T>): Iter<T> = distr.sampleIter(this)
+
     public fun randomBool(p: Double = 0.5): Boolean {
-        require(p in 0.0..1.0) { "p=$p is outside range [0.0, 1.0]" }
-        if (p == 0.0) return false
-        if (p == 1.0) return true
-        val u = (nextU64().toDouble()) / ULong.MAX_VALUE.toDouble()
-        return u < p
+        val d = Bernoulli.create(p)
+        return sample(d)
     }
 
     public fun randomRatio(numerator: UInt, denominator: UInt): Boolean {
-        require(denominator > 0u) { "denominator cannot be 0" }
-        require(numerator <= denominator) { "p=$numerator/$denominator is outside range [0.0, 1.0]" }
-        if (numerator == 0u) return false
-        if (numerator == denominator) return true
-        val randVal = nextU64() % denominator.toULong()
-        return randVal < numerator.toULong()
+        val d = Bernoulli.fromRatio(numerator, denominator)
+        return sample(d)
     }
 
     public fun randomRange(range: IntRange): Int {
