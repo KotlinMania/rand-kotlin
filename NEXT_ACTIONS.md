@@ -4,26 +4,26 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 3/31 (9.7%)
-- **Function parity:** 8/320 matched (target 37) — 2.5%
-- **Class/type parity:** 1/80 matched (target 10) — 1.2%
-- **Combined symbol parity:** 9/400 matched (target 47) — 2.2%
-- **Average inline-code cosine:** 0.12 (function body across 3 matched files)
-- **Average documentation cosine:** 0.25 (doc text across 3 matched files)
+- **Files Present:** 5/31 (16.1%)
+- **Function parity:** 21/319 matched (target 54) — 6.6%
+- **Class/type parity:** 4/80 matched (target 16) — 5.0%
+- **Combined symbol parity:** 25/399 matched (target 70) — 6.3%
+- **Average inline-code cosine:** 0.24 (function body across 5 matched files)
+- **Average documentation cosine:** 0.39 (doc text across 5 matched files)
 - **Cheat-zeroed Files:** 1
-- **Critical Issues:** 3 files with <0.60 function similarity
+- **Critical Issues:** 5 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
 ### 1. rng
-- **Similarity:** 0.09 (needs 76% improvement)
+- **Similarity:** 0.17 (needs 68% improvement)
 - **Dependencies:** 17
-- **Priority Score:** 17232810.0
-- **Functions:** 4/26 matched (target 16)
-- **Missing functions:** `random`, `random_iter`, `sample`, `sample_iter`, `r#gen`, `gen_range`, `gen_bool`, `gen_ratio`, `__unsafe`, `test_fill_bytes_default`, `test_fill`, `test_fill_empty`, `test_random_range_int`, `test_random_range_float`, `test_random_range_panic_int`, `test_random_range_panic_usize`, `test_random_bool`, `test_rng_mut_ref`, `use_rng`, `test_rng_trait_object`, `test_rng_boxed_trait`, `test_gen_ratio_average`
+- **Priority Score:** 17212808.0
+- **Functions:** 6/26 matched (target 18)
+- **Missing functions:** `random`, `random_iter`, `r#gen`, `gen_range`, `gen_bool`, `gen_ratio`, `__unsafe`, `test_fill_bytes_default`, `test_fill`, `test_fill_empty`, `test_random_range_int`, `test_random_range_float`, `test_random_range_panic_int`, `test_random_range_panic_usize`, `test_random_bool`, `test_rng_mut_ref`, `use_rng`, `test_rng_trait_object`, `test_rng_boxed_trait`, `test_gen_ratio_average`
 - **Types:** 1/2 matched (target 7)
 - **Missing types:** `Fill`
-- **Symbol Deficit:** 23 (functions: 22, types: 1)
+- **Symbol Deficit:** 21 (functions: 20, types: 1)
 - **Missing Tests:** 13 of 13 `#[test]` functions have no Kotlin counterpart
 - **Action:** Deep review - likely missing major functionality
 
@@ -40,16 +40,28 @@ Every matched file is listed below with function and type symbol parity.
 ### 1. rng
 
 - **Target:** `rand.Rng`
-- **Similarity:** 0.09
+- **Similarity:** 0.17
 - **Dependents:** 17
-- **Priority Score:** 17232810.0
-- **Functions:** 4/26 matched (target 16)
-- **Missing functions:** `random`, `random_iter`, `sample`, `sample_iter`, `r#gen`, `gen_range`, `gen_bool`, `gen_ratio`, `__unsafe`, `test_fill_bytes_default`, `test_fill`, `test_fill_empty`, `test_random_range_int`, `test_random_range_float`, `test_random_range_panic_int`, `test_random_range_panic_usize`, `test_random_bool`, `test_rng_mut_ref`, `use_rng`, `test_rng_trait_object`, `test_rng_boxed_trait`, `test_gen_ratio_average`
+- **Priority Score:** 17212808.0
+- **Functions:** 6/26 matched (target 18)
+- **Missing functions:** `random`, `random_iter`, `r#gen`, `gen_range`, `gen_bool`, `gen_ratio`, `__unsafe`, `test_fill_bytes_default`, `test_fill`, `test_fill_empty`, `test_random_range_int`, `test_random_range_float`, `test_random_range_panic_int`, `test_random_range_panic_usize`, `test_random_bool`, `test_rng_mut_ref`, `use_rng`, `test_rng_trait_object`, `test_rng_boxed_trait`, `test_gen_ratio_average`
 - **Types:** 1/2 matched (target 7)
 - **Missing types:** `Fill`
 - **Tests:** 0/13 matched
 
-### 2. lib
+### 2. distr.distribution
+
+- **Target:** `distr.Distribution`
+- **Similarity:** 0.41
+- **Dependents:** 6
+- **Priority Score:** 6071606.0
+- **Functions:** 7/11 matched (target 8)
+- **Missing functions:** `size_hint`, `test_make_an_iter`, `ten_dice_rolls_other_than_five`, `test_dist_string`
+- **Types:** 2/5 matched (target 4)
+- **Missing types:** `Distribution`, `Item`, `Map`
+- **Tests:** 2/5 matched
+
+### 3. lib
 
 - **Target:** `rand.Lib`
 - **Similarity:** 0.27
@@ -61,7 +73,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `StepRng`
 - **Tests:** 0/8 matched
 
-### 3. prelude
+### 4. distr.bernoulli
+
+- **Target:** `distr.Bernoulli`
+- **Similarity:** 0.34
+- **Dependents:** 0
+- **Priority Score:** 71206.6
+- **Functions:** 4/10 matched (target 7)
+- **Missing functions:** `fmt`, `new`, `test_serializing_deserializing_bernoulli`, `test_average`, `value_stability`, `bernoulli_distributions_can_be_compared`
+- **Types:** 1/2 matched
+- **Missing types:** `BernoulliError`
+- **Tests:** 1/5 matched
+
+### 5. prelude
 
 - **Target:** `rand.Prelude [ZERO]`
 - **Similarity:** 0.00
