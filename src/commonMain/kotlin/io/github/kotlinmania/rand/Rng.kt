@@ -8,7 +8,9 @@ import kotlin.random.Random
  */
 public interface RngCore {
     public fun nextU32(): UInt
+
     public fun nextU64(): ULong
+
     public fun fillBytes(dest: ByteArray)
 }
 
