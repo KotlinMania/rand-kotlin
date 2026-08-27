@@ -12,14 +12,12 @@ private const val SCALE: Double = 2.0 * 9223372036854775808.0
 public data class Bernoulli(
     private val pInt: ULong,
 ) : Distribution<Boolean> {
-
-    public fun p(): Double {
-        return if (pInt == ALWAYS_TRUE) {
+    public fun p(): Double =
+        if (pInt == ALWAYS_TRUE) {
             1.0
         } else {
             pInt.toDouble() / SCALE
         }
-    }
 
     override fun sample(rng: Rng): Boolean {
         if (pInt == ALWAYS_TRUE) {
