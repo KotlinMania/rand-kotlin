@@ -8,14 +8,14 @@ Based on AST analysis, here are the concrete next steps.
 - **Function parity:** 21/321 matched (target 54) — 6.5%
 - **Class/type parity:** 4/83 matched (target 16) — 4.8%
 - **Combined symbol parity:** 25/404 matched (target 70) — 6.2%
-- **Average inline-code cosine:** 0.23 (function body across 4 matched files)
-- **Average documentation cosine:** 0.45 (doc text across 4 matched files)
-- **Cheat-zeroed Files:** 2
+- **Average inline-code cosine:** 0.24 (function body across 5 matched files)
+- **Average documentation cosine:** 0.39 (doc text across 5 matched files)
+- **Cheat-zeroed Files:** 1
 - **Critical Issues:** 5 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
-### 1. rand.rng
+### 1. rng
 - **Similarity:** 0.17 (needs 68% improvement)
 - **Dependencies:** 17
 - **Priority Score:** 17212808.0
@@ -37,7 +37,7 @@ No missing high-value files detected.
 
 Every matched file is listed below with function and type symbol parity.
 
-### 1. rand.rng
+### 1. rng
 
 - **Target:** `rand.Rng`
 - **Similarity:** 0.17
@@ -61,12 +61,12 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Distribution`, `Item`, `Map`
 - **Tests:** 2/5 matched
 
-### 3. rand.lib
+### 3. lib
 
-- **Target:** `rand.Lib [STUB]`
-- **Similarity:** 0.00
+- **Target:** `rand.Lib`
+- **Similarity:** 0.27
 - **Dependents:** 0
-- **Priority Score:** 121610.0
+- **Priority Score:** 121607.3
 - **Functions:** 4/15 matched (target 20)
 - **Missing functions:** `thread_rng`, `random`, `random_iter`, `rng`, `const_rng`, `step_rng`, `next_u32`, `next_u64`, `fill_bytes`, `test_random`, `test_range`
 - **Types:** 0/1 matched (target 2)
@@ -85,7 +85,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `BernoulliError`
 - **Tests:** 1/5 matched
 
-### 5. rand.prelude
+### 5. prelude
 
 - **Target:** `rand.Prelude [ZERO]`
 - **Similarity:** 0.00

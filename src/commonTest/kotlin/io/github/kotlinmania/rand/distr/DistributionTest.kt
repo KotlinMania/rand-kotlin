@@ -1,4 +1,4 @@
-// port-lint: tests rand/src/distr/distribution.rs
+// port-lint: tests distr/distribution.rs
 package io.github.kotlinmania.rand.distr
 
 import io.github.kotlinmania.rand.StepRng
