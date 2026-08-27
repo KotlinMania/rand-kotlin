@@ -1,4 +1,4 @@
-// port-lint: source distr/bernoulli.rs
+// port-lint: source rand/src/distr/bernoulli.rs
 package io.github.kotlinmania.rand.distr
 
 import io.github.kotlinmania.rand.Rng
