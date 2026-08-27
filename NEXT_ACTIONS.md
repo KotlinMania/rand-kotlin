@@ -5,17 +5,17 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 5/31 (16.1%)
-- **Function parity:** 21/319 matched (target 54) — 6.6%
-- **Class/type parity:** 4/80 matched (target 16) — 5.0%
-- **Combined symbol parity:** 25/399 matched (target 70) — 6.3%
-- **Average inline-code cosine:** 0.24 (function body across 5 matched files)
-- **Average documentation cosine:** 0.39 (doc text across 5 matched files)
-- **Cheat-zeroed Files:** 1
+- **Function parity:** 21/321 matched (target 54) — 6.5%
+- **Class/type parity:** 4/83 matched (target 16) — 4.8%
+- **Combined symbol parity:** 25/404 matched (target 70) — 6.2%
+- **Average inline-code cosine:** 0.23 (function body across 4 matched files)
+- **Average documentation cosine:** 0.45 (doc text across 4 matched files)
+- **Cheat-zeroed Files:** 2
 - **Critical Issues:** 5 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
-### 1. rng
+### 1. rand.rng
 - **Similarity:** 0.17 (needs 68% improvement)
 - **Dependencies:** 17
 - **Priority Score:** 17212808.0
@@ -37,7 +37,7 @@ No missing high-value files detected.
 
 Every matched file is listed below with function and type symbol parity.
 
-### 1. rng
+### 1. rand.rng
 
 - **Target:** `rand.Rng`
 - **Similarity:** 0.17
@@ -61,12 +61,12 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Distribution`, `Item`, `Map`
 - **Tests:** 2/5 matched
 
-### 3. lib
+### 3. rand.lib
 
-- **Target:** `rand.Lib`
-- **Similarity:** 0.27
+- **Target:** `rand.Lib [STUB]`
+- **Similarity:** 0.00
 - **Dependents:** 0
-- **Priority Score:** 121607.3
+- **Priority Score:** 121610.0
 - **Functions:** 4/15 matched (target 20)
 - **Missing functions:** `thread_rng`, `random`, `random_iter`, `rng`, `const_rng`, `step_rng`, `next_u32`, `next_u64`, `fill_bytes`, `test_random`, `test_range`
 - **Types:** 0/1 matched (target 2)
@@ -85,7 +85,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `BernoulliError`
 - **Tests:** 1/5 matched
 
-### 5. prelude
+### 5. rand.prelude
 
 - **Target:** `rand.Prelude [ZERO]`
 - **Similarity:** 0.00
@@ -104,20 +104,4 @@ For each file to be considered "complete":
 - All tests ported
 - Documentation ported
 - port-lint header present
-
-## Reexport / Wiring Modules
-
-These files match `reexport_modules` patterns in `.ast_distance_config.json`. They are filtered out of
-normal priority and missing-file ladders because they are wiring
-modules, not direct logic ports. Consult them for call-site routing;
-do not treat them as the next implementation target by default.
-
-### Missing
-
-| Source | Expected target | Deps | Source path | Expected path |
-|--------|-----------------|------|-------------|---------------|
-| `distr.mod` | `distr.Mod` | 0 | `distr/mod.rs` | `distr/Mod.kt` |
-| `weighted.mod` | `distr.weighted.Mod` | 0 | `distr/weighted/mod.rs` | `distr/weighted/Mod.kt` |
-| `rngs.mod` | `rngs.Mod` | 0 | `rngs/mod.rs` | `rngs/Mod.kt` |
-| `seq.mod` | `seq.Mod` | 0 | `seq/mod.rs` | `seq/Mod.kt` |
 

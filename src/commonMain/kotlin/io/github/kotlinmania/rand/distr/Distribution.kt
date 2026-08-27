@@ -1,4 +1,4 @@
-// port-lint: source distr/distribution.rs
+// port-lint: source rand/src/distr/distribution.rs
 package io.github.kotlinmania.rand.distr
 
 import io.github.kotlinmania.rand.Rng
