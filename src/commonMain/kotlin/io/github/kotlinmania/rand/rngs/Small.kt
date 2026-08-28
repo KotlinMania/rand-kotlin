@@ -2,7 +2,6 @@
 package io.github.kotlinmania.rand.rngs
 
 import io.github.kotlinmania.rand.Rng
-import io.github.kotlinmania.rand.RngCore
 import io.github.kotlinmania.rand.SeedableRng
 
 /**
@@ -10,7 +9,8 @@ import io.github.kotlinmania.rand.SeedableRng
  */
 public class SmallRng(
     private val inner: Xoshiro256PlusPlus,
-) : SeedableRng, Rng {
+) : SeedableRng,
+    Rng {
     override fun seedFromU64(seed: ULong) {
         inner.seedFromU64(seed)
     }

@@ -3,16 +3,16 @@ package io.github.kotlinmania.rand.rngs
 
 import io.github.kotlinmania.rand.CryptoRng
 import io.github.kotlinmania.rand.Rng
-import io.github.kotlinmania.rand.RngCore
 import io.github.kotlinmania.rand.SeedableRng
-import kotlin.math.min
 
 /**
  * The standard cryptographic RNG, based on ChaCha12.
  */
 public class StdRng private constructor(
     private val key: UIntArray,
-) : CryptoRng, SeedableRng, Rng {
+) : CryptoRng,
+    SeedableRng,
+    Rng {
     private var counter: ULong = 0uL
     private val buffer = ULongArray(8)
     private var bufferIndex: Int = 8
@@ -104,10 +104,14 @@ public class StdRng private constructor(
     }
 
     private fun quarterRound(st: UIntArray, a: Int, b: Int, c: Int, d: Int) {
-        st[a] = st[a] + st[b]; st[d] = (st[d] xor st[a]).rotateLeft(16)
-        st[c] = st[c] + st[d]; st[b] = (st[b] xor st[c]).rotateLeft(12)
-        st[a] = st[a] + st[b]; st[d] = (st[d] xor st[a]).rotateLeft(8)
-        st[c] = st[c] + st[d]; st[b] = (st[b] xor st[c]).rotateLeft(7)
+        st[a] = st[a] + st[b]
+        st[d] = (st[d] xor st[a]).rotateLeft(16)
+        st[c] = st[c] + st[d]
+        st[b] = (st[b] xor st[c]).rotateLeft(12)
+        st[a] = st[a] + st[b]
+        st[d] = (st[d] xor st[a]).rotateLeft(8)
+        st[c] = st[c] + st[d]
+        st[b] = (st[b] xor st[c]).rotateLeft(7)
     }
 
     public companion object {
