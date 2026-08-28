@@ -3,7 +3,6 @@ package io.github.kotlinmania.rand.rngs
 
 import io.github.kotlinmania.rand.CryptoRng
 import io.github.kotlinmania.rand.Rng
-import io.github.kotlinmania.rand.RngCore
 import kotlin.random.Random
 
 /**

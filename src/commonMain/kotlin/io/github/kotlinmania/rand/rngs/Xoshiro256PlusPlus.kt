@@ -2,7 +2,6 @@
 package io.github.kotlinmania.rand.rngs
 
 import io.github.kotlinmania.rand.Rng
-import io.github.kotlinmania.rand.RngCore
 import io.github.kotlinmania.rand.SeedableRng
 
 /**
@@ -13,7 +12,8 @@ import io.github.kotlinmania.rand.SeedableRng
  */
 public class Xoshiro256PlusPlus(
     private val s: ULongArray,
-) : SeedableRng, Rng {
+) : SeedableRng,
+    Rng {
     init {
         require(s.size == 4) { "state must contain 4 elements" }
     }

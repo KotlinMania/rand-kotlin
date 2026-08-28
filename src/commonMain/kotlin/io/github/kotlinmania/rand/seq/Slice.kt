@@ -80,17 +80,19 @@ public fun <T> Array<T>.chooseWeighted(rng: Rng, weight: (T) -> Double): T? {
 
 public fun <T> List<T>.chooseMultipleWeighted(rng: Rng, amount: Int, weight: (T) -> Double): List<T> {
     if (amount <= 0 || isEmpty()) return emptyList()
-    val candidates = mapIndexed { index, item ->
-        val w = weight(item)
-        if (w > 0.0) {
-            val r = (rng.nextU64().toDouble() / ULong.MAX_VALUE.toDouble()).coerceIn(1e-15, 1.0)
-            val score = r.pow(1.0 / w)
-            index to score
-        } else {
-            null
-        }
-    }.filterNotNull()
-    return candidates.sortedByDescending { it.second }
+    val candidates =
+        mapIndexed { index, item ->
+            val w = weight(item)
+            if (w > 0.0) {
+                val r = (rng.nextU64().toDouble() / ULong.MAX_VALUE.toDouble()).coerceIn(1e-15, 1.0)
+                val score = r.pow(1.0 / w)
+                index to score
+            } else {
+                null
+            }
+        }.filterNotNull()
+    return candidates
+        .sortedByDescending { it.second }
         .take(amount)
         .map { this[it.first] }
 }
