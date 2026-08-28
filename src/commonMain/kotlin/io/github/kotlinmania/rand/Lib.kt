@@ -1,6 +1,9 @@
 // port-lint: source lib.rs
 package io.github.kotlinmania.rand
 
+import io.github.kotlinmania.rand.distr.Distribution
+import io.github.kotlinmania.rand.distr.StandardUniform
+
 /**
  * Top-level rand namespace module.
  */
@@ -37,3 +40,13 @@ public fun randomRange(range: ClosedFloatingPointRange<Double>): Double = Rand.r
 public fun randomRange(range: ClosedFloatingPointRange<Float>): Float = Rand.randomRange(range)
 
 public fun fill(dest: ByteArray): Unit = Rand.fill(dest)
+
+public fun random(): Double = StandardUniform.sample(Rand.rng())
+
+public fun randomInt(): Int = StandardUniform.sampleInt(Rand.rng())
+
+public fun randomLong(): Long = StandardUniform.sampleLong(Rand.rng())
+
+public fun randomBoolean(): Boolean = StandardUniform.sampleBoolean(Rand.rng())
+
+public fun <T> sample(distribution: Distribution<T>): T = distribution.sample(Rand.rng())
