@@ -15,7 +15,7 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
-### 1. rand.rng
+### 1. rng
 - **Similarity:** 0.17 (needs 68% improvement)
 - **Dependencies:** 17
 - **Priority Score:** 17212808.0
@@ -37,9 +37,9 @@ No missing high-value files detected.
 
 Every matched file is listed below with function and type symbol parity.
 
-### 1. rand.rng
+### 1. rng
 
-- **Target:** `rand.Rng`
+- **Target:** `rand.Rng [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.17
 - **Dependents:** 17
 - **Priority Score:** 17212808.0
@@ -48,10 +48,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched (target 7)
 - **Missing types:** `Fill`
 - **Tests:** 0/13 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/rng.rs` vs expected `rng.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/rng.rs` vs expected `rng.rs`
+- **Proposed provenance header:** `// port-lint: source rng.rs` (current: `// port-lint: source rand/src/rng.rs`)
+- **Proposed provenance header:** `// port-lint: tests rng.rs` (current: `// port-lint: tests rand/src/rng.rs`)
+- **Lint issues:** 2
 
 ### 2. distr.distribution
 
-- **Target:** `distr.Distribution`
+- **Target:** `distr.Distribution [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.41
 - **Dependents:** 6
 - **Priority Score:** 6071606.0
@@ -60,10 +65,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/5 matched (target 4)
 - **Missing types:** `Distribution`, `Item`, `Map`
 - **Tests:** 2/5 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/distr/distribution.rs` vs expected `distr/distribution.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/distr/distribution.rs` vs expected `distr/distribution.rs`
+- **Proposed provenance header:** `// port-lint: source distr/distribution.rs` (current: `// port-lint: source rand/src/distr/distribution.rs`)
+- **Proposed provenance header:** `// port-lint: tests distr/distribution.rs` (current: `// port-lint: tests rand/src/distr/distribution.rs`)
+- **Lint issues:** 2
 
 ### 3. distr.uniform
 
-- **Target:** `distr.Uniform`
+- **Target:** `distr.Uniform [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.04
 - **Dependents:** 1
 - **Priority Score:** 1222409.6
@@ -72,10 +82,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/10 matched (target 2)
 - **Missing types:** `Error`, `SampleUniform`, `UniformSampler`, `SampleBorrow`, `SampleRange`, `MyF32`, `UniformMyF32`, `X`, `Sampler`
 - **Tests:** 0/5 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/distr/uniform.rs` vs expected `distr/uniform.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/distr/uniform.rs` vs expected `distr/uniform.rs`
+- **Proposed provenance header:** `// port-lint: source distr/uniform.rs` (current: `// port-lint: source rand/src/distr/uniform.rs`)
+- **Proposed provenance header:** `// port-lint: tests distr/uniform.rs` (current: `// port-lint: tests rand/src/distr/uniform.rs`)
+- **Lint issues:** 2
 
 ### 4. seq.slice
 
-- **Target:** `seq.Slice`
+- **Target:** `seq.Slice [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.14
 - **Dependents:** 1
 - **Priority Score:** 1212708.6
@@ -84,10 +99,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/5 matched (target 1)
 - **Missing types:** `IndexedRandom`, `IndexedMutRandom`, `SliceRandom`, `SliceChooseIter`, `Item`
 - **Tests:** 1/9 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/seq/slice.rs` vs expected `seq/slice.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/seq/slice.rs` vs expected `seq/slice.rs`
+- **Proposed provenance header:** `// port-lint: source seq/slice.rs` (current: `// port-lint: source rand/src/seq/slice.rs`)
+- **Proposed provenance header:** `// port-lint: tests seq/slice.rs` (current: `// port-lint: tests rand/src/seq/slice.rs`)
+- **Lint issues:** 2
 
 ### 5. seq.index
 
-- **Target:** `seq.Index`
+- **Target:** `seq.Index [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.28
 - **Dependents:** 1
 - **Priority Score:** 1183307.2
@@ -96,10 +116,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/7 matched (target 4)
 - **Missing types:** `IntoIter`, `Item`, `IndexVecIter`, `IndexVecIntoIter`, `Element`, `UInt`
 - **Tests:** 3/5 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/seq/index.rs` vs expected `seq/index.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/seq/index.rs` vs expected `seq/index.rs`
+- **Proposed provenance header:** `// port-lint: source seq/index.rs` (current: `// port-lint: source rand/src/seq/index.rs`)
+- **Proposed provenance header:** `// port-lint: tests seq/index.rs` (current: `// port-lint: tests rand/src/seq/index.rs`)
+- **Lint issues:** 2
 
 ### 6. weighted.weighted_index
 
-- **Target:** `weighted.WeightedIndex`
+- **Target:** `weighted.WeightedIndex [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.16
 - **Dependents:** 1
 - **Priority Score:** 1162308.4
@@ -108,10 +133,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched
 - **Missing types:** `WeightedIndexIter`, `Item`
 - **Tests:** 1/11 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/distr/weighted/weighted_index.rs` vs expected `distr/weighted/weighted_index.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/distr/weighted/weighted_index.rs` vs expected `distr/weighted/weighted_index.rs`
+- **Proposed provenance header:** `// port-lint: source distr/weighted/weighted_index.rs` (current: `// port-lint: source rand/src/distr/weighted/weighted_index.rs`)
+- **Proposed provenance header:** `// port-lint: tests distr/weighted/weighted_index.rs` (current: `// port-lint: tests rand/src/distr/weighted/weighted_index.rs`)
+- **Lint issues:** 2
 
 ### 7. seq.increasing_uniform
 
-- **Target:** `seq.IncreasingUniform`
+- **Target:** `seq.IncreasingUniform [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.33
 - **Dependents:** 1
 - **Priority Score:** 1020506.8
@@ -119,10 +149,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `new`, `inner`
 - **Types:** 1/1 matched (target 2)
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/seq/increasing_uniform.rs` vs expected `seq/increasing_uniform.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/seq/increasing_uniform.rs` vs expected `seq/increasing_uniform.rs`
+- **Proposed provenance header:** `// port-lint: source seq/increasing_uniform.rs` (current: `// port-lint: source rand/src/seq/increasing_uniform.rs`)
+- **Proposed provenance header:** `// port-lint: tests seq/increasing_uniform.rs` (current: `// port-lint: tests rand/src/seq/increasing_uniform.rs`)
+- **Lint issues:** 2
 
 ### 8. seq.coin_flipper
 
-- **Target:** `seq.CoinFlipper`
+- **Target:** `seq.CoinFlipper [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.55
 - **Dependents:** 1
 - **Priority Score:** 1010504.5
@@ -130,10 +165,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `new`
 - **Types:** 1/1 matched (target 2)
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/seq/coin_flipper.rs` vs expected `seq/coin_flipper.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/seq/coin_flipper.rs` vs expected `seq/coin_flipper.rs`
+- **Proposed provenance header:** `// port-lint: source seq/coin_flipper.rs` (current: `// port-lint: source rand/src/seq/coin_flipper.rs`)
+- **Proposed provenance header:** `// port-lint: tests seq/coin_flipper.rs` (current: `// port-lint: tests rand/src/seq/coin_flipper.rs`)
+- **Lint issues:** 2
 
 ### 9. seq.iterator
 
-- **Target:** `seq.Iterator`
+- **Target:** `seq.Iterator [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.13
 - **Dependents:** 0
 - **Priority Score:** 182008.7
@@ -142,10 +182,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/5 matched (target 1)
 - **Missing types:** `IteratorRandom`, `UnhintedIterator`, `Item`, `ChunkHintedIterator`, `WindowHintedIterator`
 - **Tests:** 0/11 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/seq/iterator.rs` vs expected `seq/iterator.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/seq/iterator.rs` vs expected `seq/iterator.rs`
+- **Proposed provenance header:** `// port-lint: source seq/iterator.rs` (current: `// port-lint: source rand/src/seq/iterator.rs`)
+- **Proposed provenance header:** `// port-lint: tests seq/iterator.rs` (current: `// port-lint: tests rand/src/seq/iterator.rs`)
+- **Lint issues:** 2
 
-### 10. rand.lib
+### 10. lib
 
-- **Target:** `rand.Lib [STUB]`
+- **Target:** `rand.Lib [STUB] [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 111610.0
@@ -154,10 +199,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/1 matched (target 2)
 - **Missing types:** `StepRng`
 - **Tests:** 0/8 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/lib.rs` vs expected `lib.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/lib.rs` vs expected `lib.rs`
+- **Proposed provenance header:** `// port-lint: source lib.rs` (current: `// port-lint: source rand/src/lib.rs`)
+- **Proposed provenance header:** `// port-lint: tests lib.rs` (current: `// port-lint: tests rand/src/lib.rs`)
+- **Lint issues:** 2
 
 ### 11. distr.bernoulli
 
-- **Target:** `distr.Bernoulli`
+- **Target:** `distr.Bernoulli [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.34
 - **Dependents:** 0
 - **Priority Score:** 71206.6
@@ -166,10 +216,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched
 - **Missing types:** `BernoulliError`
 - **Tests:** 1/5 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/distr/bernoulli.rs` vs expected `distr/bernoulli.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/distr/bernoulli.rs` vs expected `distr/bernoulli.rs`
+- **Proposed provenance header:** `// port-lint: source distr/bernoulli.rs` (current: `// port-lint: source rand/src/distr/bernoulli.rs`)
+- **Proposed provenance header:** `// port-lint: tests distr/bernoulli.rs` (current: `// port-lint: tests rand/src/distr/bernoulli.rs`)
+- **Lint issues:** 2
 
 ### 12. distr.slice
 
-- **Target:** `distr.Slice`
+- **Target:** `distr.Slice [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.10
 - **Dependents:** 0
 - **Priority Score:** 60809.0
@@ -178,10 +233,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched (target 1)
 - **Missing types:** `Empty`
 - **Tests:** 0/1 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/distr/slice.rs` vs expected `distr/slice.rs`
+- **Proposed provenance header:** `// port-lint: source distr/slice.rs` (current: `// port-lint: source rand/src/distr/slice.rs`)
+- **Lint issues:** 1
 
 ### 13. distr.other
 
-- **Target:** `distr.Other`
+- **Target:** `distr.Other [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.39
 - **Dependents:** 0
 - **Priority Score:** 41006.1
@@ -190,10 +248,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched (target 6)
 - **Missing types:** _none_
 - **Tests:** 2/6 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/distr/other.rs` vs expected `distr/other.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/distr/other.rs` vs expected `distr/other.rs`
+- **Proposed provenance header:** `// port-lint: source distr/other.rs` (current: `// port-lint: source rand/src/distr/other.rs`)
+- **Proposed provenance header:** `// port-lint: tests distr/other.rs` (current: `// port-lint: tests rand/src/distr/other.rs`)
+- **Lint issues:** 2
 
 ### 14. rngs.xoshiro128plusplus
 
-- **Target:** `rngs.Xoshiro128PlusPlus`
+- **Target:** `rngs.Xoshiro128PlusPlus [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.27
 - **Dependents:** 0
 - **Priority Score:** 30907.3
@@ -202,10 +265,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched
 - **Missing types:** `Seed`
 - **Tests:** 0/2 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/rngs/xoshiro128plusplus.rs` vs expected `rngs/xoshiro128plusplus.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/rngs/xoshiro128plusplus.rs` vs expected `rngs/xoshiro128plusplus.rs`
+- **Proposed provenance header:** `// port-lint: source rngs/xoshiro128plusplus.rs` (current: `// port-lint: source rand/src/rngs/xoshiro128plusplus.rs`)
+- **Proposed provenance header:** `// port-lint: tests rngs/xoshiro128plusplus.rs` (current: `// port-lint: tests rand/src/rngs/xoshiro128plusplus.rs`)
+- **Lint issues:** 2
 
 ### 15. rngs.xoshiro256plusplus
 
-- **Target:** `rngs.Xoshiro256PlusPlus`
+- **Target:** `rngs.Xoshiro256PlusPlus [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.30
 - **Dependents:** 0
 - **Priority Score:** 30907.0
@@ -214,10 +282,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched
 - **Missing types:** `Seed`
 - **Tests:** 0/2 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/rngs/xoshiro256plusplus.rs` vs expected `rngs/xoshiro256plusplus.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/rngs/xoshiro256plusplus.rs` vs expected `rngs/xoshiro256plusplus.rs`
+- **Proposed provenance header:** `// port-lint: source rngs/xoshiro256plusplus.rs` (current: `// port-lint: source rand/src/rngs/xoshiro256plusplus.rs`)
+- **Proposed provenance header:** `// port-lint: tests rngs/xoshiro256plusplus.rs` (current: `// port-lint: tests rand/src/rngs/xoshiro256plusplus.rs`)
+- **Lint issues:** 2
 
 ### 16. weighted.mod
 
-- **Target:** `weighted.Mod [STUB]`
+- **Target:** `weighted.Mod [STUB] [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 30310.0
@@ -225,10 +298,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `fmt`
 - **Types:** 0/2 matched (target 5)
 - **Missing types:** `Weight`, `Error`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/distr/weighted/mod.rs` vs expected `distr/weighted/mod.rs`
+- **Proposed provenance header:** `// port-lint: source distr/weighted/mod.rs` (current: `// port-lint: source rand/src/distr/weighted/mod.rs`)
+- **Lint issues:** 1
 
 ### 17. rngs.small
 
-- **Target:** `rngs.Small`
+- **Target:** `rngs.Small [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.78
 - **Dependents:** 0
 - **Priority Score:** 20802.2
@@ -236,10 +312,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 1/3 matched (target 1)
 - **Missing types:** `Rng`, `Seed`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/rngs/small.rs` vs expected `rngs/small.rs`
+- **Proposed provenance header:** `// port-lint: source rngs/small.rs` (current: `// port-lint: source rand/src/rngs/small.rs`)
+- **Lint issues:** 1
 
 ### 18. rngs.std
 
-- **Target:** `rngs.Std`
+- **Target:** `rngs.Std [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.36
 - **Dependents:** 0
 - **Priority Score:** 10706.4
@@ -248,10 +327,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched
 - **Missing types:** `Seed`
 - **Tests:** 1/1 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/rngs/std.rs` vs expected `rngs/std.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:rand/src/rngs/std.rs` vs expected `rngs/std.rs`
+- **Proposed provenance header:** `// port-lint: source rngs/std.rs` (current: `// port-lint: source rand/src/rngs/std.rs`)
+- **Proposed provenance header:** `// port-lint: tests rngs/std.rs` (current: `// port-lint: tests rand/src/rngs/std.rs`)
+- **Lint issues:** 2
 
 ### 19. rngs.mock
 
-- **Target:** `rngs.Mock`
+- **Target:** `rngs.Mock [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.28
 - **Dependents:** 0
 - **Priority Score:** 10507.2
@@ -259,10 +343,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `new`
 - **Types:** 1/1 matched
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/rngs/mock.rs` vs expected `rngs/mock.rs`
+- **Proposed provenance header:** `// port-lint: source rngs/mock.rs` (current: `// port-lint: source rand/src/rngs/mock.rs`)
+- **Lint issues:** 1
 
 ### 20. rngs.mod
 
-- **Target:** `rngs.Os [STUB]`
+- **Target:** `rngs.Os [STUB] [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 10.0
@@ -270,6 +357,9 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 0/0 matched (target 1)
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rand/src/rngs/mod.rs` vs expected `rngs/mod.rs`
+- **Proposed provenance header:** `// port-lint: source rngs/mod.rs` (current: `// port-lint: source rand/src/rngs/mod.rs`)
+- **Lint issues:** 1
 
 ## Success Criteria
 
@@ -291,5 +381,5 @@ do not treat them as the next implementation target by default.
 
 | Source | Target | Path |
 |--------|--------|------|
-| `rand.prelude` | `rand.Prelude` | `rand/src/prelude` |
+| `prelude` | `rand.Prelude` | `prelude` |
 
