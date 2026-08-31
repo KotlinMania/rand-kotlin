@@ -1,4 +1,4 @@
-// port-lint: tests distr/bernoulli.rs
+// port-lint: tests rand/src/distr/bernoulli.rs
 package io.github.kotlinmania.rand.distr
 
 import io.github.kotlinmania.rand.StepRng

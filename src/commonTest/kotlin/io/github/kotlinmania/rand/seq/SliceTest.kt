@@ -1,4 +1,4 @@
-// port-lint: tests seq/slice.rs
+// port-lint: tests rand/src/seq/slice.rs
 package io.github.kotlinmania.rand.seq
 
 import io.github.kotlinmania.rand.rngs.SmallRng

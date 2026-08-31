@@ -8,14 +8,14 @@ Based on AST analysis, here are the concrete next steps.
 - **Function parity:** 84/290 matched (target 237) — 29.0%
 - **Class/type parity:** 17/83 matched (target 51) — 20.5%
 - **Combined symbol parity:** 101/373 matched (target 288) — 27.1%
-- **Average inline-code cosine:** 0.28 (function body across 19 matched files)
-- **Average documentation cosine:** 0.41 (doc text across 19 matched files)
-- **Cheat-zeroed Files:** 2
+- **Average inline-code cosine:** 0.28 (function body across 18 matched files)
+- **Average documentation cosine:** 0.43 (doc text across 18 matched files)
+- **Cheat-zeroed Files:** 3
 - **Critical Issues:** 20 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
-### 1. rng
+### 1. rand.rng
 - **Similarity:** 0.17 (needs 68% improvement)
 - **Dependencies:** 17
 - **Priority Score:** 17212808.0
@@ -37,7 +37,7 @@ No missing high-value files detected.
 
 Every matched file is listed below with function and type symbol parity.
 
-### 1. rng
+### 1. rand.rng
 
 - **Target:** `rand.Rng`
 - **Similarity:** 0.17
@@ -143,12 +143,12 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `IteratorRandom`, `UnhintedIterator`, `Item`, `ChunkHintedIterator`, `WindowHintedIterator`
 - **Tests:** 0/11 matched
 
-### 10. lib
+### 10. rand.lib
 
-- **Target:** `rand.Lib`
-- **Similarity:** 0.30
+- **Target:** `rand.Lib [STUB]`
+- **Similarity:** 0.00
 - **Dependents:** 0
-- **Priority Score:** 111607.0
+- **Priority Score:** 111610.0
 - **Functions:** 5/15 matched (target 25)
 - **Missing functions:** `thread_rng`, `random_iter`, `rng`, `const_rng`, `step_rng`, `next_u32`, `next_u64`, `fill_bytes`, `test_random`, `test_range`
 - **Types:** 0/1 matched (target 2)
@@ -291,5 +291,5 @@ do not treat them as the next implementation target by default.
 
 | Source | Target | Path |
 |--------|--------|------|
-| `prelude` | `rand.Prelude` | `prelude` |
+| `rand.prelude` | `rand.Prelude` | `rand/src/prelude` |
 

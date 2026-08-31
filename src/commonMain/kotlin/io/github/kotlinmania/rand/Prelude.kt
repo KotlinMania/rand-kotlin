@@ -1,4 +1,4 @@
-// port-lint: source prelude.rs
+// port-lint: source rand/src/prelude.rs
 package io.github.kotlinmania.rand
 
 /**

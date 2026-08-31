@@ -1,4 +1,4 @@
-// port-lint: source seq/coin_flipper.rs
+// port-lint: source rand/src/seq/coin_flipper.rs
 package io.github.kotlinmania.rand.seq
 
 import io.github.kotlinmania.rand.RngCore

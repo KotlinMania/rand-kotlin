@@ -1,4 +1,4 @@
-// port-lint: source rngs/small.rs
+// port-lint: source rand/src/rngs/small.rs
 package io.github.kotlinmania.rand.rngs
 
 import io.github.kotlinmania.rand.Rng
