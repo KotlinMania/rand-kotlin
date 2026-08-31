@@ -1,4 +1,4 @@
-// port-lint: source rngs/mod.rs
+// port-lint: source rand/src/rngs/mod.rs
 package io.github.kotlinmania.rand.rngs
 
 import io.github.kotlinmania.rand.CryptoRng

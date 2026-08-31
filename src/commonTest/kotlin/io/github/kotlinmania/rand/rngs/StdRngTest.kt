@@ -1,4 +1,4 @@
-// port-lint: tests rngs/std.rs
+// port-lint: tests rand/src/rngs/std.rs
 package io.github.kotlinmania.rand.rngs
 
 import kotlin.test.Test

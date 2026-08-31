@@ -1,4 +1,4 @@
-// port-lint: tests seq/increasing_uniform.rs
+// port-lint: tests rand/src/seq/increasing_uniform.rs
 package io.github.kotlinmania.rand.seq
 
 import io.github.kotlinmania.rand.rngs.StepRng

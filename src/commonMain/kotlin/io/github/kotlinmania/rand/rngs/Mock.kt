@@ -1,4 +1,4 @@
-// port-lint: source rngs/mock.rs
+// port-lint: source rand/src/rngs/mock.rs
 package io.github.kotlinmania.rand.rngs
 
 import io.github.kotlinmania.rand.Rng
