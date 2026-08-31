@@ -1,4 +1,4 @@
-// port-lint: source rngs/xoshiro128plusplus.rs
+// port-lint: tests rngs/xoshiro128plusplus.rs
 package io.github.kotlinmania.rand.rngs
 
 import kotlin.test.Test
