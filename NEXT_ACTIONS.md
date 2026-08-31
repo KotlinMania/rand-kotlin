@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 13/31 (41.9%)
-- **Function parity:** 50/297 matched (target 169) — 16.8%
-- **Class/type parity:** 10/83 matched (target 31) — 12.0%
-- **Combined symbol parity:** 60/380 matched (target 200) — 15.8%
-- **Average inline-code cosine:** 0.28 (function body across 12 matched files)
-- **Average documentation cosine:** 0.31 (doc text across 12 matched files)
-- **Cheat-zeroed Files:** 1
-- **Critical Issues:** 12 files with <0.60 function similarity
+- **Files Present:** 21/31 (67.7%)
+- **Function parity:** 84/290 matched (target 237) — 29.0%
+- **Class/type parity:** 17/83 matched (target 51) — 20.5%
+- **Combined symbol parity:** 101/373 matched (target 288) — 27.1%
+- **Average inline-code cosine:** 0.28 (function body across 19 matched files)
+- **Average documentation cosine:** 0.41 (doc text across 19 matched files)
+- **Cheat-zeroed Files:** 2
+- **Critical Issues:** 20 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -85,7 +85,53 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `IndexedRandom`, `IndexedMutRandom`, `SliceRandom`, `SliceChooseIter`, `Item`
 - **Tests:** 1/9 matched
 
-### 5. seq.iterator
+### 5. seq.index
+
+- **Target:** `seq.Index`
+- **Similarity:** 0.28
+- **Dependents:** 1
+- **Priority Score:** 1183307.2
+- **Functions:** 14/26 matched (target 30)
+- **Missing functions:** `iter`, `into_iter`, `eq`, `next`, `size_hint`, `partial_cmp`, `cmp`, `zero`, `one`, `as_usize`, `test_serialization_index_vec`, `value_stability_sample`
+- **Types:** 1/7 matched (target 4)
+- **Missing types:** `IntoIter`, `Item`, `IndexVecIter`, `IndexVecIntoIter`, `Element`, `UInt`
+- **Tests:** 3/5 matched
+
+### 6. weighted.weighted_index
+
+- **Target:** `weighted.WeightedIndex`
+- **Similarity:** 0.16
+- **Dependents:** 1
+- **Priority Score:** 1162308.4
+- **Functions:** 6/20 matched (target 14)
+- **Missing functions:** `new`, `fmt`, `clone`, `next`, `test_weightedindex_serde`, `test_accepting_nan`, `test_weightedindex`, `test_update_weights_errors`, `test_weight_at`, `test_weights`, `value_stability`, `test_samples`, `weighted_index_distributions_can_be_compared`, `overflow`
+- **Types:** 1/3 matched
+- **Missing types:** `WeightedIndexIter`, `Item`
+- **Tests:** 1/11 matched
+
+### 7. seq.increasing_uniform
+
+- **Target:** `seq.IncreasingUniform`
+- **Similarity:** 0.33
+- **Dependents:** 1
+- **Priority Score:** 1020506.8
+- **Functions:** 2/4 matched
+- **Missing functions:** `new`, `inner`
+- **Types:** 1/1 matched (target 2)
+- **Missing types:** _none_
+
+### 8. seq.coin_flipper
+
+- **Target:** `seq.CoinFlipper`
+- **Similarity:** 0.55
+- **Dependents:** 1
+- **Priority Score:** 1010504.5
+- **Functions:** 3/4 matched
+- **Missing functions:** `new`
+- **Types:** 1/1 matched (target 2)
+- **Missing types:** _none_
+
+### 9. seq.iterator
 
 - **Target:** `seq.Iterator`
 - **Similarity:** 0.13
@@ -97,7 +143,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `IteratorRandom`, `UnhintedIterator`, `Item`, `ChunkHintedIterator`, `WindowHintedIterator`
 - **Tests:** 0/11 matched
 
-### 6. lib
+### 10. lib
 
 - **Target:** `rand.Lib`
 - **Similarity:** 0.30
@@ -109,7 +155,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `StepRng`
 - **Tests:** 0/8 matched
 
-### 7. distr.bernoulli
+### 11. distr.bernoulli
 
 - **Target:** `distr.Bernoulli`
 - **Similarity:** 0.34
@@ -121,7 +167,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `BernoulliError`
 - **Tests:** 1/5 matched
 
-### 8. distr.other
+### 12. distr.slice
+
+- **Target:** `distr.Slice`
+- **Similarity:** 0.10
+- **Dependents:** 0
+- **Priority Score:** 60809.0
+- **Functions:** 1/6 matched (target 3)
+- **Missing functions:** `new`, `num_choices`, `fmt`, `append_string`, `value_stability`
+- **Types:** 1/2 matched (target 1)
+- **Missing types:** `Empty`
+- **Tests:** 0/1 matched
+
+### 13. distr.other
 
 - **Target:** `distr.Other`
 - **Similarity:** 0.39
@@ -133,7 +191,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 2/6 matched
 
-### 9. rngs.xoshiro256plusplus
+### 14. rngs.xoshiro128plusplus
+
+- **Target:** `rngs.Xoshiro128PlusPlus`
+- **Similarity:** 0.27
+- **Dependents:** 0
+- **Priority Score:** 30907.3
+- **Functions:** 5/7 matched (target 9)
+- **Missing functions:** `reference`, `stable_seed_from_u64_and_from_seed`
+- **Types:** 1/2 matched
+- **Missing types:** `Seed`
+- **Tests:** 0/2 matched
+
+### 15. rngs.xoshiro256plusplus
 
 - **Target:** `rngs.Xoshiro256PlusPlus`
 - **Similarity:** 0.30
@@ -145,7 +215,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Seed`
 - **Tests:** 0/2 matched
 
-### 10. rngs.small
+### 16. weighted.mod
+
+- **Target:** `weighted.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 30310.0
+- **Functions:** 0/1 matched (target 0)
+- **Missing functions:** `fmt`
+- **Types:** 0/2 matched (target 5)
+- **Missing types:** `Weight`, `Error`
+
+### 17. rngs.small
 
 - **Target:** `rngs.Small`
 - **Similarity:** 0.78
@@ -156,7 +237,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 1)
 - **Missing types:** `Rng`, `Seed`
 
-### 11. rngs.std
+### 18. rngs.std
 
 - **Target:** `rngs.Std`
 - **Similarity:** 0.36
@@ -168,7 +249,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Seed`
 - **Tests:** 1/1 matched
 
-### 12. rngs.mod
+### 19. rngs.mock
+
+- **Target:** `rngs.Mock`
+- **Similarity:** 0.28
+- **Dependents:** 0
+- **Priority Score:** 10507.2
+- **Functions:** 3/4 matched
+- **Missing functions:** `new`
+- **Types:** 1/1 matched
+- **Missing types:** _none_
+
+### 20. rngs.mod
 
 - **Target:** `rngs.Os [STUB]`
 - **Similarity:** 0.00
