@@ -1,4 +1,4 @@
-// port-lint: source rand/src/seq/increasing_uniform.rs
+// port-lint: source seq/increasing_uniform.rs
 package io.github.kotlinmania.rand.seq
 
 import io.github.kotlinmania.rand.Rng

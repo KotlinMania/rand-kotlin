@@ -2,7 +2,7 @@
   "type": "port",
   "name": "rand-kotlin",
   "source": {
-    "path": "tmp",
+    "path": "tmp/rand/src",
     "lang": "rust"
   },
   "target": {

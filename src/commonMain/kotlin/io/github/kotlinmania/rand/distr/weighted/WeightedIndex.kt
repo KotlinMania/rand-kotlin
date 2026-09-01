@@ -1,4 +1,4 @@
-// port-lint: source rand/src/distr/weighted/weighted_index.rs
+// port-lint: source distr/weighted/weighted_index.rs
 package io.github.kotlinmania.rand.distr.weighted
 
 import io.github.kotlinmania.rand.Rng

@@ -1,4 +1,4 @@
-// port-lint: tests rand/src/seq/index.rs
+// port-lint: tests seq/index.rs
 package io.github.kotlinmania.rand.seq
 
 import io.github.kotlinmania.rand.rngs.StepRng
