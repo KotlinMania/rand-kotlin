@@ -16,6 +16,26 @@
     "lint": true
   },
   "reexport_modules": [
-    "prelude"
+    "lib",
+    "lib.rs",
+    "rand/src/lib.rs",
+    "prelude",
+    "prelude.rs",
+    "rand/src/prelude.rs",
+    "seq/mod",
+    "seq.mod",
+    "seq/mod.rs",
+    "rand/src/seq/mod.rs",
+    "rngs/mod",
+    "rngs.mod",
+    "rngs/mod.rs",
+    "rand/src/rngs/mod.rs",
+    "distr/mod",
+    "distr.mod",
+    "distr/mod.rs",
+    "rand/src/distr/mod.rs",
+    "distr/weighted/mod",
+    "distr/weighted/mod.rs",
+    "rand/src/distr/weighted/mod.rs"
   ]
 }
