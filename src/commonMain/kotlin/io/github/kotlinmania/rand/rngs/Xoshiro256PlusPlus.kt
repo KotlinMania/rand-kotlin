@@ -1,4 +1,4 @@
-// port-lint: source rand/src/rngs/xoshiro256plusplus.rs
+// port-lint: source rngs/xoshiro256plusplus.rs
 package io.github.kotlinmania.rand.rngs
 
 import io.github.kotlinmania.rand.Rng

@@ -1,4 +1,4 @@
-// port-lint: source rand/src/seq/iterator.rs
+// port-lint: source seq/iterator.rs
 package io.github.kotlinmania.rand.seq
 
 import io.github.kotlinmania.rand.Rng

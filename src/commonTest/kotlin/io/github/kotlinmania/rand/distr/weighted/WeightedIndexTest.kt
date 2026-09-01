@@ -1,4 +1,4 @@
-// port-lint: tests rand/src/distr/weighted/weighted_index.rs
+// port-lint: tests distr/weighted/weighted_index.rs
 package io.github.kotlinmania.rand.distr.weighted
 
 import io.github.kotlinmania.rand.rngs.StepRng

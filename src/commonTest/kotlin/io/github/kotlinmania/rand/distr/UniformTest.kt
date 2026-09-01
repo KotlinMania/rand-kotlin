@@ -1,4 +1,4 @@
-// port-lint: tests rand/src/distr/uniform.rs
+// port-lint: tests distr/uniform.rs
 package io.github.kotlinmania.rand.distr
 
 import io.github.kotlinmania.rand.rngs.SmallRng
