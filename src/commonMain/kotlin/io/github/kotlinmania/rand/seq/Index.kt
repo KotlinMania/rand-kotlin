@@ -188,7 +188,9 @@ private class WeightedCandidate(
     override fun compareTo(other: WeightedCandidate): Int = key.compareTo(other.key)
 }
 
-private class SimpleMinHeap<T : Comparable<T>>(capacity: Int) {
+private class SimpleMinHeap<T : Comparable<T>>(
+    capacity: Int,
+) {
     private val elements = ArrayList<T>(capacity)
 
     val size: Int get() = elements.size
