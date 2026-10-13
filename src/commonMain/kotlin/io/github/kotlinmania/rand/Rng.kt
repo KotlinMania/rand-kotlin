@@ -4,6 +4,7 @@ package io.github.kotlinmania.rand
 import io.github.kotlinmania.rand.distr.Bernoulli
 import io.github.kotlinmania.rand.distr.Distribution
 import io.github.kotlinmania.rand.distr.Iter
+import io.github.kotlinmania.rand.distr.Uniform
 import io.github.kotlinmania.rand.distr.sampleIter
 import kotlin.random.Random
 
@@ -56,19 +57,9 @@ public interface Rng : RngCore {
         return (range.first.toLong() + offset).toInt()
     }
 
-    public fun randomRange(range: ClosedFloatingPointRange<Double>): Double {
-        require(range.start <= range.endInclusive) { "cannot sample empty range" }
-        if (range.start == range.endInclusive) return range.start
-        val u = (nextU64().toDouble()) / ULong.MAX_VALUE.toDouble()
-        return range.start + u * (range.endInclusive - range.start)
-    }
+    public fun randomRange(range: ClosedFloatingPointRange<Double>): Double = Uniform.tryFrom(range).unwrap().sample(this)
 
-    public fun randomRange(range: ClosedFloatingPointRange<Float>): Float {
-        require(range.start <= range.endInclusive) { "cannot sample empty range" }
-        if (range.start == range.endInclusive) return range.start
-        val u = (nextU32().toFloat()) / UInt.MAX_VALUE.toFloat()
-        return range.start + u * (range.endInclusive - range.start)
-    }
+    public fun randomRange(range: ClosedFloatingPointRange<Float>): Float = Uniform.tryFrom(range).unwrap().sample(this)
 
     public fun fill(dest: ByteArray) {
         fillBytes(dest)

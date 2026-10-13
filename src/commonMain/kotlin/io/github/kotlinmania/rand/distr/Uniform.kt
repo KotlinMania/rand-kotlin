@@ -1,7 +1,12 @@
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 // port-lint: source distr/uniform.rs
+
 package io.github.kotlinmania.rand.distr
 
 import io.github.kotlinmania.rand.Rng
+import kotlin.jvm.JvmName
+import kotlin.native.HiddenFromObjC
 
 /**
  * Error type returned from [Uniform.new] and [Uniform.newInclusive].
@@ -105,11 +110,13 @@ public interface SampleRange<T> {
  * A distribution uniformly sampling values within a given range.
  */
 public class Uniform<T>(
-    private val sampler: (Rng) -> T,
+    internal val sampler: UniformSampler<T>?,
+    private val sampleFn: (Rng) -> T,
 ) : Distribution<T> {
-    public constructor(sampler: UniformSampler<T>) : this({ rng -> sampler.sample(rng) })
+    public constructor(sampler: UniformSampler<T>) : this(sampler, { rng -> sampler.sample(rng) })
+    public constructor(sampleFn: (Rng) -> T) : this(null, sampleFn)
 
-    override fun sample(rng: Rng): T = sampler(rng)
+    override fun sample(rng: Rng): T = sampleFn(rng)
 
     public companion object {
         public fun new(low: Int, high: Int): Result<Uniform<Int>, Error> =
@@ -136,9 +143,23 @@ public class Uniform<T>(
         public fun newInclusive(low: ULong, high: ULong): Result<Uniform<ULong>, Error> =
             UniformInt.newInclusive(low, high).map { Uniform(it) }
 
+        public fun new(low: Float, high: Float): Result<Uniform<Float>, Error> =
+            UniformFloat.new(low, high).map { Uniform(it) }
+
+        public fun newInclusive(low: Float, high: Float): Result<Uniform<Float>, Error> =
+            UniformFloat.newInclusive(low, high).map { Uniform(it) }
+
+        public fun new(low: Double, high: Double): Result<Uniform<Double>, Error> =
+            UniformFloat.new(low, high).map { Uniform(it) }
+
+        public fun newInclusive(low: Double, high: Double): Result<Uniform<Double>, Error> =
+            UniformFloat.newInclusive(low, high).map { Uniform(it) }
+
+        @JvmName("tryFromOpenEndInt")
         public fun tryFromOpenEnd(range: OpenEndRange<Int>): Result<Uniform<Int>, Error> =
             new(range.start, range.endExclusive)
 
+        @JvmName("tryFromInt")
         public fun tryFrom(range: ClosedRange<Int>): Result<Uniform<Int>, Error> =
             newInclusive(range.start, range.endInclusive)
 
@@ -150,6 +171,26 @@ public class Uniform<T>(
 
         public fun tryFrom(range: ULongRange): Result<Uniform<ULong>, Error> =
             newInclusive(range.first, range.last)
+
+        @HiddenFromObjC
+        @JvmName("tryFromOpenEndFloat")
+        public fun tryFromOpenEnd(range: OpenEndRange<Float>): Result<Uniform<Float>, Error> =
+            new(range.start, range.endExclusive)
+
+        @HiddenFromObjC
+        @JvmName("tryFromFloat")
+        public fun tryFrom(range: ClosedFloatingPointRange<Float>): Result<Uniform<Float>, Error> =
+            newInclusive(range.start, range.endInclusive)
+
+        @HiddenFromObjC
+        @JvmName("tryFromOpenEndDouble")
+        public fun tryFromOpenEnd(range: OpenEndRange<Double>): Result<Uniform<Double>, Error> =
+            new(range.start, range.endExclusive)
+
+        @HiddenFromObjC
+        @JvmName("tryFromDouble")
+        public fun tryFrom(range: ClosedFloatingPointRange<Double>): Result<Uniform<Double>, Error> =
+            newInclusive(range.start, range.endInclusive)
 
         public fun int(low: Int, highExclusive: Int): Uniform<Int> =
             new(low, highExclusive).unwrap()
@@ -163,41 +204,17 @@ public class Uniform<T>(
         public fun longInclusive(low: Long, highInclusive: Long): Uniform<Long> =
             newInclusive(low, highInclusive).unwrap()
 
-        public fun double(low: Double, highExclusive: Double): Uniform<Double> {
-            require(low < highExclusive) { "Uniform.double requires low < highExclusive" }
-            val scale = highExclusive - low
-            return Uniform { rng ->
-                val u = StandardUniform.sample(rng)
-                low + u * scale
-            }
-        }
+        public fun double(low: Double, highExclusive: Double): Uniform<Double> =
+            new(low, highExclusive).unwrap()
 
-        public fun doubleInclusive(low: Double, highInclusive: Double): Uniform<Double> {
-            require(low <= highInclusive) { "Uniform.doubleInclusive requires low <= highInclusive" }
-            val scale = highInclusive - low
-            return Uniform { rng ->
-                val u = StandardUniform.sample(rng)
-                low + u * scale
-            }
-        }
+        public fun doubleInclusive(low: Double, highInclusive: Double): Uniform<Double> =
+            newInclusive(low, highInclusive).unwrap()
 
-        public fun float(low: Float, highExclusive: Float): Uniform<Float> {
-            require(low < highExclusive) { "Uniform.float requires low < highExclusive" }
-            val scale = highExclusive - low
-            return Uniform { rng ->
-                val u = StandardUniform.sampleFloat(rng)
-                low + u * scale
-            }
-        }
+        public fun float(low: Float, highExclusive: Float): Uniform<Float> =
+            new(low, highExclusive).unwrap()
 
-        public fun floatInclusive(low: Float, highInclusive: Float): Uniform<Float> {
-            require(low <= highInclusive) { "Uniform.floatInclusive requires low <= highInclusive" }
-            val scale = highInclusive - low
-            return Uniform { rng ->
-                val u = StandardUniform.sampleFloat(rng)
-                low + u * scale
-            }
-        }
+        public fun floatInclusive(low: Float, highInclusive: Float): Uniform<Float> =
+            newInclusive(low, highInclusive).unwrap()
 
         public fun byte(low: Byte, highExclusive: Byte): Uniform<Byte> =
             UniformInt.new(low, highExclusive).unwrap().let { Uniform(it) }
