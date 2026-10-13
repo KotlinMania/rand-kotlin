@@ -77,7 +77,7 @@ class UniformFloatTest {
         for ((low, high) in vFloat) {
             val myUniform = UniformFloat.new(low, high).unwrap()
             val myInclUniform = UniformFloat.newInclusive(low, high).unwrap()
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = myUniform.sample(rng)
                 assertTrue(low <= v && v <= high)
                 val vIncl = myInclUniform.sample(rng)
@@ -119,7 +119,7 @@ class UniformFloatTest {
         for ((low, high) in vDouble) {
             val myUniform = UniformFloat.new(low, high).unwrap()
             val myInclUniform = UniformFloat.newInclusive(low, high).unwrap()
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = myUniform.sample(rng)
                 assertTrue(low <= v && v <= high)
                 val vIncl = myInclUniform.sample(rng)

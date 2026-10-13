@@ -12,7 +12,7 @@ class DistributionTest {
         val distr = Distribution { r -> (r.nextU32().toFloat() % 100f) / 100f }
         val iter = distr.sampleIter(rng)
         var sum = 0f
-        for (i in 0 until 100) {
+        repeat(100) {
             sum += iter.next()
         }
         assertTrue(sum > 0f)

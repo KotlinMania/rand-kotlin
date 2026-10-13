@@ -80,7 +80,7 @@ public class StdRng private constructor(
 
         val working = state.copyOf()
         // ChaCha12 has 12 rounds (6 double rounds)
-        for (round in 0 until 6) {
+        repeat(6) {
             quarterRound(working, 0, 4, 8, 12)
             quarterRound(working, 1, 5, 9, 13)
             quarterRound(working, 2, 6, 10, 14)

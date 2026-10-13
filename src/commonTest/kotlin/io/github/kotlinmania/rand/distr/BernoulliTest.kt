@@ -14,7 +14,7 @@ class BernoulliTest {
         val r = StepRng(1uL, 1uL)
         val alwaysFalse = Bernoulli.create(0.0)
         val alwaysTrue = Bernoulli.create(1.0)
-        for (i in 0 until 5) {
+        repeat(5) {
             assertFalse(r.sample(alwaysFalse))
             assertTrue(r.sample(alwaysTrue))
             assertFalse(alwaysFalse.sample(r))

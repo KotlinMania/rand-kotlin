@@ -18,7 +18,7 @@ class ReseedingTest {
         reseeding.fill(buf1)
         val seq0 = buf0.copyOf()
         val seq1 = buf1.copyOf()
-        for (i in 0 until 10) {
+        repeat(10) {
             reseeding.fill(buf0)
             reseeding.fill(buf1)
             assertContentEquals(seq0, buf0)
@@ -32,7 +32,7 @@ class ReseedingTest {
         val rng1 = ReseedingRng.new(32uL * 4uL, zero)
 
         val first: UInt = rng1.nextU32()
-        for (i in 0 until 10) {
+        repeat(10) {
             rng1.nextU32()
         }
 
