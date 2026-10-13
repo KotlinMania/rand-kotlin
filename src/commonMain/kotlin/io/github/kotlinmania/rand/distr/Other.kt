@@ -8,7 +8,7 @@ import io.github.kotlinmania.rand.Rng
  * a-z, A-Z and 0-9.
  */
 public object Alphanumeric : Distribution<Byte>, SampleString {
-    private val RANGE: UInt = 62u
+    private const val RANGE: UInt = 62u
     private val GEN_ASCII_STR_CHARSET: ByteArray =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".encodeToByteArray()
 
@@ -35,7 +35,7 @@ public object Alphanumeric : Distribution<Byte>, SampleString {
  * a-z and A-Z.
  */
 public object Alphabetic : Distribution<Byte>, SampleString {
-    private val RANGE: UInt = 52u
+    private const val RANGE: UInt = 52u
 
     override fun sample(rng: Rng): Byte {
         val offset = (rng.nextU32() % RANGE).toByte() + 'A'.code.toByte()
