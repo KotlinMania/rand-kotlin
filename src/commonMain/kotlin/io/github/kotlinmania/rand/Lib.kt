@@ -3,6 +3,8 @@ package io.github.kotlinmania.rand
 
 import io.github.kotlinmania.rand.distr.Distribution
 import io.github.kotlinmania.rand.distr.StandardUniform
+import io.github.kotlinmania.rand.rngs.ThreadRng
+import io.github.kotlinmania.rand.rngs.rng as threadRng
 
 /**
  * Top-level rand namespace module.
@@ -10,9 +12,7 @@ import io.github.kotlinmania.rand.distr.StandardUniform
 public object Rand {
     public const val VERSION: String = "0.9.0"
 
-    private val threadLocalRng = RandomRng()
-
-    public fun rng(): Rng = threadLocalRng
+    public fun rng(): ThreadRng = threadRng()
 
     public fun randomBool(p: Double = 0.5): Boolean = rng().randomBool(p)
 
@@ -27,7 +27,7 @@ public object Rand {
     public fun fill(dest: ByteArray): Unit = rng().fill(dest)
 }
 
-public fun rng(): Rng = Rand.rng()
+public fun rng(): ThreadRng = Rand.rng()
 
 public fun randomBool(p: Double = 0.5): Boolean = Rand.randomBool(p)
 
