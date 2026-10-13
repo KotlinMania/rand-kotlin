@@ -3,6 +3,7 @@ package io.github.kotlinmania.rand.rngs
 
 import io.github.kotlinmania.rand.CryptoRng
 import io.github.kotlinmania.rand.Rng
+import io.github.kotlinmania.rand.RngCore
 import io.github.kotlinmania.rand.SeedableRng
 
 /**
@@ -135,7 +136,7 @@ public class StdRng private constructor(
             return fromSeed(seedBytes)
         }
 
-        public fun fromRng(rng: Rng): StdRng {
+        public fun fromRng(rng: RngCore): StdRng {
             val seedBytes = ByteArray(32)
             rng.fillBytes(seedBytes)
             return fromSeed(seedBytes)
