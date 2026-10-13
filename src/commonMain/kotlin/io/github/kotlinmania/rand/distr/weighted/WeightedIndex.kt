@@ -22,7 +22,7 @@ public class WeightedIndex(
     cumulativeWeights: DoubleArray,
     private var totalWeight: Double,
 ) : Distribution<Int> {
-    private var cumulativeWeights: DoubleArray = cumulativeWeights.copyOf()
+    private val cumulativeWeights: DoubleArray = cumulativeWeights.copyOf()
 
     public val size: Int
         get() = cumulativeWeights.size + 1

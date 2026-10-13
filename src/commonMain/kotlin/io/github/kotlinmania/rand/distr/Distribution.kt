@@ -32,7 +32,12 @@ public class Iter<T>(
 ) : Iterator<T> {
     override fun hasNext(): Boolean = true
 
-    override fun next(): T = distr.sample(rng)
+    override fun next(): T {
+        if (!hasNext()) {
+            throw NoSuchElementException()
+        }
+        return distr.sample(rng)
+    }
 }
 
 /**

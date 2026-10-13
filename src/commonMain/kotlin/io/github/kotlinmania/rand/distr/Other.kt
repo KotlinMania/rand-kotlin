@@ -24,7 +24,7 @@ public object Alphanumeric : Distribution<Byte>, SampleString {
     public fun sampleChar(rng: Rng): Char = sample(rng).toInt().toChar()
 
     override fun appendString(rng: Rng, string: StringBuilder, len: Int) {
-        for (i in 0 until len) {
+        repeat(len) {
             string.append(sampleChar(rng))
         }
     }
@@ -46,7 +46,7 @@ public object Alphabetic : Distribution<Byte>, SampleString {
     public fun sampleChar(rng: Rng): Char = sample(rng).toInt().toChar()
 
     override fun appendString(rng: Rng, string: StringBuilder, len: Int) {
-        for (i in 0 until len) {
+        repeat(len) {
             string.append(sampleChar(rng))
         }
     }
@@ -128,7 +128,7 @@ public object StandardUniform : Distribution<Double>, SampleString {
     }
 
     override fun appendString(rng: Rng, string: StringBuilder, len: Int) {
-        for (i in 0 until len) {
+        repeat(len) {
             string.append(sampleChar(rng))
         }
     }

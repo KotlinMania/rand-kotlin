@@ -10,7 +10,7 @@ class OtherTest {
     @Test
     fun testAlphanumeric() {
         val rng = SmallRng.seedFromU64(806uL)
-        for (i in 0 until 100) {
+        repeat(100) {
             val c = Alphanumeric.sampleChar(rng)
             assertTrue(c.isLetterOrDigit(), "Expected alphanumeric char, got $c")
         }
@@ -19,7 +19,7 @@ class OtherTest {
     @Test
     fun testAlphabetic() {
         val rng = SmallRng.seedFromU64(806uL)
-        for (i in 0 until 100) {
+        repeat(100) {
             val c = Alphabetic.sampleChar(rng)
             assertTrue(c.isLetter(), "Expected alphabetic char, got $c")
         }
@@ -40,7 +40,7 @@ class OtherTest {
     @Test
     fun testOpen01AndOpenClosed01() {
         val rng = SmallRng.seedFromU64(42uL)
-        for (i in 0 until 100) {
+        repeat(100) {
             val v1 = Open01.sample(rng)
             assertTrue(v1 > 0.0 && v1 < 1.0, "Open01 out of bounds: $v1")
 
@@ -52,7 +52,7 @@ class OtherTest {
     @Test
     fun testStandardUniform() {
         val rng = SmallRng.seedFromU64(999uL)
-        for (i in 0 until 100) {
+        repeat(100) {
             val d = StandardUniform.sample(rng)
             assertTrue(d >= 0.0 && d < 1.0)
 

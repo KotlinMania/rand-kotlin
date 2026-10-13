@@ -67,7 +67,7 @@ class UniformIntTest {
     fun testUniformGoodLimitsEqualInt() {
         val rng = testRng(804uL)
         val dist = Uniform.newInclusive(10, 10).unwrap()
-        for (i in 0 until 20) {
+        repeat(20) {
             assertEquals(10, rng.sample(dist))
         }
     }
@@ -87,21 +87,21 @@ class UniformIntTest {
         for ((low, high) in intRanges) {
             if (low < high) {
                 val dist = UniformInt.new(low, high).unwrap()
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = dist.sample(rng)
                     assertTrue(v in low until high)
                 }
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = UniformInt.sampleSingle(low, high, rng).unwrap()
                     assertTrue(v in low until high)
                 }
             }
             val distInc = UniformInt.newInclusive(low, high).unwrap()
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = distInc.sample(rng)
                 assertTrue(v in low..high)
             }
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = UniformInt.sampleSingleInclusive(low, high, rng).unwrap()
                 assertTrue(v in low..high)
             }
@@ -112,21 +112,21 @@ class UniformIntTest {
         for ((low, high) in longRanges) {
             if (low < high) {
                 val dist = UniformInt.new(low, high).unwrap()
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = dist.sample(rng)
                     assertTrue(v in low until high)
                 }
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = UniformInt.sampleSingle(low, high, rng).unwrap()
                     assertTrue(v in low until high)
                 }
             }
             val distInc = UniformInt.newInclusive(low, high).unwrap()
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = distInc.sample(rng)
                 assertTrue(v in low..high)
             }
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = UniformInt.sampleSingleInclusive(low, high, rng).unwrap()
                 assertTrue(v in low..high)
             }
@@ -137,21 +137,21 @@ class UniformIntTest {
         for ((low, high) in uintRanges) {
             if (low < high) {
                 val dist = UniformInt.new(low, high).unwrap()
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = dist.sample(rng)
                     assertTrue(v in low until high)
                 }
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = UniformInt.sampleSingle(low, high, rng).unwrap()
                     assertTrue(v in low until high)
                 }
             }
             val distInc = UniformInt.newInclusive(low, high).unwrap()
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = distInc.sample(rng)
                 assertTrue(v in low..high)
             }
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = UniformInt.sampleSingleInclusive(low, high, rng).unwrap()
                 assertTrue(v in low..high)
             }
@@ -162,21 +162,21 @@ class UniformIntTest {
         for ((low, high) in ulongRanges) {
             if (low < high) {
                 val dist = UniformInt.new(low, high).unwrap()
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = dist.sample(rng)
                     assertTrue(v in low until high)
                 }
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = UniformInt.sampleSingle(low, high, rng).unwrap()
                     assertTrue(v in low until high)
                 }
             }
             val distInc = UniformInt.newInclusive(low, high).unwrap()
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = distInc.sample(rng)
                 assertTrue(v in low..high)
             }
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = UniformInt.sampleSingleInclusive(low, high, rng).unwrap()
                 assertTrue(v in low..high)
             }
@@ -187,21 +187,21 @@ class UniformIntTest {
         for ((low, high) in byteRanges) {
             if (low < high) {
                 val dist = UniformInt.new(low, high).unwrap()
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = dist.sample(rng)
                     assertTrue(v in low until high)
                 }
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = UniformInt.sampleSingle(low, high, rng).unwrap()
                     assertTrue(v in low until high)
                 }
             }
             val distInc = UniformInt.newInclusive(low, high).unwrap()
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = distInc.sample(rng)
                 assertTrue(v in low..high)
             }
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = UniformInt.sampleSingleInclusive(low, high, rng).unwrap()
                 assertTrue(v in low..high)
             }
@@ -212,21 +212,21 @@ class UniformIntTest {
         for ((low, high) in shortRanges) {
             if (low < high) {
                 val dist = UniformInt.new(low, high).unwrap()
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = dist.sample(rng)
                     assertTrue(v in low until high)
                 }
-                for (i in 0 until 100) {
+                repeat(100) {
                     val v = UniformInt.sampleSingle(low, high, rng).unwrap()
                     assertTrue(v in low until high)
                 }
             }
             val distInc = UniformInt.newInclusive(low, high).unwrap()
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = distInc.sample(rng)
                 assertTrue(v in low..high)
             }
-            for (i in 0 until 100) {
+            repeat(100) {
                 val v = UniformInt.sampleSingleInclusive(low, high, rng).unwrap()
                 assertTrue(v in low..high)
             }
