@@ -2,6 +2,7 @@
 package io.github.kotlinmania.rand.seq
 
 import io.github.kotlinmania.rand.Rng
+import io.github.kotlinmania.rand.distr.Result
 import io.github.kotlinmania.rand.distr.weighted.WeightError
 import kotlin.math.exp
 import kotlin.math.ln
@@ -48,8 +49,56 @@ public class IndexVec(
         public fun from(indices: IntArray): IndexVec = IndexVec(indices.copyOf())
 
         public fun from(indices: List<Int>): IndexVec = IndexVec(indices.toIntArray())
+
+        public fun fromU32(indices: UIntArray): IndexVec = IndexVec(indices.map { it.toInt() }.toIntArray())
+
+        public fun fromU64(indices: ULongArray): IndexVec = IndexVec(indices.map { it.toInt() }.toIntArray())
     }
 }
+
+/**
+ * Return type of [IndexVec.iter] — an iterator over borrowed indices.
+ */
+public class IndexVecIter(
+    private val indices: IntArray,
+    private var index: Int = 0,
+) : Iterator<Int> {
+    override fun hasNext(): Boolean = index < indices.size
+
+    override fun next(): Int = indices[index++]
+
+    public fun sizeHint(): Pair<Int, Int> = Pair(remaining(), remaining())
+
+    public fun remaining(): Int = indices.size - index
+}
+
+/**
+ * Return type of [IndexVec.intoIter] — an owned iterator over indices.
+ */
+public class IndexVecIntoIter(
+    private val indices: IntArray,
+    private var index: Int = 0,
+) : Iterator<Int> {
+    override fun hasNext(): Boolean = index < indices.size
+
+    override fun next(): Int = indices[index++]
+
+    public fun sizeHint(): Pair<Int, Int> = Pair(remaining(), remaining())
+
+    public fun remaining(): Int = indices.size - index
+
+    public fun len(): Int = indices.size - index
+}
+
+/**
+ * Extension to get a borrowing iterator from [IndexVec].
+ */
+public fun IndexVec.iter(): IndexVecIter = IndexVecIter(this.toIntArray())
+
+/**
+ * Extension to get an owned iterator from [IndexVec], consuming it.
+ */
+public fun IndexVec.intoIter(): IndexVecIntoIter = IndexVecIntoIter(this.toIntArray())
 
 /**
  * Randomly sample exactly [amount] distinct indices from `0 until length`, and
@@ -99,6 +148,24 @@ public fun sampleWeighted(
     require(amount <= length) { "`amount` of samples must be less than or equal to `length`" }
     require(length >= 0 && amount >= 0) { "length and amount must be non-negative" }
     return sampleEfraimidisSpirakis(rng, length, amount, weight)
+}
+
+/**
+ * Randomly sample [amount] distinct indices from `0 until length` using weights.
+ *
+ * Returns a [Result] wrapping the [IndexVec], or an error if a weight is invalid.
+ */
+public fun sampleWeightedResult(
+    rng: Rng,
+    length: Int,
+    amount: Int,
+    weight: (Int) -> Double,
+): Result<IndexVec, WeightError> {
+    return try {
+        io.github.kotlinmania.rand.distr.Ok(sampleEfraimidisSpirakis(rng, length, amount, weight))
+    } catch (e: WeightError) {
+        io.github.kotlinmania.rand.distr.Err(e)
+    }
 }
 
 /**
