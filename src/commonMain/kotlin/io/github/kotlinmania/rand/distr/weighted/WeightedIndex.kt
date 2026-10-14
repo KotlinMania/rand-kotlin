@@ -13,6 +13,22 @@ public class WeightUpdate(
 )
 
 /**
+ * A lazy-loading iterator over the weights of a [WeightedIndex].
+ */
+public class WeightedIndexIter(
+    private val weightedIndex: WeightedIndex,
+    private var index: Int = 0,
+) : Iterator<Double> {
+    override fun hasNext(): Boolean = index < weightedIndex.size
+
+    override fun next(): Double {
+        val w = weightedIndex.weight(index) ?: throw NoSuchElementException("No more weights")
+        index++
+        return w
+    }
+}
+
+/**
  * A distribution using weighted sampling of discrete items.
  *
  * Sampling a `WeightedIndex` distribution returns the index of a randomly selected
@@ -53,6 +69,11 @@ public class WeightedIndex(
         list.add(totalWeight - prev)
         return list
     }
+
+    /**
+     * Returns a lazy-loading iterator over the current weights.
+     */
+    public fun weightsIter(): WeightedIndexIter = WeightedIndexIter(this)
 
     public fun updateWeights(newWeights: List<WeightUpdate>) {
         if (newWeights.isEmpty()) return
@@ -156,5 +177,85 @@ public class WeightedIndex(
 
         public fun fromLongs(weights: List<Long>): WeightedIndex =
             create(DoubleArray(weights.size) { weights[it].toDouble() })
+
+        public fun fromFloats(weights: FloatArray): WeightedIndex =
+            create(DoubleArray(weights.size) { weights[it].toDouble() })
+
+        public fun fromFloats(weights: List<Float>): WeightedIndex =
+            create(DoubleArray(weights.size) { weights[it].toDouble() })
+
+        public fun fromUInts(weights: UIntArray): WeightedIndex =
+            create(DoubleArray(weights.size) { weights[it].toDouble() })
+
+        public fun fromULongs(weights: ULongArray): WeightedIndex =
+            create(DoubleArray(weights.size) { weights[it].toDouble() })
+
+        /**
+         * Creates a [WeightedIndex] from [weights], returning a [Result].
+         *
+         * Error cases:
+         * - [WeightError.InvalidInput] when [weights] is empty.
+         * - [WeightError.InvalidWeight] when a weight is NaN or negative.
+         * - [WeightError.InsufficientNonZero] when the sum of all weights is zero.
+         * - [WeightError.Overflow] when the sum of all weights overflows.
+         */
+        public fun new(weights: DoubleArray): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> {
+            return try {
+                io.github.kotlinmania.rand.distr.Ok(create(weights))
+            } catch (e: WeightError) {
+                io.github.kotlinmania.rand.distr.Err(e)
+            }
+        }
+
+        /**
+         * Creates a [WeightedIndex] from [weights], returning a [Result].
+         */
+        public fun new(weights: List<Double>): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
+            new(weights.toDoubleArray())
+
+        /**
+         * Creates a [WeightedIndex] from integer [weights], returning a [Result].
+         */
+        public fun newFromInts(weights: IntArray): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
+            new(DoubleArray(weights.size) { weights[it].toDouble() })
+
+        /**
+         * Creates a [WeightedIndex] from integer [weights], returning a [Result].
+         */
+        public fun newFromInts(weights: List<Int>): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
+            new(DoubleArray(weights.size) { weights[it].toDouble() })
+
+        /**
+         * Creates a [WeightedIndex] from long [weights], returning a [Result].
+         */
+        public fun newFromLongs(weights: LongArray): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
+            new(DoubleArray(weights.size) { weights[it].toDouble() })
+
+        /**
+         * Creates a [WeightedIndex] from long [weights], returning a [Result].
+         */
+        public fun newFromLongs(weights: List<Long>): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
+            new(DoubleArray(weights.size) { weights[it].toDouble() })
+
+        /**
+         * Creates a [WeightedIndex] from float [weights], returning a [Result].
+         */
+        public fun newFromFloats(weights: FloatArray): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
+            new(DoubleArray(weights.size) { weights[it].toDouble() })
+
+        /**
+         * Updates weights, returning a [Result] instead of throwing.
+         */
+        public fun updateWeightsResult(
+            index: WeightedIndex,
+            newWeights: List<WeightUpdate>,
+        ): io.github.kotlinmania.rand.distr.Result<Unit, WeightError> {
+            return try {
+                index.updateWeights(newWeights)
+                io.github.kotlinmania.rand.distr.Ok(Unit)
+            } catch (e: WeightError) {
+                io.github.kotlinmania.rand.distr.Err(e)
+            }
+        }
     }
 }

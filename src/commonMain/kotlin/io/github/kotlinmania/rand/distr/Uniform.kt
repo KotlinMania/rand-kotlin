@@ -241,9 +241,117 @@ public class Uniform<T>(
             newInclusive(low, highInclusive).unwrap()
 
         public fun char(low: Char, highExclusive: Char): Uniform<Char> =
-            int(low.code, highExclusive.code).map { it.toChar() }.let { Uniform { rng -> it.sample(rng) } }
+            UniformChar.new(low, highExclusive).unwrap().let { sampler -> Uniform(sampler) }
 
         public fun charInclusive(low: Char, highInclusive: Char): Uniform<Char> =
-            intInclusive(low.code, highInclusive.code).map { it.toChar() }.let { Uniform { rng -> it.sample(rng) } }
+            UniformChar.newInclusive(low, highInclusive).unwrap().let { sampler -> Uniform(sampler) }
+
+        /**
+         * Creates a [Uniform] for [Char] range `[low, high)` using [UniformChar],
+         * which correctly skips surrogate code points.
+         */
+        public fun charViaSampler(low: Char, high: Char): Result<Uniform<Char>, Error> =
+            UniformChar.new(low, high).map { Uniform(it) }
+
+        /**
+         * Creates a [Uniform] for [Char] range `[low, high]` using [UniformChar].
+         */
+        public fun charInclusiveViaSampler(low: Char, high: Char): Result<Uniform<Char>, Error> =
+            UniformChar.newInclusive(low, high).map { Uniform(it) }
+
+        /**
+         * Creates a [Uniform] for [Duration] range `[low, high)`.
+         */
+        public fun duration(low: kotlin.time.Duration, high: kotlin.time.Duration): Result<Uniform<kotlin.time.Duration>, Error> =
+            UniformDuration.new(low, high).map { Uniform(it) }
+
+        /**
+         * Creates a [Uniform] for [Duration] range `[low, high]`.
+         */
+        public fun durationInclusive(low: kotlin.time.Duration, high: kotlin.time.Duration): Result<Uniform<kotlin.time.Duration>, Error> =
+            UniformDuration.newInclusive(low, high).map { Uniform(it) }
+
+        // -----------------------------------------------------------------------
+        // sampleSingle / sampleSingleInclusive — single-sample convenience
+        // -----------------------------------------------------------------------
+
+        /**
+         * Sample a single value uniformly from `[low, high)` without constructing a [Uniform] object.
+         */
+        public fun sampleSingle(low: Int, high: Int, rng: Rng): Result<Int, Error> =
+            UniformInt.sampleSingle(low, high, rng)
+
+        /**
+         * Sample a single value uniformly from `[low, high]` without constructing a [Uniform] object.
+         */
+        public fun sampleSingleInclusive(low: Int, high: Int, rng: Rng): Result<Int, Error> =
+            UniformInt.sampleSingleInclusive(low, high, rng)
+
+        /**
+         * Sample a single value uniformly from `[low, high)` without constructing a [Uniform] object.
+         */
+        public fun sampleSingle(low: Long, high: Long, rng: Rng): Result<Long, Error> =
+            UniformInt.sampleSingle(low, high, rng)
+
+        /**
+         * Sample a single value uniformly from `[low, high]` without constructing a [Uniform] object.
+         */
+        public fun sampleSingleInclusive(low: Long, high: Long, rng: Rng): Result<Long, Error> =
+            UniformInt.sampleSingleInclusive(low, high, rng)
+
+        /**
+         * Sample a single value uniformly from `[low, high)` without constructing a [Uniform] object.
+         */
+        public fun sampleSingle(low: UInt, high: UInt, rng: Rng): Result<UInt, Error> =
+            UniformInt.sampleSingle(low, high, rng)
+
+        /**
+         * Sample a single value uniformly from `[low, high]` without constructing a [Uniform] object.
+         */
+        public fun sampleSingleInclusive(low: UInt, high: UInt, rng: Rng): Result<UInt, Error> =
+            UniformInt.sampleSingleInclusive(low, high, rng)
+
+        /**
+         * Sample a single value uniformly from `[low, high)` without constructing a [Uniform] object.
+         */
+        public fun sampleSingle(low: ULong, high: ULong, rng: Rng): Result<ULong, Error> =
+            UniformInt.sampleSingle(low, high, rng)
+
+        /**
+         * Sample a single value uniformly from `[low, high]` without constructing a [Uniform] object.
+         */
+        public fun sampleSingleInclusive(low: ULong, high: ULong, rng: Rng): Result<ULong, Error> =
+            UniformInt.sampleSingleInclusive(low, high, rng)
+
+        /**
+         * Sample a single value uniformly from `[low, high)` without constructing a [Uniform] object.
+         */
+        public fun sampleSingle(low: Float, high: Float, rng: Rng): Result<Float, Error> =
+            UniformFloat.sampleSingle(low, high, rng)
+
+        /**
+         * Sample a single value uniformly from `[low, high]` without constructing a [Uniform] object.
+         */
+        public fun sampleSingleInclusive(low: Float, high: Float, rng: Rng): Result<Float, Error> =
+            UniformFloat.sampleSingleInclusive(low, high, rng)
+
+        /**
+         * Sample a single value uniformly from `[low, high)` without constructing a [Uniform] object.
+         */
+        public fun sampleSingle(low: Double, high: Double, rng: Rng): Result<Double, Error> =
+            UniformFloat.sampleSingle(low, high, rng)
+
+        /**
+         * Sample a single value uniformly from `[low, high]` without constructing a [Uniform] object.
+         */
+        public fun sampleSingleInclusive(low: Double, high: Double, rng: Rng): Result<Double, Error> =
+            UniformFloat.sampleSingleInclusive(low, high, rng)
     }
+}
+
+/**
+ * A simple implementation of [SampleBorrow] that wraps a value.
+ */
+public class SampleBorrowImpl<T>(private val value: T) : SampleBorrow<T> {
+    override fun borrow(): T = value
 }
