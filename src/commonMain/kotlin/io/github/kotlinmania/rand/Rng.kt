@@ -65,21 +65,9 @@ public interface Rng : RngCore {
         fillBytes(dest)
     }
 
-    public fun fill(dest: UIntArray) {
-        for (i in dest.indices) {
-            dest[i] = nextU32()
-        }
-    }
-
     public fun fill(dest: IntArray) {
         for (i in dest.indices) {
             dest[i] = nextU32().toInt()
-        }
-    }
-
-    public fun fill(dest: ULongArray) {
-        for (i in dest.indices) {
-            dest[i] = nextU64()
         }
     }
 
@@ -87,6 +75,18 @@ public interface Rng : RngCore {
         for (i in dest.indices) {
             dest[i] = nextU64().toLong()
         }
+    }
+}
+
+public fun Rng.fill(dest: UIntArray) {
+    for (i in dest.indices) {
+        dest[i] = nextU32()
+    }
+}
+
+public fun Rng.fill(dest: ULongArray) {
+    for (i in dest.indices) {
+        dest[i] = nextU64()
     }
 }
 
