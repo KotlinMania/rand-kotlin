@@ -23,4 +23,4 @@ package io.github.kotlinmania.rand.distr
  * This is a type alias for the [StandardUniform] distribution, which samples
  * values uniformly across the full range of the target type.
  */
-public typealias StandardUniformDistribution = StandardUniform
+public typealias io.github.kotlinmania.rand.distr.StandardUniform = StandardUniform
