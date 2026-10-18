@@ -1,4 +1,3 @@
-// port-lint: source distr/weighted/mod.rs
 package io.github.kotlinmania.rand.distr.weighted
 
 /**

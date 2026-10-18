@@ -1,12 +1,7 @@
-@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
-
 // port-lint: source distr/uniform.rs
-
 package io.github.kotlinmania.rand.distr
 
 import io.github.kotlinmania.rand.Rng
-import kotlin.jvm.JvmName
-import kotlin.native.HiddenFromObjC
 
 /**
  * Error type returned from [Uniform.new] and [Uniform.newInclusive].
@@ -155,13 +150,11 @@ public class Uniform<T>(
         public fun newInclusive(low: Double, high: Double): Result<Uniform<Double>, Error> =
             UniformFloat.newInclusive(low, high).map { Uniform(it) }
 
-        @JvmName("tryFromOpenEndInt")
-        public fun tryFromOpenEnd(range: OpenEndRange<Int>): Result<Uniform<Int>, Error> =
+        public fun tryFromOpenEndInt(range: OpenEndRange<Int>): Result<Uniform<Int>, Error> =
             new(range.start, range.endExclusive)
 
-        @JvmName("tryFromInt")
-        public fun tryFrom(range: ClosedRange<Int>): Result<Uniform<Int>, Error> =
-            newInclusive(range.start, range.endInclusive)
+        public fun tryFrom(range: IntRange): Result<Uniform<Int>, Error> =
+            newInclusive(range.first, range.last)
 
         public fun tryFrom(range: UIntRange): Result<Uniform<UInt>, Error> =
             newInclusive(range.first, range.last)
@@ -172,24 +165,16 @@ public class Uniform<T>(
         public fun tryFrom(range: ULongRange): Result<Uniform<ULong>, Error> =
             newInclusive(range.first, range.last)
 
-        @HiddenFromObjC
-        @JvmName("tryFromOpenEndFloat")
-        public fun tryFromOpenEnd(range: OpenEndRange<Float>): Result<Uniform<Float>, Error> =
+        public fun tryFromOpenEndFloat(range: OpenEndRange<Float>): Result<Uniform<Float>, Error> =
             new(range.start, range.endExclusive)
 
-        @HiddenFromObjC
-        @JvmName("tryFromFloat")
-        public fun tryFrom(range: ClosedFloatingPointRange<Float>): Result<Uniform<Float>, Error> =
+        public fun tryFromFloat(range: ClosedFloatingPointRange<Float>): Result<Uniform<Float>, Error> =
             newInclusive(range.start, range.endInclusive)
 
-        @HiddenFromObjC
-        @JvmName("tryFromOpenEndDouble")
-        public fun tryFromOpenEnd(range: OpenEndRange<Double>): Result<Uniform<Double>, Error> =
+        public fun tryFromOpenEndDouble(range: OpenEndRange<Double>): Result<Uniform<Double>, Error> =
             new(range.start, range.endExclusive)
 
-        @HiddenFromObjC
-        @JvmName("tryFromDouble")
-        public fun tryFrom(range: ClosedFloatingPointRange<Double>): Result<Uniform<Double>, Error> =
+        public fun tryFromDouble(range: ClosedFloatingPointRange<Double>): Result<Uniform<Double>, Error> =
             newInclusive(range.start, range.endInclusive)
 
         public fun int(low: Int, highExclusive: Int): Uniform<Int> =

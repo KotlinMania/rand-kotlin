@@ -241,10 +241,12 @@ class UniformIntTest {
     }
 
     @Test
-    @Suppress("InvalidRange")
     fun testUniformFromStdRangeBadLimits() {
-        assertTrue(Uniform.tryFromOpenEnd(100..<10).isErr)
-        assertTrue(Uniform.tryFromOpenEnd(100..<100).isErr)
+        val low = 100
+        val high10 = 10
+        val high100 = 100
+        assertTrue(Uniform.tryFromOpenEndInt(low..<high10).isErr)
+        assertTrue(Uniform.tryFromOpenEndInt(low..<high100).isErr)
     }
 
     @Test
@@ -255,10 +257,12 @@ class UniformIntTest {
     }
 
     @Test
-    @Suppress("InvalidRange")
     fun testUniformFromStdRangeInclusiveBadLimits() {
-        assertTrue(Uniform.tryFrom(100..10).isErr)
-        assertTrue(Uniform.tryFrom(100..99).isErr)
+        val low = 100
+        val high10 = 10
+        val high99 = 99
+        assertTrue(Uniform.tryFrom(low..high10).isErr)
+        assertTrue(Uniform.tryFrom(low..high99).isErr)
     }
 
     fun testSamples(

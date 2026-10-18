@@ -57,9 +57,9 @@ public interface Rng : RngCore {
         return (range.first.toLong() + offset).toInt()
     }
 
-    public fun randomRange(range: ClosedFloatingPointRange<Double>): Double = Uniform.tryFrom(range).unwrap().sample(this)
+    public fun randomRange(range: ClosedFloatingPointRange<Double>): Double = Uniform.tryFromDouble(range).unwrap().sample(this)
 
-    public fun randomRange(range: ClosedFloatingPointRange<Float>): Float = Uniform.tryFrom(range).unwrap().sample(this)
+    public fun randomRange(range: ClosedFloatingPointRange<Float>): Float = Uniform.tryFromFloat(range).unwrap().sample(this)
 
     public fun fill(dest: ByteArray) {
         fillBytes(dest)

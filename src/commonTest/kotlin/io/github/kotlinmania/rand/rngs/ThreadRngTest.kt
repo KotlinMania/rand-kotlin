@@ -1,6 +1,6 @@
+// port-lint: tests rngs/thread.rs
 package io.github.kotlinmania.rand.rngs
 
-import io.github.kotlinmania.rand.rng
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

@@ -136,14 +136,14 @@ public class UniformDuration internal constructor(
     private val offset: UInt,
 ) : UniformSampler<Duration> {
     override fun sample(rng: Rng): Duration {
-        return when (mode) {
+        when (mode) {
             is UniformDurationMode.Small -> {
                 val n = mode.nanos.sample(rng)
-                mode.secs.toLong().seconds + n.toInt().nanoseconds
+                return mode.secs.toLong().seconds + n.toInt().nanoseconds
             }
             is UniformDurationMode.Medium -> {
                 val nanos = mode.nanos.sample(rng)
-                (nanos / 1_000_000_000uL).toLong().seconds + (nanos % 1_000_000_000uL).toInt().nanoseconds
+                return (nanos / 1_000_000_000uL).toLong().seconds + (nanos % 1_000_000_000uL).toInt().nanoseconds
             }
             is UniformDurationMode.Large -> {
                 val nanoRange = Uniform.new(0u, 1_000_000_000u).unwrap()
@@ -155,8 +155,6 @@ public class UniformDuration internal constructor(
                         return s.toLong().seconds + sum.toInt().nanoseconds
                     }
                 }
-                @Suppress("UNREACHABLE_CODE")
-                error("unreachable")
             }
         }
     }
