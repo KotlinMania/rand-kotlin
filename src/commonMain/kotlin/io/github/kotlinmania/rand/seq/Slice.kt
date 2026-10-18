@@ -555,5 +555,8 @@ public class SliceChooseIter<T> internal constructor(
 ) : Iterator<T> {
     override fun hasNext(): Boolean = indices.hasNext()
 
-    override fun next(): T = slice[indices.next()]
+    override fun next(): T {
+        if (!hasNext()) throw NoSuchElementException()
+        return slice[indices.next()]
+    }
 }

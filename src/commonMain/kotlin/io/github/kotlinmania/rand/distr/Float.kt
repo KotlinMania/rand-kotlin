@@ -131,7 +131,7 @@ public object UniformFloatOpenClosed01 {
  *
  * All values that can be generated are of the form `n * ε + ε/2`. For [Float]
  * the 23 most significant random bits of a [UInt] are used, for [Double] 52 from
- * a [ULong]. The conversion uses a transmute-based method.
+ * a [ULong]. The conversion uses a bit-manipulation method.
  */
 public object UniformFloatOpen01 {
     /**

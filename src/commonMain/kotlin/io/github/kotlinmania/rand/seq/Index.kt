@@ -65,7 +65,10 @@ public class IndexVecIter(
 ) : Iterator<Int> {
     override fun hasNext(): Boolean = index < indices.size
 
-    override fun next(): Int = indices[index++]
+    override fun next(): Int {
+        if (!hasNext()) throw NoSuchElementException()
+        return indices[index++]
+    }
 
     public fun sizeHint(): Pair<Int, Int> = Pair(remaining(), remaining())
 
@@ -81,7 +84,10 @@ public class IndexVecIntoIter(
 ) : Iterator<Int> {
     override fun hasNext(): Boolean = index < indices.size
 
-    override fun next(): Int = indices[index++]
+    override fun next(): Int {
+        if (!hasNext()) throw NoSuchElementException()
+        return indices[index++]
+    }
 
     public fun sizeHint(): Pair<Int, Int> = Pair(remaining(), remaining())
 
