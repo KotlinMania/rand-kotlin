@@ -166,13 +166,14 @@ public fun sampleWeightedResult(
     length: Int,
     amount: Int,
     weight: (Int) -> Double,
-): Result<IndexVec, WeightError> {
-    return try {
-        io.github.kotlinmania.rand.distr.Ok(sampleEfraimidisSpirakis(rng, length, amount, weight))
+): Result<IndexVec, WeightError> =
+    try {
+        io.github.kotlinmania.rand.distr
+            .Ok(sampleEfraimidisSpirakis(rng, length, amount, weight))
     } catch (e: WeightError) {
-        io.github.kotlinmania.rand.distr.Err(e)
+        io.github.kotlinmania.rand.distr
+            .Err(e)
     }
-}
 
 /**
  * Randomly sample exactly [amount] indices from `0 until length`, using Floyd's

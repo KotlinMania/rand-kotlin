@@ -6,10 +6,10 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
-/// UTF-16 surrogate range start
+// / UTF-16 surrogate range start
 internal const val CHAR_SURROGATE_START: UInt = 0xD800u
 
-/// UTF-16 surrogate range size
+// / UTF-16 surrogate range size
 internal const val CHAR_SURROGATE_LEN: UInt = 0x800u
 
 /**
@@ -191,29 +191,31 @@ public class UniformDuration internal constructor(
                 highN += 1_000_000_000u
             }
 
-            val mode: UniformDurationMode = if (lowS == highS) {
-                UniformDurationMode.Small(
-                    secs = lowS,
-                    nanos = Uniform.newInclusive(lowN, highN).unwrap(),
-                )
-            } else {
-                val max = highS.checkedMul(1_000_000_000uL)?.let { n ->
-                    n.checkedAdd(highN.toULong())
-                }
-                if (max != null) {
-                    val lowerBound = lowS * 1_000_000_000uL + lowN.toULong()
-                    UniformDurationMode.Medium(
-                        nanos = Uniform.newInclusive(lowerBound, max).unwrap(),
+            val mode: UniformDurationMode =
+                if (lowS == highS) {
+                    UniformDurationMode.Small(
+                        secs = lowS,
+                        nanos = Uniform.newInclusive(lowN, highN).unwrap(),
                     )
                 } else {
-                    val maxNanos = highN - lowN
-                    UniformDurationMode.Large(
-                        maxSecs = highS,
-                        maxNanos = maxNanos,
-                        secs = Uniform.newInclusive(lowS, highS).unwrap(),
-                    )
+                    val max =
+                        highS.checkedMul(1_000_000_000uL)?.let { n ->
+                            n.checkedAdd(highN.toULong())
+                        }
+                    if (max != null) {
+                        val lowerBound = lowS * 1_000_000_000uL + lowN.toULong()
+                        UniformDurationMode.Medium(
+                            nanos = Uniform.newInclusive(lowerBound, max).unwrap(),
+                        )
+                    } else {
+                        val maxNanos = highN - lowN
+                        UniformDurationMode.Large(
+                            maxSecs = highS,
+                            maxNanos = maxNanos,
+                            secs = Uniform.newInclusive(lowS, highS).unwrap(),
+                        )
+                    }
                 }
-            }
             return Ok(UniformDuration(mode, lowN))
         }
 

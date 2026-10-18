@@ -337,6 +337,8 @@ public class Uniform<T>(
 /**
  * A simple implementation of [SampleBorrow] that wraps a value.
  */
-public class SampleBorrowImpl<T>(private val value: T) : SampleBorrow<T> {
+public class SampleBorrowImpl<T>(
+    private val value: T,
+) : SampleBorrow<T> {
     override fun borrow(): T = value
 }

@@ -32,7 +32,9 @@ public interface IntoFloat {
 /**
  * Implementation of [IntoFloat] for [UInt] producing [Float].
  */
-public class UIntIntoFloat(private val value: UInt) : IntoFloat {
+public class UIntIntoFloat(
+    private val value: UInt,
+) : IntoFloat {
     override fun intoFloatWithExponent(exponent: Int): Double {
         val fractionBits = 23
         val exponentBias = 127
@@ -44,7 +46,9 @@ public class UIntIntoFloat(private val value: UInt) : IntoFloat {
 /**
  * Implementation of [IntoFloat] for [ULong] producing [Double].
  */
-public class ULongIntoFloat(private val value: ULong) : IntoFloat {
+public class ULongIntoFloat(
+    private val value: ULong,
+) : IntoFloat {
     override fun intoFloatWithExponent(exponent: Int): Double {
         val fractionBits = 52
         val exponentBias = 1023
