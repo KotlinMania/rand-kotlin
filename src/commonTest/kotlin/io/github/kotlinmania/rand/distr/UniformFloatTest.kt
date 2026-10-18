@@ -1,4 +1,4 @@
-// port-lint: source distr/uniform_float.rs
+// port-lint: tests distr/uniform_float.rs
 package io.github.kotlinmania.rand.distr
 
 import io.github.kotlinmania.rand.Rng
@@ -155,7 +155,7 @@ class UniformFloatTest {
 
     @Test
     fun testFloatOverflow() {
-        assertEquals(Result.Err(Error.NonFinite), Uniform.tryFromOpenEnd(-Double.MAX_VALUE..<Double.MAX_VALUE))
+        assertEquals(Result.Err(Error.NonFinite), Uniform.tryFromOpenEndDouble(-Double.MAX_VALUE..<Double.MAX_VALUE))
     }
 
     @Test
@@ -215,22 +215,24 @@ class UniformFloatTest {
 
     @Test
     fun testUniformFromStdRange() {
-        val r = Uniform.tryFromOpenEnd(2.0..<7.0).unwrap()
+        val r = Uniform.tryFromOpenEndDouble(2.0..<7.0).unwrap()
         val s = r.sampler as UniformFloat<Double>
         assertEquals(2.0, s.low)
         assertEquals(5.0, s.scale)
     }
 
     @Test
-    @Suppress("InvalidRange")
     fun testUniformFromStdRangeBadLimits() {
-        assertTrue(Uniform.tryFromOpenEnd(100.0..<10.0).isErr)
-        assertTrue(Uniform.tryFromOpenEnd(100.0..<100.0).isErr)
+        val low = 100.0
+        val high10 = 10.0
+        val high100 = 100.0
+        assertTrue(Uniform.tryFromOpenEndDouble(low..<high10).isErr)
+        assertTrue(Uniform.tryFromOpenEndDouble(low..<high100).isErr)
     }
 
     @Test
     fun testUniformFromStdRangeInclusive() {
-        val r = Uniform.tryFrom(2.0..7.0).unwrap()
+        val r = Uniform.tryFromDouble(2.0..7.0).unwrap()
         val s = r.sampler as UniformFloat<Double>
         assertEquals(2.0, s.low)
         assertTrue(s.scale > 5.0)
@@ -238,9 +240,11 @@ class UniformFloatTest {
     }
 
     @Test
-    @Suppress("InvalidRange")
     fun testUniformFromStdRangeInclusiveBadLimits() {
-        assertTrue(Uniform.tryFrom(100.0..10.0).isErr)
-        assertTrue(Uniform.tryFrom(100.0..99.0).isErr)
+        val low = 100.0
+        val high10 = 10.0
+        val high99 = 99.0
+        assertTrue(Uniform.tryFromDouble(low..high10).isErr)
+        assertTrue(Uniform.tryFromDouble(low..high99).isErr)
     }
 }

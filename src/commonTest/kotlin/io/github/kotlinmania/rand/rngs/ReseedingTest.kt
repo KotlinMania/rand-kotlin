@@ -1,6 +1,8 @@
+// port-lint: tests rngs/reseeding.rs
 package io.github.kotlinmania.rand.rngs
 
 import io.github.kotlinmania.rand.StepRng
+import io.github.kotlinmania.rand.fill
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals

@@ -65,7 +65,10 @@ public class IndexVecIter(
 ) : Iterator<Int> {
     override fun hasNext(): Boolean = index < indices.size
 
-    override fun next(): Int = indices[index++]
+    override fun next(): Int {
+        if (!hasNext()) throw NoSuchElementException()
+        return indices[index++]
+    }
 
     public fun sizeHint(): Pair<Int, Int> = Pair(remaining(), remaining())
 
@@ -81,7 +84,10 @@ public class IndexVecIntoIter(
 ) : Iterator<Int> {
     override fun hasNext(): Boolean = index < indices.size
 
-    override fun next(): Int = indices[index++]
+    override fun next(): Int {
+        if (!hasNext()) throw NoSuchElementException()
+        return indices[index++]
+    }
 
     public fun sizeHint(): Pair<Int, Int> = Pair(remaining(), remaining())
 
@@ -160,13 +166,14 @@ public fun sampleWeightedResult(
     length: Int,
     amount: Int,
     weight: (Int) -> Double,
-): Result<IndexVec, WeightError> {
-    return try {
-        io.github.kotlinmania.rand.distr.Ok(sampleEfraimidisSpirakis(rng, length, amount, weight))
+): Result<IndexVec, WeightError> =
+    try {
+        io.github.kotlinmania.rand.distr
+            .Ok(sampleEfraimidisSpirakis(rng, length, amount, weight))
     } catch (e: WeightError) {
-        io.github.kotlinmania.rand.distr.Err(e)
+        io.github.kotlinmania.rand.distr
+            .Err(e)
     }
-}
 
 /**
  * Randomly sample exactly [amount] indices from `0 until length`, using Floyd's
@@ -384,4 +391,36 @@ public fun sampleEfraimidisSpirakis(
         result[i] = list[i].index
     }
     return IndexVec(result)
+}
+
+/**
+ * Randomly sample exactly [amount] distinct indices from `0..length`, and
+ * return them in random order (fully shuffled).
+ *
+ * This is implemented via Floyd's algorithm. Time complexity is `O(N^2)`
+ * and memory complexity is `O(N)`.
+ *
+ * @return null if and only if [amount] > [length].
+ */
+public fun sampleArray(rng: Rng, length: Int, amount: Int): IntArray? {
+    if (amount > length) return null
+
+    // Floyd's algorithm
+    val indices = IntArray(amount)
+    for (i in 0 until amount) {
+        val j = length - amount + i
+        val t = rng.randomRange(0..j)
+        var foundPos = -1
+        for (k in 0 until i) {
+            if (indices[k] == t) {
+                foundPos = k
+                break
+            }
+        }
+        if (foundPos >= 0) {
+            indices[foundPos] = j
+        }
+        indices[i] = t
+    }
+    return indices
 }

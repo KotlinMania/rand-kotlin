@@ -4,19 +4,17 @@ package io.github.kotlinmania.rand.distr
 import io.github.kotlinmania.rand.Rng
 
 /**
- * The difference between 1.0 and the next representable [Float] value,
- * equivalent to Rust's `f32::EPSILON`.
+ * The difference between 1.0 and the next representable [Float] value.
  */
 internal val FLOAT_EPSILON: Float = Float.fromBits(0x3400_0000)
 
 /**
- * The difference between 1.0 and the next representable [Double] value,
- * equivalent to Rust's `f64::EPSILON`.
+ * The difference between 1.0 and the next representable [Double] value.
  */
 internal val DOUBLE_EPSILON: Double = Double.fromBits(0x3CB0_0000_0000_0000L)
 
 /**
- * Hidden interface used by both this library and `rand_distr` to combine a fraction
+ * Hidden interface used by distribution implementations to combine a fraction
  * and a constant exponent into a float.
  *
  * Only the least significant bits of [intoFloatWithExponent] may be set:
@@ -34,7 +32,9 @@ public interface IntoFloat {
 /**
  * Implementation of [IntoFloat] for [UInt] producing [Float].
  */
-public class UIntIntoFloat(private val value: UInt) : IntoFloat {
+public class UIntIntoFloat(
+    private val value: UInt,
+) : IntoFloat {
     override fun intoFloatWithExponent(exponent: Int): Double {
         val fractionBits = 23
         val exponentBias = 127
@@ -46,7 +46,9 @@ public class UIntIntoFloat(private val value: UInt) : IntoFloat {
 /**
  * Implementation of [IntoFloat] for [ULong] producing [Double].
  */
-public class ULongIntoFloat(private val value: ULong) : IntoFloat {
+public class ULongIntoFloat(
+    private val value: ULong,
+) : IntoFloat {
     override fun intoFloatWithExponent(exponent: Int): Double {
         val fractionBits = 52
         val exponentBias = 1023
@@ -133,7 +135,7 @@ public object UniformFloatOpenClosed01 {
  *
  * All values that can be generated are of the form `n * ε + ε/2`. For [Float]
  * the 23 most significant random bits of a [UInt] are used, for [Double] 52 from
- * a [ULong]. The conversion uses a transmute-based method.
+ * a [ULong]. The conversion uses a bit-manipulation method.
  */
 public object UniformFloatOpen01 {
     /**

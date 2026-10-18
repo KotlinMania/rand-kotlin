@@ -199,13 +199,14 @@ public class WeightedIndex(
          * - [WeightError.InsufficientNonZero] when the sum of all weights is zero.
          * - [WeightError.Overflow] when the sum of all weights overflows.
          */
-        public fun new(weights: DoubleArray): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> {
-            return try {
-                io.github.kotlinmania.rand.distr.Ok(create(weights))
+        public fun new(weights: DoubleArray): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
+            try {
+                io.github.kotlinmania.rand.distr
+                    .Ok(create(weights))
             } catch (e: WeightError) {
-                io.github.kotlinmania.rand.distr.Err(e)
+                io.github.kotlinmania.rand.distr
+                    .Err(e)
             }
-        }
 
         /**
          * Creates a [WeightedIndex] from [weights], returning a [Result].
@@ -249,13 +250,14 @@ public class WeightedIndex(
         public fun updateWeightsResult(
             index: WeightedIndex,
             newWeights: List<WeightUpdate>,
-        ): io.github.kotlinmania.rand.distr.Result<Unit, WeightError> {
-            return try {
+        ): io.github.kotlinmania.rand.distr.Result<Unit, WeightError> =
+            try {
                 index.updateWeights(newWeights)
-                io.github.kotlinmania.rand.distr.Ok(Unit)
+                io.github.kotlinmania.rand.distr
+                    .Ok(Unit)
             } catch (e: WeightError) {
-                io.github.kotlinmania.rand.distr.Err(e)
+                io.github.kotlinmania.rand.distr
+                    .Err(e)
             }
-        }
     }
 }

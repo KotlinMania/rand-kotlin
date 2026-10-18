@@ -1,15 +1,22 @@
-// port-lint: tests lib.rs
 package io.github.kotlinmania.rand
 
+import io.github.kotlinmania.rand.rngs.rng
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class LibTest {
+class RandomTest {
     @Test
-    fun testRandVersion() {
-        assertEquals("0.9.0", Rand.VERSION)
+    fun testRandom() {
+        val d = random()
+        assertTrue(d in 0.0..<1.0)
+        val i = randomInt()
+        assertTrue(i >= Int.MIN_VALUE)
+        val l = randomLong()
+        assertTrue(l >= Long.MIN_VALUE)
+        val b = randomBoolean()
+        assertTrue(b || !b)
     }
 
     @Test
@@ -44,8 +51,8 @@ class LibTest {
     }
 
     @Test
-    fun testPreludeRng() {
-        val r = Prelude.rng()
+    fun testCanonicalRng() {
+        val r = rng()
         val b = r.randomBool(0.5)
         assertTrue(b || !b)
     }

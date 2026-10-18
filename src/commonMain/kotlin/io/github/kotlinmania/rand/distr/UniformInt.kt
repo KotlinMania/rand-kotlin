@@ -513,8 +513,6 @@ public data class UniformUsize(
     public val thresh: ULong,
     public val mode64: Boolean = false,
 ) : UniformSampler<ULong> {
-    public typealias X = ULong
-
     override fun sample(rng: Rng): ULong {
         return if (!mode64) {
             val r32 = range.toUInt()

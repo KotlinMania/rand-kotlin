@@ -1,4 +1,3 @@
-// port-lint: source rngs/mod.rs
 package io.github.kotlinmania.rand.rngs
 
 import io.github.kotlinmania.getrandom.GetrandomResult

@@ -1,4 +1,3 @@
-// port-lint: tests rngs/mod.rs
 package io.github.kotlinmania.rand.rngs
 
 import kotlin.test.Test

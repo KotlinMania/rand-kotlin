@@ -54,3 +54,11 @@ private fun currentThreadRng(): ReseedingRng<StdRng, OsRng> =
  * This is a handle to the local [ThreadRng].
  */
 public fun rng(): ThreadRng = ThreadRng(currentThreadRng())
+
+/**
+ * Access the thread-local generator.
+ *
+ * Use [rng] instead.
+ */
+@Deprecated("Renamed to rng", ReplaceWith("rng()"))
+public fun threadRng(): ThreadRng = rng()

@@ -138,7 +138,7 @@ See [LICENSE-APACHE](https://github.com/rust-random/rand/blob/master/LICENSE-APA
 
 ```kotlin
 dependencies {
-    implementation("io.github.kotlinmania:rand-kotlin:0.1.0")
+    implementation("io.github.kotlinmania:rand-kotlin:0.2.0")
 }
 ```
 
