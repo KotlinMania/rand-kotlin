@@ -44,8 +44,10 @@ class LibTest {
     }
 
     @Test
-    fun testPreludeRng() {
-        val r = Prelude.rng()
+    fun testCanonicalRng() {
+        val r =
+            io.github.kotlinmania.rand.Rand
+                .rng()
         val b = r.randomBool(0.5)
         assertTrue(b || !b)
     }
