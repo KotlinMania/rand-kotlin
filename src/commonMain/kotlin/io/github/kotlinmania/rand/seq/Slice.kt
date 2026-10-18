@@ -177,7 +177,7 @@ internal fun sampleIndices(rng: Rng, length: Int, amount: Int): List<Int> {
 }
 
 // ---------------------------------------------------------------------------
-// IndexedMutRandom: choose_mut — returns the index for mutable access
+// IndexedMutRandom: chooseMut — returns the index for mutable access
 // ---------------------------------------------------------------------------
 
 /**
@@ -201,7 +201,7 @@ public fun <T> Array<T>.chooseMutIndex(rng: Rng): Int? {
 }
 
 // ---------------------------------------------------------------------------
-// IndexedRandom: choose_multiple_array — fixed-size array of distinct elements
+// IndexedRandom: chooseMultipleArray — fixed-size array of distinct elements
 // ---------------------------------------------------------------------------
 
 /**
@@ -229,7 +229,7 @@ public fun <T> Array<T>.chooseMultipleArray(rng: Rng, amount: Int): List<T>? {
 }
 
 // ---------------------------------------------------------------------------
-// IndexedMutRandom: choose_weighted_mut — biased sampling returning index
+// IndexedMutRandom: chooseWeightedMut — biased sampling returning index
 // ---------------------------------------------------------------------------
 
 /**
@@ -271,7 +271,7 @@ public fun <T> Array<T>.chooseWeightedMutIndex(rng: Rng, weight: (T) -> Double):
 }
 
 // ---------------------------------------------------------------------------
-// IndexedRandom: choose_multiple for primitive arrays
+// IndexedRandom: chooseMultiple for primitive arrays
 // ---------------------------------------------------------------------------
 
 /**
@@ -357,7 +357,7 @@ public fun FloatArray.choose(rng: Rng): Float? {
 }
 
 // ---------------------------------------------------------------------------
-// IndexedRandom: choose_weighted for primitive arrays
+// IndexedRandom: chooseWeighted for primitive arrays
 // ---------------------------------------------------------------------------
 
 /**
@@ -409,7 +409,7 @@ public fun DoubleArray.chooseWeighted(rng: Rng, weight: (Double) -> Double): Dou
 }
 
 // ---------------------------------------------------------------------------
-// IndexedRandom: choose_multiple_weighted for Array
+// IndexedRandom: chooseMultipleWeighted for Array
 // ---------------------------------------------------------------------------
 
 /**
@@ -438,7 +438,7 @@ public fun <T> Array<T>.chooseMultipleWeighted(rng: Rng, amount: Int, weight: (T
 }
 
 // ---------------------------------------------------------------------------
-// SliceRandom: partial_shuffle
+// SliceRandom: partialShuffle
 // ---------------------------------------------------------------------------
 
 /**
@@ -549,7 +549,7 @@ public fun FloatArray.shuffle(rng: Rng) {
  * Created by [chooseMultiple]. Yields elements from the original slice
  * at randomly selected indices.
  */
-public class SliceChooseIter<T>(
+public class SliceChooseIter<T> internal constructor(
     private val slice: List<T>,
     private val indices: Iterator<Int>,
 ) : Iterator<T> {

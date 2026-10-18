@@ -4,19 +4,17 @@ package io.github.kotlinmania.rand.distr
 import io.github.kotlinmania.rand.Rng
 
 /**
- * The difference between 1.0 and the next representable [Float] value,
- * equivalent to Rust's `f32::EPSILON`.
+ * The difference between 1.0 and the next representable [Float] value.
  */
 internal val FLOAT_EPSILON: Float = Float.fromBits(0x3400_0000)
 
 /**
- * The difference between 1.0 and the next representable [Double] value,
- * equivalent to Rust's `f64::EPSILON`.
+ * The difference between 1.0 and the next representable [Double] value.
  */
 internal val DOUBLE_EPSILON: Double = Double.fromBits(0x3CB0_0000_0000_0000L)
 
 /**
- * Hidden interface used by both this library and `rand_distr` to combine a fraction
+ * Hidden interface used by distribution implementations to combine a fraction
  * and a constant exponent into a float.
  *
  * Only the least significant bits of [intoFloatWithExponent] may be set:

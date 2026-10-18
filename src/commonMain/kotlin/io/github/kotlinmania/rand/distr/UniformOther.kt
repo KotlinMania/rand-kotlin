@@ -27,7 +27,7 @@ internal fun charToCompU32(c: Char): UInt {
  * is used for surrogate pairs in UCS and UTF-16, and consequently are not
  * valid Unicode code points. This sampler avoids sampling values in that range.
  */
-public class UniformChar(
+public class UniformChar internal constructor(
     internal val sampler: UniformInt<UInt>,
 ) : UniformSampler<Char> {
     override fun sample(rng: Rng): Char {

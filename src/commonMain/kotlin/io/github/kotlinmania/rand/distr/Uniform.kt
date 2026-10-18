@@ -165,13 +165,13 @@ public class Uniform<T>(
         public fun tryFrom(range: ULongRange): Result<Uniform<ULong>, Error> =
             newInclusive(range.first, range.last)
 
-        public fun tryFromOpenEndFloat(range: OpenEndRange<Float>): Result<Uniform<Float>, Error> =
+        internal fun tryFromOpenEndFloat(range: OpenEndRange<Float>): Result<Uniform<Float>, Error> =
             new(range.start, range.endExclusive)
 
         public fun tryFromFloat(range: ClosedFloatingPointRange<Float>): Result<Uniform<Float>, Error> =
             newInclusive(range.start, range.endInclusive)
 
-        public fun tryFromOpenEndDouble(range: OpenEndRange<Double>): Result<Uniform<Double>, Error> =
+        internal fun tryFromOpenEndDouble(range: OpenEndRange<Double>): Result<Uniform<Double>, Error> =
             new(range.start, range.endExclusive)
 
         public fun tryFromDouble(range: ClosedFloatingPointRange<Double>): Result<Uniform<Double>, Error> =
