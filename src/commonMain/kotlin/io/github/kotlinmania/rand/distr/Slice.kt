@@ -13,11 +13,13 @@ public class Choose<T>(
         require(elements.isNotEmpty()) { "Tried to create a Choose distribution with an empty slice" }
     }
 
+    private val range: UniformUsize = UniformUsize.new(0uL, elements.size.toULong()).unwrap()
+
     public val numChoices: Int
         get() = elements.size
 
     override fun sample(rng: Rng): T {
-        val idx = (rng.nextU64() % elements.size.toULong()).toInt()
+        val idx = range.sample(rng).toInt()
         return elements[idx]
     }
 
