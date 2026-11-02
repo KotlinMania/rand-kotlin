@@ -49,12 +49,48 @@ public interface Rng : RngCore {
         return sample(d)
     }
 
+    /**
+     * Generate a random value in the given inclusive [range].
+     *
+     * This is optimized for a single sample. [Uniform] may be faster when
+     * sampling repeatedly from the same range.
+     *
+     * Throws if the range is empty.
+     */
     public fun randomRange(range: IntRange): Int {
         require(!range.isEmpty()) { "cannot sample empty range" }
-        val span = (range.last.toLong() - range.first.toLong() + 1L).toULong()
-        if (span == 1uL) return range.first
-        val offset = (nextU64() % span).toLong()
-        return (range.first.toLong() + offset).toInt()
+        return Uniform.sampleSingleInclusive(range.first, range.last, this).unwrap()
+    }
+
+    /** Generate a random value in the inclusive [range], throwing if it is empty. */
+    public fun randomRange(range: LongRange): Long {
+        require(!range.isEmpty()) { "cannot sample empty range" }
+        return Uniform.sampleSingleInclusive(range.first, range.last, this).unwrap()
+    }
+
+    /**
+     * Generate a random value in the inclusive [range], throwing if it is empty.
+     *
+     * An exclusive upper bound can be written with `until`:
+     *
+     * ```
+     * fun example(rng: Rng) {
+     *     val exclusive = rng.randomRange(0u until 10u)
+     *     val inclusive = rng.randomRange(0u..10u)
+     *     println(exclusive)
+     *     println(inclusive)
+     * }
+     * ```
+     */
+    public fun randomRange(range: UIntRange): UInt {
+        require(!range.isEmpty()) { "cannot sample empty range" }
+        return Uniform.sampleSingleInclusive(range.first, range.last, this).unwrap()
+    }
+
+    /** Generate a random value in the inclusive [range], throwing if it is empty. */
+    public fun randomRange(range: ULongRange): ULong {
+        require(!range.isEmpty()) { "cannot sample empty range" }
+        return Uniform.sampleSingleInclusive(range.first, range.last, this).unwrap()
     }
 
     public fun randomRange(range: ClosedFloatingPointRange<Double>): Double = Uniform.tryFromDouble(range).unwrap().sample(this)
