@@ -18,12 +18,14 @@ public class CoinFlipper(
      */
     public fun randomRatioOneOver(d: Int): Boolean {
         require(d > 0) { "denominator must be positive" }
-        val leadingZeros = d.countLeadingZeroBits()
-        val c = (Int.SIZE_BITS - 1 - leadingZeros).coerceAtMost(32)
+        return randomRatioOneOver(d.toULong())
+    }
 
+    internal fun randomRatioOneOver(d: ULong): Boolean {
+        require(d > 0uL) { "denominator must be positive" }
+        val c = (ULong.SIZE_BITS - 1 - d.countLeadingZeroBits()).coerceAtMost(32)
         return if (flipCHeads(c.toUInt())) {
-            val numerator = 1 shl c
-            randomRatio(numerator, d)
+            randomRatioWide(1uL shl c, d)
         } else {
             false
         }
@@ -34,21 +36,26 @@ public class CoinFlipper(
      * Uses an expected two bits of randomness.
      */
     public fun randomRatio(initialNumerator: Int, d: Int): Boolean {
+        require(initialNumerator >= 0 && d >= 0) { "ratio terms must be non-negative" }
+        return randomRatioWide(initialNumerator.toULong(), d.toULong())
+    }
+
+    private fun randomRatioWide(initialNumerator: ULong, d: ULong): Boolean {
         var n = initialNumerator
         while (n < d) {
-            val leadingN = n.countLeadingZeroBits()
-            val leadingD = d.countLeadingZeroBits()
-            val c = (leadingN - (leadingD + 1)).coerceIn(1, 32)
-
+            // Find a good count by comparing leading zeros. This gives the
+            // highest possible count, or one less than that.
+            val c = (n.countLeadingZeroBits() - (d.countLeadingZeroBits() + 1)).coerceIn(1, 32)
             if (flipCHeads(c.toUInt())) {
-                val factor = 1 shl c
-                n = (n.toLong() * factor.toLong()).coerceAtMost(Int.MAX_VALUE.toLong()).toInt()
+                // All heads. Saturate the product: overflow always means true.
+                val factor = 1uL shl c
+                n = if (n > ULong.MAX_VALUE / factor) ULong.MAX_VALUE else n * factor
             } else {
+                // With one flip, calculate 2n - d using wrapping arithmetic.
+                // With more than one flip, 2n < d and a tail means false.
                 if (c == 1) {
-                    val nextN = (n + n) - d
-                    if (nextN <= 0 || nextN > n) {
-                        return false
-                    }
+                    val nextN = n + n - d
+                    if (nextN == 0uL || nextN > n) return false
                     n = nextN
                 } else {
                     return false
@@ -69,7 +76,7 @@ public class CoinFlipper(
             val zeros = chunk.countLeadingZeroBits().toUInt()
 
             if (zeros < c) {
-                chunk = (chunk.toULong() shl (zeros.toInt() + 1)).toUInt()
+                chunk = chunk shl (zeros.toInt() + 1)
                 chunkRemaining = if (chunkRemaining > (zeros + 1u)) chunkRemaining - (zeros + 1u) else 0u
                 return false
             } else {

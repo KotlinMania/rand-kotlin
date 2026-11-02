@@ -15,15 +15,21 @@ public fun <T> Iterable<T>.choose(rng: Rng): T? = iterator().choose(rng)
 
 public fun <T> Iterable<T>.chooseMultiple(rng: Rng, amount: Int): List<T> = iterator().chooseMultiple(rng, amount)
 
+/**
+ * Uniformly sample one element, or return null if the iterator is empty.
+ *
+ * With no size hint available, complexity is O(n), where n is the iterator
+ * length. The number of RNG samples and the selected element can depend on
+ * iterator size hints when those are available.
+ */
 public fun <T> Iterator<T>.choose(rng: Rng): T? {
-    if (!hasNext()) return null
-    var result = next()
-    var count = 1L
+    val coinFlipper = CoinFlipper(rng)
+    var consumed = 0uL
+    var result: T? = null
     while (hasNext()) {
         val item = next()
-        count++
-        val roll = (rng.nextU64() % count.toULong()).toLong()
-        if (roll == 0L) {
+        consumed++
+        if (coinFlipper.randomRatioOneOver(consumed)) {
             result = item
         }
     }
