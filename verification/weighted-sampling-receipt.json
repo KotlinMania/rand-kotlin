@@ -1,0 +1,129 @@
+{
+  "baseline": "99e894c",
+  "initialDirtyFiles": [],
+  "priorWorkCheckpointNotAuthoredThisStep": "a57f0cd",
+  "upstream": "rand 0.9.3, unchanged tmp/rand/src",
+  "commands": {
+    "translator": [
+      "../rust-kotlin/build/bin/macosArm64/debugExecutable/rust-kotlin.kexe",
+      "translate",
+      "--quiet",
+      "--gradle-properties",
+      "gradle.properties",
+      "--package",
+      "io.github.kotlinmania.rand.distr.weighted",
+      "--source-root",
+      "tmp/rand/src",
+      "tmp/rand/src/distr/weighted/weighted_index.rs",
+      "build/rust-kotlin-weighted-sampling/WeightedIndexReview.kt"
+    ],
+    "red": "./gradlew jvmTest --tests '*WeightedSamplingParityTest*' --console=plain",
+    "final": "./gradlew jvmTest macosArm64Test detekt ktlintCheck --continue --console=plain",
+    "rust": "bash verification/run-weighted-sampling-oracle.sh"
+  },
+  "red": [
+    {
+      "name": "zeroWeightBoundaries[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: expected:<[1, 3, 3]> but was:<[1, 3, 4]>"
+    },
+    {
+      "name": "lowTwelveBitsAreDiscarded[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: expected:<[0, 0]> but was:<[0, 1]>"
+    },
+    {
+      "name": "maximalWordNormalWeight[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: expected:<[0]> but was:<[1]>"
+    },
+    {
+      "name": "subnormalRoundingIsNotClamped[jvm]",
+      "failed": false,
+      "message": ""
+    },
+    {
+      "name": "rejectedUpdatePreservesSampler[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: expected:<0> but was:<1>"
+    },
+    {
+      "name": "successfulUpdateRefreshesSampler[jvm]",
+      "failed": false,
+      "message": ""
+    }
+  ],
+  "final": {
+    "jvmTest": {
+      "tests": 121,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failureCases": [],
+      "newSuite": [
+        {
+          "name": "WeightedSamplingParityTest[jvm]",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:28:49.419Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.003"
+        }
+      ]
+    },
+    "macosArm64Test": {
+      "tests": 121,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failureCases": [],
+      "newSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.WeightedSamplingParityTest",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:28:53.918Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.001"
+        }
+      ]
+    },
+    "ktlintCommonMainSourceSetCheck": 5,
+    "ktlintCommonTestSourceSetCheck": 0,
+    "ktlintJsMainSourceSetCheck": 0,
+    "ktlintJvmMainSourceSetCheck": 0,
+    "ktlintKotlinScriptCheck": 0,
+    "authoredKtlint": [],
+    "externalKtlint": [],
+    "detektFindings": 0,
+    "authoredDetekt": []
+  },
+  "rustOracle": {
+    "tests": 6,
+    "failures": 0,
+    "log": "\nrunning 6 tests\ntest maximal_word_normal_weight ... ok\ntest successful_update_refreshes_sampler ... ok\ntest low_twelve_bits_are_discarded ... ok\ntest subnormal_rounding_is_not_clamped ... ok\ntest rejected_update_preserves_sampler ... ok\ntest zero_weight_boundaries ... ok\n\ntest result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n"
+  },
+  "staticAttribution": {
+    "baseline": "99e894c",
+    "method": "Check XML only (Format reports excluded); unchanged source-line mapping via SequenceMatcher, byte-identical files also include EOF diagnostic positions",
+    "untouchedFiles": [
+      "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/UniformOther.kt",
+      "src/commonMain/kotlin/io/github/kotlinmania/rand/rngs/Os.kt"
+    ]
+  },
+  "sha256": {
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndex.kt": "373d67c4ae56bfc3fd184037e213cb7615a1d2f45d030c40d441eb06bb0bcc5f",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/UniformFloat.kt": "d9ab2b1a52bdd65fc66e705ea788336b963903044566985efd811b77ef104ced",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedSamplingParityTest.kt": "ec62d02ec05a9ccb7f055778cd61ce5fbec0fac912dc3d8c06554e5796e5ef6f",
+    "tmp/rand/src/distr/weighted/weighted_index.rs": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+    "tmp/rand/src/distr/uniform_float.rs": "62271f5fb4be087538d1fae743ad95027c66589740762521f97d20d358463d6b",
+    "verification/weighted-sampling-oracle.rs": "9398f4f59d746b74a03ba9555490594b386cbd6cc7094f799b04334ce23ab8f5",
+    "verification/run-weighted-sampling-oracle.sh": "b234d9024b13ff4ac81ba69ad292adba0553ee3abaf1cebb319f50b862e11125",
+    "build/rust-kotlin-weighted-sampling/WeightedIndexReview.kt": "4554959cc2e9419f91e54f93fdcd338b11e7b7d9ad49fc4ed9888a3744ad2290"
+  },
+  "translatorBinarySha256": "8ab46197f27813a1f27563d8af5c186ba5f3e0b359c9eee227c8bee977855fc5"
+}

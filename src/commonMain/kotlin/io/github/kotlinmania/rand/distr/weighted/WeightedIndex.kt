@@ -3,6 +3,7 @@ package io.github.kotlinmania.rand.distr.weighted
 
 import io.github.kotlinmania.rand.Rng
 import io.github.kotlinmania.rand.distr.Distribution
+import io.github.kotlinmania.rand.distr.UniformFloat
 
 /**
  * An update for a specific weight index.
@@ -39,6 +40,7 @@ public class WeightedIndex(
     private var totalWeight: Double,
 ) : Distribution<Int> {
     private val cumulativeWeights: DoubleArray = cumulativeWeights.copyOf()
+    private var weightDistribution: UniformFloat<Double> = UniformFloat.new(0.0, totalWeight).unwrap()
 
     public val size: Int
         get() = cumulativeWeights.size + 1
@@ -126,10 +128,11 @@ public class WeightedIndex(
         }
 
         totalWeight = updatedTotal
+        weightDistribution = UniformFloat.new(0.0, totalWeight).unwrap()
     }
 
     override fun sample(rng: Rng): Int {
-        val chosen = (rng.nextU64().toDouble() / ULong.MAX_VALUE.toDouble()) * totalWeight
+        val chosen = weightDistribution.sample(rng)
         var low = 0
         var high = cumulativeWeights.size
         while (low < high) {
