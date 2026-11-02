@@ -9,9 +9,13 @@ import io.github.kotlinmania.rand.distr.Uniform
  */
 public fun <T> Sequence<T>.choose(rng: Rng): T? = iterator().choose(rng)
 
+public fun <T> Sequence<T>.chooseStable(rng: Rng): T? = iterator().chooseStable(rng)
+
 public fun <T> Sequence<T>.chooseMultiple(rng: Rng, amount: Int): List<T> = iterator().chooseMultiple(rng, amount)
 
 public fun <T> Iterable<T>.choose(rng: Rng): T? = iterator().choose(rng)
+
+public fun <T> Iterable<T>.chooseStable(rng: Rng): T? = iterator().chooseStable(rng)
 
 public fun <T> Iterable<T>.chooseMultiple(rng: Rng, amount: Int): List<T> = iterator().chooseMultiple(rng, amount)
 
@@ -32,6 +36,31 @@ public fun <T> Iterator<T>.choose(rng: Rng): T? {
         if (coinFlipper.randomRatioOneOver(consumed)) {
             result = item
         }
+    }
+    return result
+}
+
+/**
+ * Uniformly sample one element with stable RNG requests and selection.
+ *
+ * The result depends only on the iterator length and the values produced by
+ * [rng]. For any iterator of a given length, the same RNG requests are made
+ * and the same index is selected when the RNG produces the same values.
+ * Prefer [choose] if this stability is not needed.
+ *
+ * Kotlin iterators provide no size hints or operation for skipping element
+ * construction. Every element is produced, with O(n) complexity for length n.
+ */
+public fun <T> Iterator<T>.chooseStable(rng: Rng): T? {
+    var consumed = 0uL
+    var result: T? = null
+    val coinFlipper = CoinFlipper(rng)
+    while (hasNext()) {
+        val item = next()
+        if (coinFlipper.randomRatioOneOver(consumed + 1uL)) {
+            result = item
+        }
+        consumed++
     }
     return result
 }
