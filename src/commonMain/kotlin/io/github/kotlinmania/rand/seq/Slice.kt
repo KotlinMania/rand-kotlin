@@ -88,57 +88,57 @@ public fun <T> List<T>.chooseMultipleWeighted(rng: Rng, amount: Int, weight: (T)
 /**
  * Extension functions for shuffling mutable collections and arrays.
  */
+private inline fun shuffleIndices(rng: Rng, length: Int, swap: (Int, Int) -> Unit) {
+    if (length <= 1) return
+    val chooser = IncreasingUniform(rng, 0u)
+    for (index in 0 until length) swap(index, chooser.nextIndex())
+}
+
 public fun <T> MutableList<T>.shuffle(rng: Rng) {
-    for (i in size - 1 downTo 1) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    shuffleIndices(rng, size) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
 }
 
 public fun <T> Array<T>.shuffle(rng: Rng) {
-    for (i in size - 1 downTo 1) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    shuffleIndices(rng, size) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
 }
 
 public fun IntArray.shuffle(rng: Rng) {
-    for (i in size - 1 downTo 1) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    shuffleIndices(rng, size) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
 }
 
 public fun LongArray.shuffle(rng: Rng) {
-    for (i in size - 1 downTo 1) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    shuffleIndices(rng, size) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
 }
 
 public fun ByteArray.shuffle(rng: Rng) {
-    for (i in size - 1 downTo 1) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    shuffleIndices(rng, size) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
 }
 
 public fun DoubleArray.shuffle(rng: Rng) {
-    for (i in size - 1 downTo 1) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    shuffleIndices(rng, size) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
 }
 
@@ -486,20 +486,18 @@ public fun LongArray.partialShuffle(rng: Rng, amount: Int): Pair<List<Long>, Lis
 // ---------------------------------------------------------------------------
 
 public fun ShortArray.shuffle(rng: Rng) {
-    for (i in size - 1 downTo 1) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    shuffleIndices(rng, size) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
 }
 
 public fun FloatArray.shuffle(rng: Rng) {
-    for (i in size - 1 downTo 1) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    shuffleIndices(rng, size) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
 }
 

@@ -27,7 +27,7 @@ public class IncreasingUniform(
                 chunkRemaining - 1
             } else {
                 val (bound, remaining) = calculateBoundU32(nextN)
-                chunk = (rng.nextU64() % bound.toULong()).toUInt()
+                chunk = rng.randomRange(0u until bound)
                 remaining - 1
             }
 
