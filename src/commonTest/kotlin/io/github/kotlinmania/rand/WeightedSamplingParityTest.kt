@@ -1,11 +1,12 @@
 package io.github.kotlinmania.rand
 
+import io.github.kotlinmania.rand.distr.Result
 import io.github.kotlinmania.rand.distr.weighted.WeightError
 import io.github.kotlinmania.rand.distr.weighted.WeightUpdate
 import io.github.kotlinmania.rand.distr.weighted.WeightedIndex
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
+import kotlin.test.assertIs
 
 class WeightedSamplingParityTest {
     private class Words(
@@ -48,7 +49,7 @@ class WeightedSamplingParityTest {
         val dist = WeightedIndex.create(doubleArrayOf(1.0, 1.0))
         val rng = Words(0xc000000000000000uL, 0xc000000000000000uL)
         assertEquals(1, dist.sample(rng))
-        dist.updateWeights(listOf(WeightUpdate(0, 3.0)))
+        assertIs<Result.Ok<Unit>>(dist.updateWeights(listOf(WeightUpdate(0, 3.0))))
         assertEquals(listOf(3.0, 1.0), dist.weights())
         assertEquals(4.0, dist.totalWeight())
         assertEquals(1, dist.sample(rng))
@@ -58,7 +59,8 @@ class WeightedSamplingParityTest {
     @Test
     fun rejectedUpdatePreservesSampler() {
         val dist = WeightedIndex.create(doubleArrayOf(1.0, 2.0))
-        assertFailsWith<WeightError.InvalidWeight> { dist.updateWeights(listOf(WeightUpdate(0, -1.0))) }
+        val failure = assertIs<Result.Err<WeightError>>(dist.updateWeights(listOf(WeightUpdate(0, -1.0))))
+        assertIs<WeightError.InvalidWeight>(failure.error)
         assertEquals(listOf(1.0, 2.0), dist.weights())
         assertEquals(3.0, dist.totalWeight())
         val rng = Words(0x5555555555555555uL)

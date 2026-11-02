@@ -1,10 +1,12 @@
 // port-lint: tests distr/weighted/weighted_index.rs
 package io.github.kotlinmania.rand.distr.weighted
 
+import io.github.kotlinmania.rand.distr.Result
 import io.github.kotlinmania.rand.rngs.StepRng
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertIs
 import kotlin.test.assertTrue
 
 class WeightedIndexTest {
@@ -26,7 +28,7 @@ class WeightedIndexTest {
         val weights = doubleArrayOf(10.0, 2.0, 3.0, 4.0)
         val dist = WeightedIndex.create(weights)
 
-        dist.updateWeights(listOf(WeightUpdate(1, 100.0), WeightUpdate(2, 4.0)))
+        assertIs<Result.Ok<Unit>>(dist.updateWeights(listOf(WeightUpdate(1, 100.0), WeightUpdate(2, 4.0))))
         assertEquals(118.0, dist.totalWeight())
     }
 

@@ -3,6 +3,7 @@ package io.github.kotlinmania.rand.distr.weighted
 
 import io.github.kotlinmania.rand.Rng
 import io.github.kotlinmania.rand.distr.Distribution
+import io.github.kotlinmania.rand.distr.Result
 import io.github.kotlinmania.rand.distr.UniformFloat
 
 /**
@@ -77,8 +78,12 @@ public class WeightedIndex(
      */
     public fun weightsIter(): WeightedIndexIter = WeightedIndexIter(this)
 
-    public fun updateWeights(newWeights: List<WeightUpdate>) {
-        if (newWeights.isEmpty()) return
+    /**
+     * Updates weights, returning validation errors without changing the distribution.
+     * Sampler initialization failures still throw after validated updates are applied.
+     */
+    public fun updateWeights(newWeights: List<WeightUpdate>): Result<Unit, WeightError> {
+        if (newWeights.isEmpty()) return Result.Ok(Unit)
 
         var prevI: Int? = null
         var updatedTotal = totalWeight
@@ -86,13 +91,13 @@ public class WeightedIndex(
             val i = update.index
             val w = update.weight
             if (prevI != null && prevI >= i) {
-                throw WeightError.InvalidInput()
+                return Result.Err(WeightError.InvalidInput())
             }
             if (w.isNaN() || w < 0.0) {
-                throw WeightError.InvalidWeight()
+                return Result.Err(WeightError.InvalidWeight())
             }
             if (i > cumulativeWeights.size || i < 0) {
-                throw WeightError.InvalidInput()
+                return Result.Err(WeightError.InvalidInput())
             }
 
             var oldW = if (i < cumulativeWeights.size) cumulativeWeights[i] else totalWeight
@@ -105,8 +110,8 @@ public class WeightedIndex(
             prevI = i
         }
 
-        if (updatedTotal <= 0.0 || updatedTotal.isNaN()) {
-            throw WeightError.InsufficientNonZero()
+        if (updatedTotal <= 0.0) {
+            return Result.Err(WeightError.InsufficientNonZero())
         }
 
         // Apply updates
@@ -129,6 +134,7 @@ public class WeightedIndex(
 
         totalWeight = updatedTotal
         weightDistribution = UniformFloat.new(0.0, totalWeight).unwrap()
+        return Result.Ok(Unit)
     }
 
     override fun sample(rng: Rng): Int {
@@ -248,20 +254,10 @@ public class WeightedIndex(
         public fun newFromFloats(weights: FloatArray): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
             new(DoubleArray(weights.size) { weights[it].toDouble() })
 
-        /**
-         * Updates weights, returning a [Result] instead of throwing.
-         */
+        /** Delegates weight updates to the distribution's typed-result API. */
         public fun updateWeightsResult(
             index: WeightedIndex,
             newWeights: List<WeightUpdate>,
-        ): io.github.kotlinmania.rand.distr.Result<Unit, WeightError> =
-            try {
-                index.updateWeights(newWeights)
-                io.github.kotlinmania.rand.distr
-                    .Ok(Unit)
-            } catch (e: WeightError) {
-                io.github.kotlinmania.rand.distr
-                    .Err(e)
-            }
+        ): Result<Unit, WeightError> = index.updateWeights(newWeights)
     }
 }
