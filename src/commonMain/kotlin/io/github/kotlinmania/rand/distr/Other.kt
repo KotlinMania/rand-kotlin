@@ -38,7 +38,8 @@ public object Alphabetic : Distribution<Byte>, SampleString {
     private const val RANGE: UInt = 52u
 
     override fun sample(rng: Rng): Byte {
-        val offset = (rng.nextU32() % RANGE).toByte() + 'A'.code.toByte()
+        val offset =
+            UniformInt.sampleSingle(0u.toUByte(), RANGE.toUByte(), rng).unwrap().toByte() + 'A'.code.toByte()
         val isLower = if (offset > 'Z'.code.toByte()) ('a'.code - 'Z'.code - 1).toByte() else 0.toByte()
         return (offset + isLower).toByte()
     }
