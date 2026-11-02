@@ -159,7 +159,6 @@ public class WeightedIndex(
                 if (w.isNaN() || w < 0.0) throw WeightError.InvalidWeight()
                 cumulative[i - 1] = total
                 total += w
-                if (total.isInfinite()) throw WeightError.Overflow()
             }
 
             if (total <= 0.0 || total.isNaN()) throw WeightError.InsufficientNonZero()
@@ -200,7 +199,9 @@ public class WeightedIndex(
          * - [WeightError.InvalidInput] when [weights] is empty.
          * - [WeightError.InvalidWeight] when a weight is NaN or negative.
          * - [WeightError.InsufficientNonZero] when the sum of all weights is zero.
-         * - [WeightError.Overflow] when the sum of all weights overflows.
+         *
+         * A non-finite total cannot initialize the floating-point sampler and throws
+         * instead of returning [WeightError.Overflow].
          */
         public fun new(weights: DoubleArray): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
             try {
