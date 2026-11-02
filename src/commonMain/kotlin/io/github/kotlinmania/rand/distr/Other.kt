@@ -57,15 +57,9 @@ public object Alphabetic : Distribution<Byte>, SampleString {
  * interval `(0, 1)`, i.e. not including either endpoint.
  */
 public object Open01 : Distribution<Double> {
-    override fun sample(rng: Rng): Double {
-        val fraction = (rng.nextU64() shr 12) or 1uL
-        return fraction.toDouble() / (1L shl 52).toDouble()
-    }
+    override fun sample(rng: Rng): Double = UniformFloatOpen01.sampleDouble(rng)
 
-    public fun sampleFloat(rng: Rng): Float {
-        val fraction = (rng.nextU32() shr 9) or 1u
-        return fraction.toFloat() / (1 shl 23).toFloat()
-    }
+    public fun sampleFloat(rng: Rng): Float = UniformFloatOpen01.sampleFloat(rng)
 }
 
 /**
