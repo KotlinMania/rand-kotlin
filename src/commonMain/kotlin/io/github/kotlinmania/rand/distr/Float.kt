@@ -146,7 +146,7 @@ public object UniformFloatOpen01 {
         val fractionBits = 23
         val value: UInt = rng.nextU32()
         val fraction = value shr (floatSize - fractionBits)
-        return Float.fromBits(UIntIntoFloat(fraction).intoFloatWithExponent(0).toInt()) - (1.0f - FLOAT_EPSILON / 2.0f)
+        return UIntIntoFloat(fraction).intoFloatWithExponent(0).toFloat() - (1.0f - FLOAT_EPSILON / 2.0f)
     }
 
     /**

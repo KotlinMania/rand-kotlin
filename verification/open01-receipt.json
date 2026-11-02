@@ -1,0 +1,139 @@
+{
+  "baseline": "3f27b9b",
+  "initialDirtyFiles": [],
+  "priorWorkCheckpointNotAuthoredThisStep": "a57f0cd",
+  "upstream": "rand 0.9.3, unchanged tmp/rand/src",
+  "translator": {
+    "exitCode": 0,
+    "command": "../rust-kotlin/build/bin/macosArm64/debugExecutable/rust-kotlin.kexe translate --quiet --gradle-properties gradle.properties --package io.github.kotlinmania.rand.distr --source-root tmp/rand/src tmp/rand/src/distr/float.rs build/rust-kotlin-open01/FloatReview.kt",
+    "limitation": "Generated output omits macro-generated float implementations; manual consumer repair follows exact unchanged Rust macro body, not generated implementation.",
+    "binarySha256": "8ab46197f27813a1f27563d8af5c186ba5f3e0b359c9eee227c8bee977855fc5"
+  },
+  "redCommand": "./gradlew jvmTest --tests '*Open01ParityTest*' --console=plain",
+  "red": [
+    {
+      "name": "doubleDiscardedBitsAndMidpoint[jvm]",
+      "failed": false,
+      "message": ""
+    },
+    {
+      "name": "floatMaxWord[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: word 4294967295 expected:<1065353215> but was:<-1082130433>"
+    },
+    {
+      "name": "floatZeroWord[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: word 0 expected:<864026624> but was:<-1082130433>"
+    },
+    {
+      "name": "floatDiscardedBitsAndMidpoint[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: word 0 expected:<864026624> but was:<-1082130433>"
+    },
+    {
+      "name": "doubleEndpoints[jvm]",
+      "failed": false,
+      "message": ""
+    },
+    {
+      "name": "floatFirstFractionStep[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: word 512 expected:<876609536> but was:<-1082130433>"
+    }
+  ],
+  "finalCommand": "./gradlew jvmTest macosArm64Test detekt ktlintCheck --continue --console=plain",
+  "final": {
+    "jvmTest": {
+      "tests": 127,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failureCases": [],
+      "newSuite": [
+        {
+          "name": "Open01ParityTest[jvm]",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:33:02.564Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.015"
+        }
+      ],
+      "preservedWeightedSuite": [
+        {
+          "name": "WeightedSamplingParityTest[jvm]",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:33:02.638Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.003"
+        }
+      ]
+    },
+    "macosArm64Test": {
+      "tests": 127,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failureCases": [],
+      "newSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.Open01ParityTest",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:33:08.664Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.002"
+        }
+      ],
+      "preservedWeightedSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.WeightedSamplingParityTest",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:33:08.670Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.002"
+        }
+      ]
+    },
+    "ktlintCommonMainSourceSetCheck": 5,
+    "ktlintCommonTestSourceSetCheck": 0,
+    "ktlintJsMainSourceSetCheck": 0,
+    "ktlintJvmMainSourceSetCheck": 0,
+    "ktlintKotlinScriptCheck": 0,
+    "authoredKtlint": [],
+    "externalKtlint": [],
+    "detektFindings": 0,
+    "authoredDetekt": []
+  },
+  "rustCommand": "bash verification/run-open01-oracle.sh",
+  "rustOracleLog": "\nrunning 6 tests\ntest float_first_fraction_step ... ok\ntest double_discarded_bits_and_midpoint ... ok\ntest float_max_word ... ok\ntest float_zero_word ... ok\ntest float_discarded_bits_and_midpoint ... ok\ntest double_endpoints ... ok\n\ntest result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+  "sha256": {
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/Float.kt": "4e5c9b3a865aafae9b285759b010b051f877dd21882d2e83d3c531803a2ac8f3",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndex.kt": "373d67c4ae56bfc3fd184037e213cb7615a1d2f45d030c40d441eb06bb0bcc5f",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/Open01ParityTest.kt": "f54edf36312e1fbd1df5711fb1460e38b48d0f288f46513c1b3cf2508a139e1c",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedSamplingParityTest.kt": "ec62d02ec05a9ccb7f055778cd61ce5fbec0fac912dc3d8c06554e5796e5ef6f",
+    "tmp/rand/src/distr/float.rs": "486f2c8ead197d283593689e7b9026626ca83ab3fe7ebf9a89c8e701a4767c2e",
+    "verification/open01-oracle.rs": "729fc8c853c129603fcfa9a38051a93b1a00b3ba688639664955546369826454",
+    "verification/run-open01-oracle.sh": "f51733e2df32fbbc8126dfa485bb092eac0761b67f4bc72ec4258f74d9b0c7e2",
+    "build/rust-kotlin-open01/FloatReview.kt": "35cce781104e318ed4ed9b8ea872d99fb637db4d52858896b14fd36b1c65728f"
+  },
+  "staticAttribution": {
+    "baseline": "3f27b9b",
+    "method": "Only current Check XML reports, excluding Format reports; equal-line mapping to baseline, with EOF diagnostic positions for byte-identical files",
+    "unchangedFiles": [
+      "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/UniformOther.kt",
+      "src/commonMain/kotlin/io/github/kotlinmania/rand/rngs/Os.kt"
+    ]
+  }
+}
