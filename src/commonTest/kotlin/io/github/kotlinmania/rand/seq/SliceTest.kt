@@ -36,8 +36,8 @@ class SliceTest {
         val items = listOf("rare" to 1.0, "common" to 100.0)
         var commonCount = 0
         repeat(1000) { _ ->
-            val chosen = items.chooseWeighted(rng) { pair -> pair.second }
-            if (chosen?.first == "common") commonCount++
+            val chosen = items.chooseWeighted(rng) { pair -> pair.second }.unwrap()
+            if (chosen.first == "common") commonCount++
         }
         assertTrue(commonCount > 900, "Expected common to be selected most of the time, got $commonCount")
     }

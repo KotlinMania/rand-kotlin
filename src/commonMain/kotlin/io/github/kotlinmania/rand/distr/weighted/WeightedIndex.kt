@@ -226,6 +226,9 @@ public class WeightedIndex(
         public fun new(weights: List<Double>): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
             newIterator(weights.iterator())
 
+        /** Creates a distribution while consuming weights only through the first validation error. */
+        public fun new(weights: Iterator<Double>): Result<WeightedIndex, WeightError> = newIterator(weights)
+
         /**
          * Creates a [WeightedIndex] from integer [weights], returning a [Result].
          */

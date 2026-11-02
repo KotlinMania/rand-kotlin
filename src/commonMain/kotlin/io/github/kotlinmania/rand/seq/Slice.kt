@@ -2,7 +2,10 @@
 package io.github.kotlinmania.rand.seq
 
 import io.github.kotlinmania.rand.Rng
+import io.github.kotlinmania.rand.distr.Result
 import io.github.kotlinmania.rand.distr.UniformUsize
+import io.github.kotlinmania.rand.distr.weighted.WeightError
+import io.github.kotlinmania.rand.distr.weighted.WeightedIndex
 import kotlin.math.min
 import kotlin.math.pow
 
@@ -53,31 +56,15 @@ public fun <T> Array<T>.chooseMultiple(rng: Rng, amount: Int): List<T> {
     return indices.map { this[it] }
 }
 
-public fun <T> List<T>.chooseWeighted(rng: Rng, weight: (T) -> Double): T? {
-    if (isEmpty()) return null
-    val weights = map(weight)
-    val totalWeight = weights.sum()
-    require(totalWeight > 0.0) { "total weight must be positive" }
-    var roll = (rng.nextU64().toDouble() / ULong.MAX_VALUE.toDouble()) * totalWeight
-    for (i in indices) {
-        roll -= weights[i]
-        if (roll <= 0.0) return this[i]
-    }
-    return last()
-}
+public fun <T> List<T>.chooseWeighted(rng: Rng, weight: (T) -> Double): Result<T, WeightError> =
+    WeightedIndex
+        .new(indices.asSequence().map { weight(this[it]) }.iterator())
+        .map { distribution -> this[distribution.sample(rng)] }
 
-public fun <T> Array<T>.chooseWeighted(rng: Rng, weight: (T) -> Double): T? {
-    if (isEmpty()) return null
-    val weights = map(weight)
-    val totalWeight = weights.sum()
-    require(totalWeight > 0.0) { "total weight must be positive" }
-    var roll = (rng.nextU64().toDouble() / ULong.MAX_VALUE.toDouble()) * totalWeight
-    for (i in indices) {
-        roll -= weights[i]
-        if (roll <= 0.0) return this[i]
-    }
-    return last()
-}
+public fun <T> Array<T>.chooseWeighted(rng: Rng, weight: (T) -> Double): Result<T, WeightError> =
+    WeightedIndex
+        .new(indices.asSequence().map { weight(this[it]) }.iterator())
+        .map { distribution -> this[distribution.sample(rng)] }
 
 public fun <T> List<T>.chooseMultipleWeighted(rng: Rng, amount: Int, weight: (T) -> Double): List<T> {
     if (amount <= 0 || isEmpty()) return emptyList()
@@ -364,50 +351,26 @@ public fun FloatArray.choose(rng: Rng): Float? {
 /**
  * Biased sampling for one element from this IntArray.
  */
-public fun IntArray.chooseWeighted(rng: Rng, weight: (Int) -> Double): Int? {
-    if (isEmpty()) return null
-    val weights = map(weight)
-    val totalWeight = weights.sum()
-    require(totalWeight > 0.0) { "total weight must be positive" }
-    var roll = (rng.nextU64().toDouble() / ULong.MAX_VALUE.toDouble()) * totalWeight
-    for (i in indices) {
-        roll -= weights[i]
-        if (roll <= 0.0) return this[i]
-    }
-    return last()
-}
+public fun IntArray.chooseWeighted(rng: Rng, weight: (Int) -> Double): Result<Int, WeightError> =
+    WeightedIndex
+        .new(indices.asSequence().map { weight(this[it]) }.iterator())
+        .map { distribution -> this[distribution.sample(rng)] }
 
 /**
  * Biased sampling for one element from this LongArray.
  */
-public fun LongArray.chooseWeighted(rng: Rng, weight: (Long) -> Double): Long? {
-    if (isEmpty()) return null
-    val weights = map(weight)
-    val totalWeight = weights.sum()
-    require(totalWeight > 0.0) { "total weight must be positive" }
-    var roll = (rng.nextU64().toDouble() / ULong.MAX_VALUE.toDouble()) * totalWeight
-    for (i in indices) {
-        roll -= weights[i]
-        if (roll <= 0.0) return this[i]
-    }
-    return last()
-}
+public fun LongArray.chooseWeighted(rng: Rng, weight: (Long) -> Double): Result<Long, WeightError> =
+    WeightedIndex
+        .new(indices.asSequence().map { weight(this[it]) }.iterator())
+        .map { distribution -> this[distribution.sample(rng)] }
 
 /**
  * Biased sampling for one element from this DoubleArray.
  */
-public fun DoubleArray.chooseWeighted(rng: Rng, weight: (Double) -> Double): Double? {
-    if (isEmpty()) return null
-    val weights = map(weight)
-    val totalWeight = weights.sum()
-    require(totalWeight > 0.0) { "total weight must be positive" }
-    var roll = (rng.nextU64().toDouble() / ULong.MAX_VALUE.toDouble()) * totalWeight
-    for (i in indices) {
-        roll -= weights[i]
-        if (roll <= 0.0) return this[i]
-    }
-    return last()
-}
+public fun DoubleArray.chooseWeighted(rng: Rng, weight: (Double) -> Double): Result<Double, WeightError> =
+    WeightedIndex
+        .new(indices.asSequence().map { weight(this[it]) }.iterator())
+        .map { distribution -> this[distribution.sample(rng)] }
 
 // ---------------------------------------------------------------------------
 // IndexedRandom: chooseMultipleWeighted for Array
