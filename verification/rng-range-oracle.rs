@@ -5,7 +5,7 @@ use std::fmt::Debug;
 use std::ops::RangeInclusive;
 use std::panic::{catch_unwind, AssertUnwindSafe};
 
-struct Words {
+pub(crate) struct Words {
     words32: VecDeque<u32>,
     words64: VecDeque<u64>,
     calls32: usize,
@@ -14,7 +14,11 @@ struct Words {
 }
 
 impl Words {
-    fn new(words32: &[u32], words64: &[u64]) -> Self {
+    pub(crate) fn counts(&self) -> (usize, usize, usize) {
+        (self.calls32, self.calls64, self.fills)
+    }
+
+    pub(crate) fn new(words32: &[u32], words64: &[u64]) -> Self {
         Self {
             words32: words32.iter().copied().collect(),
             words64: words64.iter().copied().collect(),
