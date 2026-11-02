@@ -2,6 +2,7 @@
 package io.github.kotlinmania.rand.seq
 
 import io.github.kotlinmania.rand.Rng
+import io.github.kotlinmania.rand.distr.UniformUsize
 import kotlin.math.min
 import kotlin.math.pow
 
@@ -10,31 +11,31 @@ import kotlin.math.pow
  */
 public fun <T> List<T>.choose(rng: Rng): T? {
     if (isEmpty()) return null
-    val idx = (rng.nextU64() % size.toULong()).toInt()
+    val idx = UniformUsize.sampleSingle(0uL, size.toULong(), rng).unwrap().toInt()
     return this[idx]
 }
 
 public fun <T> Array<T>.choose(rng: Rng): T? {
     if (isEmpty()) return null
-    val idx = (rng.nextU64() % size.toULong()).toInt()
+    val idx = UniformUsize.sampleSingle(0uL, size.toULong(), rng).unwrap().toInt()
     return this[idx]
 }
 
 public fun IntArray.choose(rng: Rng): Int? {
     if (isEmpty()) return null
-    val idx = (rng.nextU64() % size.toULong()).toInt()
+    val idx = UniformUsize.sampleSingle(0uL, size.toULong(), rng).unwrap().toInt()
     return this[idx]
 }
 
 public fun LongArray.choose(rng: Rng): Long? {
     if (isEmpty()) return null
-    val idx = (rng.nextU64() % size.toULong()).toInt()
+    val idx = UniformUsize.sampleSingle(0uL, size.toULong(), rng).unwrap().toInt()
     return this[idx]
 }
 
 public fun ByteArray.choose(rng: Rng): Byte? {
     if (isEmpty()) return null
-    val idx = (rng.nextU64() % size.toULong()).toInt()
+    val idx = UniformUsize.sampleSingle(0uL, size.toULong(), rng).unwrap().toInt()
     return this[idx]
 }
 
@@ -340,19 +341,19 @@ public fun FloatArray.chooseMultiple(rng: Rng, amount: Int): List<Float> {
 
 public fun ShortArray.choose(rng: Rng): Short? {
     if (isEmpty()) return null
-    val idx = (rng.nextU64() % size.toULong()).toInt()
+    val idx = UniformUsize.sampleSingle(0uL, size.toULong(), rng).unwrap().toInt()
     return this[idx]
 }
 
 public fun DoubleArray.choose(rng: Rng): Double? {
     if (isEmpty()) return null
-    val idx = (rng.nextU64() % size.toULong()).toInt()
+    val idx = UniformUsize.sampleSingle(0uL, size.toULong(), rng).unwrap().toInt()
     return this[idx]
 }
 
 public fun FloatArray.choose(rng: Rng): Float? {
     if (isEmpty()) return null
-    val idx = (rng.nextU64() % size.toULong()).toInt()
+    val idx = UniformUsize.sampleSingle(0uL, size.toULong(), rng).unwrap().toInt()
     return this[idx]
 }
 
