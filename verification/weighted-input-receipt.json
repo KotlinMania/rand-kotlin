@@ -1,0 +1,364 @@
+{
+  "baseline": "f009a4a",
+  "initialDirtyFiles": [],
+  "priorWork": "Earlier sampler/error/update checkpoints and WIP a57f0cd remain prior work. JSON f85acc0 and dirty IndexMap are untouched.",
+  "translator": {
+    "reusedCompletedOutput": true,
+    "input": "tmp/rand/src/distr/weighted/weighted_index.rs",
+    "output": "build/rust-kotlin-weighted-sampling/WeightedIndexReview.kt",
+    "evidence": "Input/output/CLI hashes match original weighted-sampling receipt; source/generated constructor reads and validates each item before requesting next. No duplicate CLI or generator changes."
+  },
+  "redCommand": "./gradlew jvmTest --tests '*WeightedInputParityTest*' --console=plain",
+  "red": [
+    {
+      "name": "firstInvalidStopsInput[jvm]",
+      "failed": true,
+      "message": "java.lang.IllegalStateException: element failure"
+    },
+    {
+      "name": "validInputIsConsumedAndSampled[jvm]",
+      "failed": false,
+      "message": ""
+    },
+    {
+      "name": "nanStopsInput[jvm]",
+      "failed": true,
+      "message": "java.lang.IllegalStateException: element failure"
+    },
+    {
+      "name": "infiniteTotalReadsAllThenPanics[jvm]",
+      "failed": false,
+      "message": ""
+    },
+    {
+      "name": "emptyInputIsInvalidWithoutElementReads[jvm]",
+      "failed": false,
+      "message": ""
+    },
+    {
+      "name": "weightErrorFromElementAccessPropagates[jvm]",
+      "failed": false,
+      "message": ""
+    },
+    {
+      "name": "elementFailurePropagates[jvm]",
+      "failed": false,
+      "message": ""
+    },
+    {
+      "name": "laterInvalidStopsInput[jvm]",
+      "failed": true,
+      "message": "java.lang.IllegalStateException: element failure"
+    },
+    {
+      "name": "infinityThenInvalidStopsInput[jvm]",
+      "failed": true,
+      "message": "java.lang.IllegalStateException: element failure"
+    }
+  ],
+  "redCoverageLimit": "JVM pre-repair. Four failure cases stop at new(List) before reaching create(List); final green tests exercise both. No pre-patch Native run.",
+  "fixtureHistory": {
+    "initialEightRustLogSha256": "76c732a1b58e9e73ebce13983d88e90dddc79d34a173355cc713f8fbe4414a7d",
+    "initialEightRedLogSha256": "98c7caa303cc24e0b2664feac603b0ea785f96fbef409a4f5b29a511d9483645",
+    "change": "Added a ninth source-backed input panic/exception payload control before production edits; no existing expectation changed."
+  },
+  "rustCommand": "bash verification/run-weighted-input-oracle.sh",
+  "rustOracleLog": "\nrunning 9 tests\ntest later_invalid_stops_input ... ok\ntest infinity_then_invalid_stops_input ... ok\ntest first_invalid_stops_input ... ok\ntest nan_stops_input ... ok\ntest valid_input_is_consumed_and_sampled ... ok\ntest empty_input_is_invalid_without_element_reads ... ok\ntest element_failure_propagates ... ok\ntest weight_error_payload_from_input_still_panics ... ok\ntest infinite_total_reads_all_then_panics ... ok\n\ntest result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+  "exceptionScope": "Rust panic_any(Error::InvalidWeight) is distinguished from Result::Err; Kotlin provider-thrown WeightError retains object identity. This is input-failure propagation, not identical cross-language exception representations.",
+  "finalCommand": "./gradlew jvmTest macosArm64Test detekt ktlintCheck --continue --console=plain",
+  "final": {
+    "jvmTest": {
+      "tests": 179,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failureCases": [],
+      "newSuite": [
+        {
+          "name": "WeightedInputParityTest[jvm]",
+          "tests": "9",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:06.906Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.002"
+        }
+      ],
+      "preservedWeightedSuite": [
+        {
+          "name": "WeightedSamplingParityTest[jvm]",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:06.908Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.002"
+        }
+      ],
+      "preservedOpen01Suite": [
+        {
+          "name": "Open01ParityTest[jvm]",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:06.869Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.003"
+        }
+      ],
+      "preservedSliceSuite": [
+        {
+          "name": "SliceChooseParityTest[jvm]",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:06.896Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.003"
+        }
+      ],
+      "preservedPublicOpen01Suite": [
+        {
+          "name": "PublicOpen01ParityTest[jvm]",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:06.873Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.001"
+        }
+      ],
+      "preservedAlphabeticSuite": [
+        {
+          "name": "AlphabeticParityTest[jvm]",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:06.812Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.021"
+        }
+      ],
+      "preservedIndexedSuite": [
+        {
+          "name": "IndexedChooseParityTest[jvm]",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:06.835Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.005"
+        }
+      ],
+      "preservedWeightedErrorSuite": [
+        {
+          "name": "WeightedErrorParityTest[jvm]",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:06.901Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.004"
+        }
+      ],
+      "preservedUpdateSuite": [
+        {
+          "name": "WeightedUpdateResultParityTest[jvm]",
+          "tests": "9",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:06.912Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.002"
+        }
+      ]
+    },
+    "macosArm64Test": {
+      "tests": 179,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failureCases": [],
+      "newSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.WeightedInputParityTest",
+          "tests": "9",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:11.425Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.001"
+        }
+      ],
+      "preservedWeightedSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.WeightedSamplingParityTest",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:11.426Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.0"
+        }
+      ],
+      "preservedOpen01Suite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.Open01ParityTest",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:11.417Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.001"
+        }
+      ],
+      "preservedSliceSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.SliceChooseParityTest",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:11.423Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.001"
+        }
+      ],
+      "preservedPublicOpen01Suite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.PublicOpen01ParityTest",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:11.418Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.0"
+        }
+      ],
+      "preservedAlphabeticSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.AlphabeticParityTest",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:11.405Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.004"
+        }
+      ],
+      "preservedIndexedSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.IndexedChooseParityTest",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:11.409Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.001"
+        }
+      ],
+      "preservedWeightedErrorSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.WeightedErrorParityTest",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:11.424Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.001"
+        }
+      ],
+      "preservedUpdateSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.WeightedUpdateResultParityTest",
+          "tests": "9",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T19:34:11.426Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.002"
+        }
+      ]
+    },
+    "ktlintCommonMainSourceSetCheck": 5,
+    "ktlintCommonTestSourceSetCheck": 0,
+    "ktlintJsMainSourceSetCheck": 0,
+    "ktlintJvmMainSourceSetCheck": 0,
+    "ktlintKotlinScriptCheck": 0,
+    "authoredKtlint": [],
+    "externalKtlint": [],
+    "detektFindings": 0,
+    "authoredDetekt": []
+  },
+  "firstCheck": "Runtime suites passed 179 each; one trailing blank-line finding in new fixture corrected, then final runtime/static checks rerun.",
+  "api": "Public function headers match f009a4a, and typed update method body is byte-identical. No new public Iterator/IntoIterator API; existing factory bindings only. f009a4a consumer-rebuild requirement remains.",
+  "sha256": {
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/Other.kt": "eb81c7f084c1238ed2d6646005365dea66bb819e06ece52121dc5b1fa7bf100f",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/Float.kt": "4e5c9b3a865aafae9b285759b010b051f877dd21882d2e83d3c531803a2ac8f3",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/Slice.kt": "b20a44c88fb273d88447577ea5dc27241446d1b0cd11a766878546b3a9346aef",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndex.kt": "aa02f7b3af41ffb61af5e65381080a42737ef29d077d8f3eab6698da7b084ade",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/PublicOpen01ParityTest.kt": "433ad9fdb0abebc008f4572e1be23ea308f88b8a800c76b6a6586a3aabf91d5e",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/Open01ParityTest.kt": "f54edf36312e1fbd1df5711fb1460e38b48d0f288f46513c1b3cf2508a139e1c",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/SliceChooseParityTest.kt": "a18b561ce7c32ec3263b3bdcc81598202bee566eaa5b1fad69663e863af306c6",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedSamplingParityTest.kt": "f9eb38104edefe9c6c6308e44090a13a2f1e02b6dcac234ef14d7878d06fe721",
+    "tmp/rand/src/distr/float.rs": "486f2c8ead197d283593689e7b9026626ca83ab3fe7ebf9a89c8e701a4767c2e",
+    "tmp/rand/src/distr/other.rs": "b98748667af9415d65c8eaa6e51aee2d42a1d31c7970c22be7491adcb18a45a7",
+    "verification/open01-oracle.rs": "729fc8c853c129603fcfa9a38051a93b1a00b3ba688639664955546369826454",
+    "verification/run-public-open01-oracle.sh": "25087ba2616bcee98922322eb256d82ecf01af55059e0a1737b9a2bf6879e327",
+    "build/rust-kotlin-public-open01/OtherReview.kt": "d98bc0b9a4a79e72753033ba222ca91262b1694c838a2a5e387f7cd1eef8745c",
+    "build/rust-kotlin-open01/FloatReview.kt": "35cce781104e318ed4ed9b8ea872d99fb637db4d52858896b14fd36b1c65728f",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/AlphabeticParityTest.kt": "eac59cf785b7b798f1888b247fc01bc7013738aa45eda5faeb2c5d198d7c3d44",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/distr/OtherTest.kt": "d74cd1d4a686f39c57446a944a498784c84c2898c0ecd8636eb7cd539644fa7c",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/UniformInt.kt": "8370975ff568d04b13b584d5ec43788b902e3347d23cddb3c51eb4e7067144a6",
+    "tmp/rand/src/distr/uniform_int.rs": "1fb3ade156995a45b33853c04eb28c4031d7b0f73e731145182adb69de0c5880",
+    "verification/alphabetic-oracle.rs": "a293aa6ef94981fca2fdd6df7ba9f20608367cf0afb22a758499f56deafc85cc",
+    "verification/run-alphabetic-oracle.sh": "809e69d6cfdb7e150c10a6879992b7f01f73bf367eeb7235a234ac8b843439a0",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt": "d257c836015ab92b5e61d572351df74939498d41a22a941b68a5c796e27520e9",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/IndexedChooseParityTest.kt": "1d3d2bfb70f0064b1ccaf3d657e56fd4a3b86793920c9c0597e22c12c09ff394",
+    "tmp/rand/src/seq/slice.rs": "8212a23bbc284b74b981ef8d5fc177c460926415f9d747a5a127453b7fa0f9e2",
+    "verification/indexed-choose-oracle.rs": "9aa5ba4cd8c992bb84bcad082cabee1da3e5b1015bc22ea212536b37276e6eaf",
+    "verification/run-indexed-choose-oracle.sh": "3db361f4029036eb20391eaab2b58a2ed6ee8c26c98dc877bc18e6a81ace1fc7",
+    "build/rust-kotlin-indexed-choose/SliceReview.kt": "abb744cc69fec8a06feee6dbcc2165a27af10fcd28985f592778f45729843280",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedErrorParityTest.kt": "231562593718af04b6c9fb449058df639023fc1be1780dfb3cdf23881a4209cf",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/weighted/Weight.kt": "02e18f65fe308f039f824e6c6ffceec226293f0fd160c446e2faa0b7df4cd6a4",
+    "tmp/rand/src/distr/weighted/weighted_index.rs": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+    "tmp/rand/src/distr/weighted/mod.rs": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+    "build/rust-kotlin-weighted-sampling/WeightedIndexReview.kt": "4554959cc2e9419f91e54f93fdcd338b11e7b7d9ad49fc4ed9888a3744ad2290",
+    "verification/weighted-errors-oracle.rs": "ba5749fa358fe15271f96086436fd84762299082214ed28a6a9298d7d0ab5d1e",
+    "verification/run-weighted-errors-oracle.sh": "1241a0da46a1c215dc7d42ccfa8b78e3f1c65da856962ef53d7d8dacd79ac8e4",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt": "8dc9d12b0296211aa9d12471e0edafee4d753a7a8958ef5559a5d1221bd06360",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndexTest.kt": "b27db1ddabdbe7924a50f87edb0191ca51f75aec939e939ff92d366fca11a581",
+    "verification/weighted-update-oracle.rs": "178d7cdf61a4a1512066c3d8e2c9b7f2645687736340c36a03a5a9af1241a816",
+    "verification/run-weighted-update-oracle.sh": "2ccb85b80fb21502447cf5e123d72208197921d6f1a678813b397aa17d5d1f45",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedInputParityTest.kt": "effd40825a8cfbd0ddae627d834e3d8e89e86e2cc1f5df9715da0f81223a9081",
+    "verification/weighted-input-oracle.rs": "35ddaa4cbd705c284f7acc5c8b1974cf9dd97b0832d4546c891b1c6a8cf3ed50",
+    "verification/run-weighted-input-oracle.sh": "bc0cda1be2533dc04cb1fe086dea1765aeb4cad4464ed4b47988a5b340d1ff3d"
+  },
+  "priorCompileHistoryVerified": {
+    "outcome": "E0283 ambiguous empty IntoIterator item; no tests executed in initial attempt",
+    "correction": "Replaced WeightedIndex::<f64>::new([]) with WeightedIndex::<f64>::new(core::iter::empty::<f64>()), changing no assertion or source behavior",
+    "logSha256": "e02ec93669a9d7cf8e4ddbf1df4d12594aa6b9ac0d01cba86afc6a565986467b",
+    "rawLog": "build/rust-kotlin-weighted-errors/rust-oracle-initial-compile.log"
+  },
+  "staticAttribution": {
+    "baseline": "f009a4a",
+    "method": "Current Check XML, excluding old Format reports; unchanged-line mapping plus EOF positions for byte-identical files."
+  }
+}

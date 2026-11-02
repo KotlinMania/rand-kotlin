@@ -153,26 +153,34 @@ public class WeightedIndex(
     }
 
     public companion object {
-        public fun create(weights: DoubleArray): WeightedIndex {
-            if (weights.isEmpty()) throw WeightError.InvalidInput()
+        public fun create(weights: DoubleArray): WeightedIndex = createIterator(weights.iterator())
 
-            var total = weights[0]
-            if (total.isNaN() || total < 0.0) throw WeightError.InvalidWeight()
+        public fun create(weights: List<Double>): WeightedIndex = createIterator(weights.iterator())
 
-            val cumulative = DoubleArray(weights.size - 1)
-            for (i in 1 until weights.size) {
-                val w = weights[i]
-                if (w.isNaN() || w < 0.0) throw WeightError.InvalidWeight()
-                cumulative[i - 1] = total
-                total += w
+        private fun createIterator(weights: Iterator<Double>): WeightedIndex =
+            when (val result = newIterator(weights)) {
+                is Result.Ok -> result.value
+                is Result.Err -> throw result.error
             }
 
-            if (total <= 0.0 || total.isNaN()) throw WeightError.InsufficientNonZero()
+        private fun newIterator(weights: Iterator<Double>): Result<WeightedIndex, WeightError> {
+            if (!weights.hasNext()) return Result.Err(WeightError.InvalidInput())
 
-            return WeightedIndex(cumulative, total)
+            var total = weights.next()
+            if (total.isNaN() || total < 0.0) return Result.Err(WeightError.InvalidWeight())
+
+            val cumulative = ArrayList<Double>()
+            while (weights.hasNext()) {
+                val weight = weights.next()
+                if (weight.isNaN() || weight < 0.0) return Result.Err(WeightError.InvalidWeight())
+                cumulative.add(total)
+                total += weight
+            }
+
+            if (total == 0.0) return Result.Err(WeightError.InsufficientNonZero())
+
+            return Result.Ok(WeightedIndex(cumulative.toDoubleArray(), total))
         }
-
-        public fun create(weights: List<Double>): WeightedIndex = create(weights.toDoubleArray())
 
         public fun fromInts(weights: IntArray): WeightedIndex =
             create(DoubleArray(weights.size) { weights[it].toDouble() })
@@ -210,19 +218,13 @@ public class WeightedIndex(
          * instead of returning [WeightError.Overflow].
          */
         public fun new(weights: DoubleArray): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
-            try {
-                io.github.kotlinmania.rand.distr
-                    .Ok(create(weights))
-            } catch (e: WeightError) {
-                io.github.kotlinmania.rand.distr
-                    .Err(e)
-            }
+            newIterator(weights.iterator())
 
         /**
          * Creates a [WeightedIndex] from [weights], returning a [Result].
          */
         public fun new(weights: List<Double>): io.github.kotlinmania.rand.distr.Result<WeightedIndex, WeightError> =
-            new(weights.toDoubleArray())
+            newIterator(weights.iterator())
 
         /**
          * Creates a [WeightedIndex] from integer [weights], returning a [Result].
