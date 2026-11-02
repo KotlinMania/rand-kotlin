@@ -88,10 +88,14 @@ public fun <T> List<T>.chooseMultipleWeighted(rng: Rng, amount: Int, weight: (T)
 /**
  * Extension functions for shuffling mutable collections and arrays.
  */
+private inline fun partialShuffleIndices(rng: Rng, length: Int, start: Int, swap: (Int, Int) -> Unit) {
+    val chooser = IncreasingUniform(rng, start.toUInt())
+    for (index in start until length) swap(index, chooser.nextIndex())
+}
+
 private inline fun shuffleIndices(rng: Rng, length: Int, swap: (Int, Int) -> Unit) {
     if (length <= 1) return
-    val chooser = IncreasingUniform(rng, 0u)
-    for (index in 0 until length) swap(index, chooser.nextIndex())
+    partialShuffleIndices(rng, length, 0, swap)
 }
 
 public fun <T> MutableList<T>.shuffle(rng: Rng) {
@@ -415,11 +419,10 @@ public fun <T> Array<T>.chooseMultipleWeighted(rng: Rng, amount: Int, weight: (T
  */
 public fun <T> MutableList<T>.partialShuffle(rng: Rng, amount: Int): Pair<List<T>, List<T>> {
     val m = (size - amount).coerceAtLeast(0)
-    for (i in m until size) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    partialShuffleIndices(rng, size, m) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
     return Pair(
         subList(m, size).toList(),
@@ -435,11 +438,10 @@ public fun <T> MutableList<T>.partialShuffle(rng: Rng, amount: Int): Pair<List<T
  */
 public fun <T> Array<T>.partialShuffle(rng: Rng, amount: Int): Pair<List<T>, List<T>> {
     val m = (size - amount).coerceAtLeast(0)
-    for (i in m until size) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    partialShuffleIndices(rng, size, m) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
     return Pair(
         toList().subList(m, size),
@@ -452,11 +454,10 @@ public fun <T> Array<T>.partialShuffle(rng: Rng, amount: Int): Pair<List<T>, Lis
  */
 public fun IntArray.partialShuffle(rng: Rng, amount: Int): Pair<List<Int>, List<Int>> {
     val m = (size - amount).coerceAtLeast(0)
-    for (i in m until size) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    partialShuffleIndices(rng, size, m) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
     return Pair(
         toList().subList(m, size),
@@ -469,11 +470,10 @@ public fun IntArray.partialShuffle(rng: Rng, amount: Int): Pair<List<Int>, List<
  */
 public fun LongArray.partialShuffle(rng: Rng, amount: Int): Pair<List<Long>, List<Long>> {
     val m = (size - amount).coerceAtLeast(0)
-    for (i in m until size) {
-        val j = (rng.nextU64() % (i + 1).toULong()).toInt()
-        val tmp = this[i]
-        this[i] = this[j]
-        this[j] = tmp
+    partialShuffleIndices(rng, size, m) { index, other ->
+        val tmp = this[index]
+        this[index] = this[other]
+        this[other] = tmp
     }
     return Pair(
         toList().subList(m, size),
