@@ -24,7 +24,7 @@ class BernoulliTest {
 
     @Test
     fun testBernoulliRatio() {
-        val b = Bernoulli.fromRatio(2u, 3u)
+        val b = Bernoulli.fromRatio(2u, 3u).unwrap()
         val p = b.p()
         assertTrue(abs(p - (2.0 / 3.0)) < 1e-4)
     }

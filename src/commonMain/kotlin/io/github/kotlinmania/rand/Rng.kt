@@ -4,6 +4,7 @@ package io.github.kotlinmania.rand
 import io.github.kotlinmania.rand.distr.Bernoulli
 import io.github.kotlinmania.rand.distr.Distribution
 import io.github.kotlinmania.rand.distr.Iter
+import io.github.kotlinmania.rand.distr.Result
 import io.github.kotlinmania.rand.distr.Uniform
 import io.github.kotlinmania.rand.distr.sampleIter
 import kotlin.random.Random
@@ -44,10 +45,11 @@ public interface Rng : RngCore {
         return sample(d)
     }
 
-    public fun randomRatio(numerator: UInt, denominator: UInt): Boolean {
-        val d = Bernoulli.fromRatio(numerator, denominator)
-        return sample(d)
-    }
+    public fun randomRatio(numerator: UInt, denominator: UInt): Boolean =
+        when (val result = Bernoulli.fromRatio(numerator, denominator)) {
+            is Result.Ok -> sample(result.value)
+            is Result.Err -> error("p=$numerator/$denominator is outside range [0.0, 1.0]")
+        }
 
     /**
      * Generate a random value in the given inclusive [range].

@@ -7,6 +7,17 @@ private const val ALWAYS_TRUE: ULong = ULong.MAX_VALUE
 private const val SCALE: Double = 2.0 * 9223372036854775808.0
 
 /**
+ * Error type returned from Bernoulli construction.
+ */
+public enum class BernoulliError {
+    /** Probability is outside the interval [0, 1]. */
+    InvalidProbability,
+    ;
+
+    override fun toString(): String = "p is outside [0, 1] in Bernoulli distribution"
+}
+
+/**
  * The Bernoulli distribution `Bernoulli(p)`.
  */
 public data class Bernoulli(
@@ -43,15 +54,15 @@ public data class Bernoulli(
         /**
          * Construct a new [Bernoulli] with the probability of success of [numerator]-in-[denominator].
          */
-        public fun fromRatio(numerator: UInt, denominator: UInt): Bernoulli {
-            require(denominator > 0u && numerator <= denominator) {
-                "Invalid ratio: $numerator / $denominator"
+        public fun fromRatio(numerator: UInt, denominator: UInt): Result<Bernoulli, BernoulliError> {
+            if (numerator > denominator || denominator == 0u) {
+                return Result.Err(BernoulliError.InvalidProbability)
             }
             if (numerator == denominator) {
-                return Bernoulli(ALWAYS_TRUE)
+                return Result.Ok(Bernoulli(ALWAYS_TRUE))
             }
             val pInt = ((numerator.toDouble() / denominator.toDouble()) * SCALE).toULong()
-            return Bernoulli(pInt)
+            return Result.Ok(Bernoulli(pInt))
         }
     }
 }
