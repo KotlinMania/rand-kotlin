@@ -1,9 +1,11 @@
 package io.github.kotlinmania.rand
 
 import io.github.kotlinmania.rand.distr.Choose
+import io.github.kotlinmania.rand.distr.Empty
+import io.github.kotlinmania.rand.distr.Result
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
+import kotlin.test.assertIs
 
 class SliceChooseParityTest {
     private class Words(
@@ -35,40 +37,41 @@ class SliceChooseParityTest {
 
     @Test
     fun singletonDrawsU32() {
-        val dist = Choose.fromList(listOf(9))
+        val dist = Choose.new(listOf(9)).unwrap()
         assertEquals(1, dist.numChoices)
         check(dist, listOf(UInt.MAX_VALUE), listOf(9))
     }
 
     @Test
     fun powerOfTwoUsesHighBits() {
-        val dist = Choose.fromList(listOf(0, 1, 2, 3))
+        val dist = Choose.new(listOf(0, 1, 2, 3)).unwrap()
         assertEquals(4, dist.numChoices)
         check(dist, listOf(0u, 0x40000000u, 0x80000000u, UInt.MAX_VALUE), listOf(0, 1, 2, 3))
     }
 
     @Test
     fun rejectedWordIsRetried() {
-        check(Choose.fromList(listOf(0, 1, 2)), listOf(0u, UInt.MAX_VALUE), listOf(2))
+        check(Choose.new(listOf(0, 1, 2)).unwrap(), listOf(0u, UInt.MAX_VALUE), listOf(2))
     }
 
     @Test
     fun repeatedSamplesUseTheSameRange() {
-        check(Choose.fromList(listOf(0, 1, 2)), listOf(0u, UInt.MAX_VALUE, 0x80000000u), listOf(2, 1))
+        check(Choose.new(listOf(0, 1, 2)).unwrap(), listOf(0u, UInt.MAX_VALUE, 0x80000000u), listOf(2, 1))
     }
 
     @Test
     fun selectedNullIsAValue() {
-        check(Choose.fromList(listOf(0, null, 2)), listOf(0x80000000u), listOf(null))
+        check(Choose.new(listOf(0, null, 2)).unwrap(), listOf(0x80000000u), listOf(null))
     }
 
     @Test
     fun arrayFactoryPreservesSelection() {
-        check(Choose.fromArray(arrayOf("a", "b", "c", "d")), listOf(0x80000000u), listOf("c"))
+        check(Choose.new(arrayOf("a", "b", "c", "d")).unwrap(), listOf(0x80000000u), listOf("c"))
     }
 
     @Test
     fun emptyIsRejected() {
-        assertFailsWith<IllegalArgumentException> { Choose.fromList(emptyList<Int>()) }
+        val error = assertIs<Result.Err<Empty>>(Choose.new(emptyList<Int>())).error
+        assertEquals("Tried to create a `rand::distr::slice::Choose` with an empty slice", error.toString())
     }
 }

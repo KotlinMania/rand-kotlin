@@ -6,13 +6,9 @@ import io.github.kotlinmania.rand.Rng
 /**
  * A distribution to uniformly sample elements of a slice or list with replacement.
  */
-public class Choose<T>(
+public class Choose<T> private constructor(
     private val elements: List<T>,
 ) : Distribution<T> {
-    init {
-        require(elements.isNotEmpty()) { "Tried to create a Choose distribution with an empty slice" }
-    }
-
     private val range: UniformUsize = UniformUsize.new(0uL, elements.size.toULong()).unwrap()
 
     public val numChoices: Int
@@ -24,8 +20,19 @@ public class Choose<T>(
     }
 
     public companion object {
-        public fun <T> fromList(elements: List<T>): Choose<T> = Choose(elements)
+        /**
+         * Create a distribution sampling uniformly from the supplied elements.
+         * Returns [Empty] if the list is empty.
+         */
+        public fun <T> new(elements: List<T>): Result<Choose<T>, Empty> =
+            if (elements.isEmpty()) Result.Err(Empty()) else Result.Ok(Choose(elements))
 
-        public fun <T> fromArray(elements: Array<T>): Choose<T> = Choose(elements.toList())
+        /** Create a distribution from an array, returning [Empty] if it is empty. */
+        public fun <T> new(elements: Array<T>): Result<Choose<T>, Empty> = new(elements.toList())
     }
+}
+
+/** Error returned when [Choose.new] is given empty elements. */
+public class Empty {
+    override fun toString(): String = "Tried to create a `rand::distr::slice::Choose` with an empty slice"
 }
