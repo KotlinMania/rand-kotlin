@@ -37,7 +37,7 @@ class ChooseConstructionParityTest {
 
     @Test
     fun emptyArrayReturnsTypedError() {
-        val result = Choose.new(emptyArray<Int>())
+        val result = Choose.new(emptyArray<NoClone>())
         val error = assertIs<Result.Err<Empty>>(result).error
         assertEquals("Tried to create a `rand::distr::slice::Choose` with an empty slice", error.toString())
     }

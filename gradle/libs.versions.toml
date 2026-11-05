@@ -13,6 +13,7 @@ getrandom = "0.2.0"
 serde = "0.1.11"
 prettyAssertions = "0.1.0"
 threadlocal = "0.3.3"
+androidxTestRunner = "1.7.0"
 
 [plugins]
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "androidKmp" }
@@ -36,6 +37,7 @@ getrandom-kotlin = { module = "io.github.kotlinmania:getrandom-kotlin", version.
 serde-kotlin = { module = "io.github.kotlinmania:serde-kotlin", version.ref = "serde" }
 pretty-assertions-kotlin = { module = "io.github.kotlinmania:pretty-assertions-kotlin", version.ref = "prettyAssertions" }
 threadlocal-kotlin = { module = "io.github.kotlinmania:threadlocal-kotlin", version.ref = "threadlocal" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTestRunner" }
 
 [bundles]
 rand-commonMain = [

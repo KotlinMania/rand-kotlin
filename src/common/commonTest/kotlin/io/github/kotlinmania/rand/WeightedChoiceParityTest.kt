@@ -105,12 +105,16 @@ class WeightedChoiceParityTest {
         for (array in listOf(false, true)) {
             val rng = Words(listOf(0uL))
             var calls = 0
-            val weight: (Int?) -> Double = { item ->
+            val weight: (String?) -> Double = { item ->
                 calls++
                 if (item == null) 1.0 else 0.0
             }
             val result: Any? =
-                if (array) arrayOf(0, null, 2).chooseWeighted(rng, weight) else listOf(0, null, 2).chooseWeighted(rng, weight)
+                if (array) {
+                    arrayOf("0", null, "2").chooseWeighted(rng, weight)
+                } else {
+                    listOf("0", null, "2").chooseWeighted(rng, weight)
+                }
             assertNull(assertIs<Result.Ok<*>>(result).value)
             assertEquals(3, calls)
             assertEquals(1, rng.draws)

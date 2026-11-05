@@ -74,10 +74,8 @@ class IteratorStableParityTest {
         val iter =
             (0 until 100)
                 .asSequence()
-                .map {
-                    produced++
-                    it
-                }.iterator()
+                .onEach { produced++ }
+                .iterator()
         assertEquals(0, iter.chooseStable(rng))
         assertEquals(100, produced)
         assertEquals(4, rng.calls32)

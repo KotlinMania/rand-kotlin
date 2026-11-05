@@ -11,6 +11,10 @@ import kotlin.test.assertFalse
 import kotlin.test.assertSame
 
 class IteratorReservoirParityTest {
+    private data class Item(
+        val value: Int,
+    )
+
     private class Words(
         private val words: List<UInt> = emptyList(),
         private val words64: List<ULong> = emptyList(),
@@ -64,25 +68,25 @@ class IteratorReservoirParityTest {
     @Test
     fun fillUsesTheSameReplacements() {
         val rng = Words(listOf(0u, UInt.MAX_VALUE, 0u))
-        val buf = arrayOf(-1, -1)
-        assertEquals(2, (0..4).iterator().chooseMultipleFill(rng, buf))
-        assertContentEquals(arrayOf(4, 1), buf)
+        val buf = arrayOf(Item(-1), Item(-1))
+        assertEquals(2, List(5, ::Item).iterator().chooseMultipleFill(rng, buf))
+        assertContentEquals(arrayOf(Item(4), Item(1)), buf)
         assertEquals(3, rng.calls32)
         assertEquals(0, rng.calls64)
     }
 
     @Test
     fun shortFillLeavesTheTailUntouched() {
-        val buf = Array(5) { -1 }
-        assertEquals(3, (0..2).iterator().chooseMultipleFill(Words(), buf))
-        assertContentEquals(arrayOf(0, 1, 2, -1, -1), buf)
+        val buf = Array(5) { Item(-1) }
+        assertEquals(3, List(3, ::Item).iterator().chooseMultipleFill(Words(), buf))
+        assertContentEquals(arrayOf(Item(0), Item(1), Item(2), Item(-1), Item(-1)), buf)
     }
 
     @Test
     fun zeroCapacityFillConsumesInputAndSamplesEachItem() {
         val rng = Words(listOf(0u, 0u, 0u))
-        val iter = (0..2).iterator()
-        assertEquals(0, iter.chooseMultipleFill(rng, emptyArray<Int>()))
+        val iter = List(3, ::Item).iterator()
+        assertEquals(0, iter.chooseMultipleFill(rng, emptyArray<Item>()))
         assertFalse(iter.hasNext())
         assertEquals(3, rng.calls32)
         assertEquals(0, rng.calls64)
@@ -90,12 +94,14 @@ class IteratorReservoirParityTest {
 
     @Test
     fun nullableFillItemsRemainItems() {
-        val buf = arrayOf<Int?>(-1, -1, -1)
-        assertEquals(2, listOf(null, 1).iterator().chooseMultipleFill(Words(), buf))
-        assertContentEquals(arrayOf(null, 1, -1), buf)
+        val buf = arrayOf<Item?>(Item(-1), Item(-1), Item(-1))
+        assertEquals(2, listOf(null, Item(1)).iterator().chooseMultipleFill(Words(), buf))
+        assertContentEquals(arrayOf(null, Item(1), Item(-1)), buf)
     }
 
-    private class ExhaustionProbe : Iterator<Int> {
+    private class ExhaustionProbe<T>(
+        private val single: T,
+    ) : Iterator<T> {
         var probes = 0
         var reads = 0
 
@@ -105,23 +111,23 @@ class IteratorReservoirParityTest {
             return reads == 0
         }
 
-        override fun next(): Int {
+        override fun next(): T {
             if (reads != 0) throw NoSuchElementException()
             reads++
-            return 7
+            return single
         }
     }
 
     @Test
     fun bothOperationsStopAtFirstExhaustion() {
-        val iter = ExhaustionProbe()
+        val iter = ExhaustionProbe(7)
         assertEquals(listOf(7), iter.chooseMultiple(Words(), 3))
         assertEquals(2, iter.probes)
         assertEquals(1, iter.reads)
-        val fillIter = ExhaustionProbe()
-        val buf = Array(3) { -1 }
+        val fillIter = ExhaustionProbe(Item(7))
+        val buf = Array(3) { Item(-1) }
         assertEquals(1, fillIter.chooseMultipleFill(Words(), buf))
-        assertContentEquals(arrayOf(7, -1, -1), buf)
+        assertContentEquals(arrayOf(Item(7), Item(-1), Item(-1)), buf)
         assertEquals(2, fillIter.probes)
         assertEquals(1, fillIter.reads)
     }
@@ -144,16 +150,16 @@ class IteratorReservoirParityTest {
     fun emptyInputsLeaveTheBufferUntouched() {
         val rng = Words()
         assertEquals(emptyList(), emptyList<Int>().iterator().chooseMultiple(rng, 2))
-        val buf = arrayOf(1, 2)
-        assertEquals(0, emptyList<Int>().iterator().chooseMultipleFill(rng, buf))
-        assertContentEquals(arrayOf(1, 2), buf)
+        val buf = arrayOf(Item(1), Item(2))
+        assertEquals(0, emptyList<Item>().iterator().chooseMultipleFill(rng, buf))
+        assertContentEquals(arrayOf(Item(1), Item(2)), buf)
         assertEquals(0, rng.calls32)
         assertEquals(0, rng.calls64)
     }
 
     @Test
     fun negativeAmountIsRejectedBeforeReadingOrDrawing() {
-        val iter = ExhaustionProbe()
+        val iter = ExhaustionProbe(7)
         val rng = Words()
         assertFailsWith<IllegalArgumentException> { iter.chooseMultiple(rng, -1) }
         assertEquals(0, iter.probes)
@@ -164,11 +170,11 @@ class IteratorReservoirParityTest {
     @Test
     fun iteratorFailurePropagatesWithTheFilledPrefixIntact() {
         val failure = IllegalStateException("iterator failure")
-        val iter = (0..2).asSequence().map { if (it == 2) throw failure else it }.iterator()
+        val iter = (0..2).asSequence().map { if (it == 2) throw failure else Item(it) }.iterator()
         val rng = Words()
-        val buf = Array(3) { -1 }
+        val buf = Array(3) { Item(-1) }
         assertSame(failure, assertFailsWith<IllegalStateException> { iter.chooseMultipleFill(rng, buf) })
-        assertContentEquals(arrayOf(0, 1, -1), buf)
+        assertContentEquals(arrayOf(Item(0), Item(1), Item(-1)), buf)
         assertEquals(0, rng.calls32)
         assertEquals(0, rng.calls64)
     }

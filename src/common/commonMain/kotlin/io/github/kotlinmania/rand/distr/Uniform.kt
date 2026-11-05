@@ -156,14 +156,14 @@ public class Uniform<T>(
         public fun tryFrom(range: IntRange): Result<Uniform<Int>, Error> =
             newInclusive(range.first, range.last)
 
-        public fun tryFrom(range: UIntRange): Result<Uniform<UInt>, Error> =
-            newInclusive(range.first, range.last)
+        public fun tryFrom(range: UIntProgression): Result<Uniform<UInt>, Error> =
+            if (range.isEmpty() || range.step != 1) Err(Error.EmptyRange) else newInclusive(range.first, range.last)
 
         public fun tryFrom(range: LongRange): Result<Uniform<Long>, Error> =
             newInclusive(range.first, range.last)
 
-        public fun tryFrom(range: ULongRange): Result<Uniform<ULong>, Error> =
-            newInclusive(range.first, range.last)
+        public fun tryFrom(range: ULongProgression): Result<Uniform<ULong>, Error> =
+            if (range.isEmpty() || range.step != 1L) Err(Error.EmptyRange) else newInclusive(range.first, range.last)
 
         internal fun tryFromOpenEndFloat(range: OpenEndRange<Float>): Result<Uniform<Float>, Error> =
             new(range.start, range.endExclusive)

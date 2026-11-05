@@ -60,5 +60,4 @@ public fun rng(): ThreadRng = ThreadRng(currentThreadRng())
  *
  * Use [rng] instead.
  */
-@Deprecated("Renamed to rng", ReplaceWith("rng()"))
 public fun threadRng(): ThreadRng = rng()
