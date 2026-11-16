@@ -1,0 +1,70 @@
+{
+  "languages": [
+    "Kotlin",
+    "Java",
+    "Swift",
+    "JS",
+    "TS"
+  ],
+  "query": "chooseWeighted\\s*\\(",
+  "scope": "workspace source respecting ignore rules; excludes build, tmp, .gradle, automation-artifacts, node_modules; no binary/generated/downstream build campaign",
+  "preChangeHits": [
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/seq/SliceTest.kt:39:            val chosen = items.chooseWeighted(rng) { pair -> pair.second }",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:33:            \"list\" to { rng, weight -> List(size) { it }.chooseWeighted(rng, weight) },",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:34:            \"array\" to { rng, weight -> Array(size) { it }.chooseWeighted(rng, weight) },",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:35:            \"int\" to { rng, weight -> IntArray(size) { it }.chooseWeighted(rng, weight) },",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:36:            \"long\" to { rng, weight -> LongArray(size) { it.toLong() }.chooseWeighted(rng) { weight(it.toInt()) } },",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:37:            \"double\" to { rng, weight -> DoubleArray(size) { it.toDouble() }.chooseWeighted(rng) { weight(it.toInt()) } },",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:103:                if (array) arrayOf(0, null, 2).chooseWeighted(rng, weight) else listOf(0, null, 2).chooseWeighted(rng, weight)",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt:56:public fun <T> List<T>.chooseWeighted(rng: Rng, weight: (T) -> Double): T? {",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt:69:public fun <T> Array<T>.chooseWeighted(rng: Rng, weight: (T) -> Double): T? {",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt:367:public fun IntArray.chooseWeighted(rng: Rng, weight: (Int) -> Double): Int? {",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt:383:public fun LongArray.chooseWeighted(rng: Rng, weight: (Long) -> Double): Long? {",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt:399:public fun DoubleArray.chooseWeighted(rng: Rng, weight: (Double) -> Double): Double? {"
+  ],
+  "finalHits": [
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/seq/SliceTest.kt:39:            val chosen = items.chooseWeighted(rng) { pair -> pair.second }.unwrap()",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:33:            \"list\" to { rng, weight -> List(size) { it }.chooseWeighted(rng, weight) },",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:34:            \"array\" to { rng, weight -> Array(size) { it }.chooseWeighted(rng, weight) },",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:35:            \"int\" to { rng, weight -> IntArray(size) { it }.chooseWeighted(rng, weight) },",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:36:            \"long\" to { rng, weight -> LongArray(size) { it.toLong() }.chooseWeighted(rng) { weight(it.toInt()) } },",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:37:            \"double\" to { rng, weight -> DoubleArray(size) { it.toDouble() }.chooseWeighted(rng) { weight(it.toInt()) } },",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedChoiceParityTest.kt:113:                if (array) arrayOf(0, null, 2).chooseWeighted(rng, weight) else listOf(0, null, 2).chooseWeighted(rng, weight)",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt:59:public fun <T> List<T>.chooseWeighted(rng: Rng, weight: (T) -> Double): Result<T, WeightError> =",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt:64:public fun <T> Array<T>.chooseWeighted(rng: Rng, weight: (T) -> Double): Result<T, WeightError> =",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt:354:public fun IntArray.chooseWeighted(rng: Rng, weight: (Int) -> Double): Result<Int, WeightError> =",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt:362:public fun LongArray.chooseWeighted(rng: Rng, weight: (Long) -> Double): Result<Long, WeightError> =",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt:370:public fun DoubleArray.chooseWeighted(rng: Rng, weight: (Double) -> Double): Result<Double, WeightError> ="
+  ],
+  "externalHits": [],
+  "signatureChanges": [
+    {
+      "receiver": "List<T>",
+      "before": "T?",
+      "after": "Result<T, WeightError>"
+    },
+    {
+      "receiver": "Array<T>",
+      "before": "T?",
+      "after": "Result<T, WeightError>"
+    },
+    {
+      "receiver": "IntArray",
+      "before": "Int?",
+      "after": "Result<Int, WeightError>"
+    },
+    {
+      "receiver": "LongArray",
+      "before": "Long?",
+      "after": "Result<Long, WeightError>"
+    },
+    {
+      "receiver": "DoubleArray",
+      "before": "Double?",
+      "after": "Result<Double, WeightError>"
+    }
+  ],
+  "addition": "WeightedIndex.new(Iterator<Double>) forwards to unchanged private constructor",
+  "adaptedExistingCaller": "rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/seq/SliceTest.kt: unwrap expected success and access non-null pair; original 1000 draws and commonCount > 900 assertion unchanged",
+  "compatibility": "Five public return types and JVM descriptors change. Compiled consumers require rebuilding. No downstream source/binary compatibility claim."
+}

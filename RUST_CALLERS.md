@@ -16,15 +16,15 @@ For every Rust crate this repo owns (under `tmp/`), this file lists every **cros
 
 | package | module | inbound use sites | distinct caller crates | distinct caller repos | codex sites |
 |---|---|---:|---:|---:|---:|
-| `rand` | `rand` | 213 | 44 | 30 | 31 |
+| `rand` | `rand` | 648 | 91 | 55 | 31 |
 
 ## `rand`
 
-### Inbound symbols (40 distinct, 213 total `use` sites)
+### Inbound symbols (61 distinct, 648 total `use` sites)
 
 Sorted by codex demand, then total demand. The first symbols are the priority queue for porting `rand`.
 
-#### `rand::Rng` — 49 site(s) (9 codex, 40 other, 22 caller crates)
+#### `rand::Rng` — 166 site(s) (9 codex, 157 other, 56 caller crates)
 
 - ✅ `codex-kotlin/codex-client` `src/retry.rs:3` — `use rand::Rng`
 - ✅ `codex-kotlin/codex-core` `src/unified_exec/mod.rs:33` — `use rand::Rng`
@@ -38,9 +38,9 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - `base64-kotlin/base64` `benches/benchmarks.rs:10` — `use rand::Rng`
 - `base64-kotlin/base64` `src/chunked_encoder.rs:75` — `use rand::Rng`
 - `base64-kotlin/base64` `src/decode.rs:163` — `use rand::Rng`
-- _… and 37 more site(s)._
+- _… and 154 more site(s)._
 
-#### `rand::SeedableRng` — 32 site(s) (5 codex, 27 other, 16 caller crates)
+#### `rand::SeedableRng` — 93 site(s) (5 codex, 88 other, 35 caller crates)
 
 - ✅ `codex-kotlin/codex-tui` `src/tooltips.rs:329` — `use rand::SeedableRng`
 - ✅ `codex-kotlin/codex-windows-sandbox` `src/cap.rs:5` — `use rand::SeedableRng`
@@ -54,9 +54,9 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - `base64-kotlin/base64` `src/encode.rs:171` — `use rand::SeedableRng`
 - `base64-kotlin/base64` `src/engine/tests.rs:3` — `use rand::SeedableRng as _`
 - `base64-kotlin/base64` `src/tests.rs:2` — `use rand::SeedableRng`
-- _… and 20 more site(s)._
+- _… and 81 more site(s)._
 
-#### `rand::RngCore` — 13 site(s) (4 codex, 9 other, 8 caller crates)
+#### `rand::RngCore` — 15 site(s) (4 codex, 11 other, 10 caller crates)
 
 - ✅ `codex-kotlin/codex-login` `src/pkce.rs:2` — `use rand::RngCore`
 - ✅ `codex-kotlin/codex-login` `src/server.rs:40` — `use rand::RngCore`
@@ -68,11 +68,11 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - `age-kotlin/age` `src/scrypt.rs:13` — `use rand::RngCore`
 - `base64-kotlin/base64` `src/read/decoder_tests.rs:6` — `use rand::RngCore as _`
 - `ed25519-dalek-kotlin/ed25519-dalek` `src/hazmat.rs:260` — `use rand::RngCore`
+- `num-bigint-kotlin/num-bigint` `benches/rng/mod.rs:1` — `use rand::RngCore`
 - `rama-tcp-kotlin/rama-tcp` `src/pool/mod.rs:7` — `use rand::RngCore`
-- `tungstenite-kotlin/tungstenite` `src/extensions/compression/deflate/mod.rs:386` — `use rand::RngCore`
-- _… and 1 more site(s)._
+- _… and 3 more site(s)._
 
-#### `rand::rngs::SmallRng` — 9 site(s) (4 codex, 5 other, 5 caller crates)
+#### `rand::rngs::SmallRng` — 11 site(s) (4 codex, 7 other, 6 caller crates)
 
 - ✅ `codex-kotlin/codex-windows-sandbox` `src/cap.rs:3` — `use rand::rngs::SmallRng`
 - ✅ `codex-kotlin/codex-windows-sandbox` `src/desktop.rs:9` — `use rand::rngs::SmallRng`
@@ -80,6 +80,8 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - ✅ `codex-kotlin/codex-windows-sandbox` `src/sandbox_users.rs:8` — `use rand::rngs::SmallRng`
 - `starlark-kotlin/starlark` `src/tests/opt/if_rand.rs:12` — `use rand::rngs::SmallRng`
 - `starlark-kotlin/starlark` `src/values/layout/heap/allocator/alloc/allocator.rs:191` — `use rand::rngs::SmallRng`
+- `symphonia-kotlin/symphonia-core` `src/io/bit.rs:1762` — `use rand::rngs::SmallRng`
+- `symphonia-kotlin/symphonia-core` `src/io/bit.rs:2079` — `use rand::rngs::SmallRng`
 - `tar-kotlin/tar` `tests/all.rs:14` — `use rand::rngs::SmallRng`
 - `tungstenite-kotlin/tungstenite` `benches/e2e.rs:4` — `use rand::rngs::SmallRng`
 - `unicode-ident-kotlin/unicode-ident` `benches/xid.rs:27` — `use rand::rngs::SmallRng`
@@ -104,40 +106,160 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - ✅ `codex-kotlin/codex-agent-identity` `src/lib.rs:25` — `use rand::TryRngCore`
 - ✅ `codex-kotlin/codex-secrets` `src/local.rs:23` — `use rand::TryRngCore`
 
-#### `rand::rngs::StdRng` — 6 site(s) (1 codex, 5 other, 5 caller crates)
+#### `rand::rngs::StdRng` — 44 site(s) (1 codex, 43 other, 12 caller crates)
 
 - ✅ `codex-kotlin/codex-tui` `src/tooltips.rs:330` — `use rand::rngs::StdRng`
-- `http-kotlin/http` `tests/header_map_fuzz.rs:5` — `use rand::rngs::StdRng`
-- `itertools-kotlin/itertools` `benches/k_smallest.rs:3` — `use rand::rngs::StdRng`
-- `itertools-kotlin/itertools` `tests/test_std.rs:17` — `use rand::rngs::StdRng`
-- `prost-kotlin/prost` `benches/varint.rs:6` — `use rand::rngs::StdRng`
-- `tokio-kotlin/tokio` `tests/time_pause.rs:6` — `use rand::rngs::StdRng`
+- `candle-kotlin/candle-nn` `tests/ops.rs:81` — `use rand::rngs::StdRng`
+- `candle-kotlin/candle-nn` `tests/ops.rs:169` — `use rand::rngs::StdRng`
+- `candle-kotlin/candle-nn` `tests/ops.rs:200` — `use rand::rngs::StdRng`
+- `candle-kotlin/candle-nn` `tests/ops.rs:249` — `use rand::rngs::StdRng`
+- `candle-kotlin/candle-nn` `tests/ops.rs:298` — `use rand::rngs::StdRng`
+- `candle-kotlin/candle-wasm-example-whisper` `src/worker.rs:6` — `use rand::rngs::StdRng`
+- `candle-nn-kotlin/candle-nn` `tests/ops.rs:81` — `use rand::rngs::StdRng`
+- `candle-nn-kotlin/candle-nn` `tests/ops.rs:169` — `use rand::rngs::StdRng`
+- `candle-nn-kotlin/candle-nn` `tests/ops.rs:200` — `use rand::rngs::StdRng`
+- `candle-nn-kotlin/candle-nn` `tests/ops.rs:249` — `use rand::rngs::StdRng`
+- `candle-nn-kotlin/candle-nn` `tests/ops.rs:298` — `use rand::rngs::StdRng`
+- _… and 32 more site(s)._
 
-#### `rand::rng` — 5 site(s) (1 codex, 4 other, 3 caller crates)
+#### `rand::rng` — 35 site(s) (1 codex, 34 other, 16 caller crates)
 
 - ✅ `codex-kotlin/codex-core` `src/unified_exec/mod.rs:34` — `use rand::rng`
-- `flate2-kotlin/flate2` `src/deflate/mod.rs:8` — `use rand::rng`
-- `flate2-kotlin/flate2` `src/gz/mod.rs:447` — `use rand::rng`
-- `flate2-kotlin/flate2` `src/zlib/mod.rs:9` — `use rand::rng`
-- `ratatui-kotlin/weather` `src/main.rs:13` — `use rand::rng`
+- `candle-datasets-kotlin/candle-datasets` `src/nlp/tinystories.rs:63` — `use rand::rng`
+- `candle-datasets-kotlin/candle-datasets` `src/nlp/tinystories.rs:95` — `use rand::rng`
+- `candle-kotlin/candle-datasets` `src/nlp/tinystories.rs:63` — `use rand::rng`
+- `candle-kotlin/candle-datasets` `src/nlp/tinystories.rs:95` — `use rand::rng`
+- `candle-kotlin/candle-examples` `examples/mnist-training/main.rs:10` — `use rand::rng`
+- `candle-kotlin/candle-examples` `examples/reinforcement-learning/ddpg.rs:8` — `use rand::rng`
+- `candle-kotlin/candle-examples` `examples/reinforcement-learning/dqn.rs:2` — `use rand::rng`
+- `candle-kotlin/candle-metal-kernels` `src/tests.rs:6` — `use rand::rng`
+- `candle-metal-kernels-kotlin/candle-metal-kernels` `src/tests.rs:6` — `use rand::rng`
+- `candle-ug-kotlin/candle-datasets` `src/nlp/tinystories.rs:63` — `use rand::rng`
+- `candle-ug-kotlin/candle-datasets` `src/nlp/tinystories.rs:95` — `use rand::rng`
+- _… and 23 more site(s)._
 
-#### `rand::prelude::*` — 3 site(s) (1 codex, 2 other, 3 caller crates)
+#### `rand::prelude::*` — 28 site(s) (1 codex, 27 other, 18 caller crates)
 
 - ✅ `codex-kotlin/codex-tui` `src/bottom_pane/textarea.rs:2021` — `use rand::prelude::*`
-- `lalrpop-kotlin/lalrpop` `src/generate.rs:4` — `use rand::prelude::*`
-- `rama-socks5-kotlin/rama-socks5` `src/client/proxy_connector.rs:204` — `use rand::prelude::*`
+- `candle-kotlin/candle-core` `src/cpu_backend/mod.rs:3193` — `use rand::prelude::*`
+- `candle-kotlin/candle-core` `src/cpu_backend/mod.rs:3256` — `use rand::prelude::*`
+- `candle-kotlin/candle-core` `tests/quantized_tests.rs:9` — `use rand::prelude::*`
+- `candle-kotlin/candle-examples` `examples/mnist-training/main.rs:9` — `use rand::prelude::*`
+- `candle-kotlin/candle-nn` `tests/varlen_flash_attention.rs:16` — `use rand::prelude::*`
+- `candle-nn-kotlin/candle-nn` `tests/varlen_flash_attention.rs:16` — `use rand::prelude::*`
+- `candle-ug-kotlin/candle-core` `src/cpu_backend/mod.rs:3177` — `use rand::prelude::*`
+- `candle-ug-kotlin/candle-core` `src/cpu_backend/mod.rs:3240` — `use rand::prelude::*`
+- `candle-ug-kotlin/candle-core` `tests/quantized_tests.rs:9` — `use rand::prelude::*`
+- `candle-ug-kotlin/candle-examples` `examples/mnist-training/main.rs:9` — `use rand::prelude::*`
+- `candle-ug-kotlin/candle-nn` `tests/varlen_flash_attention.rs:16` — `use rand::prelude::*`
+- _… and 16 more site(s)._
 
-#### `rand::random` — 3 site(s) (1 codex, 2 other, 3 caller crates)
+#### `rand::random` — 4 site(s) (1 codex, 3 other, 4 caller crates)
 
 - ✅ `codex-kotlin/codex-device-key` `src/lib.rs:5` — `use rand::random`
 - `opentelemetry-kotlin/opentelemetry` `src/common.rs:632` — `use rand::random`
 - `opentelemetry-sdk-kotlin/opentelemetry_sdk` `src/trace/sampler.rs:253` — `use rand::random`
+- `parquet-kotlin/parquet` `src/arrow/arrow_reader/tests/mod.rs:37` — `use rand::random`
 
 #### `rand::prelude::IndexedRandom` — 1 site(s) (1 codex, 0 other, 1 caller crates)
 
 - ✅ `codex-kotlin/codex-core` `src/agent/registry.rs:7` — `use rand::prelude::IndexedRandom`
 
-#### `rand::distributions::Distribution` — 7 site(s) (0 codex, 7 other, 3 caller crates)
+#### `rand::RngExt` — 36 site(s) (0 codex, 36 other, 7 caller crates)
+
+- `hf-hub-kotlin/integration-tests` `tests/bucket_download_stream_test.rs:21` — `use rand::RngExt`
+- `hf-hub-kotlin/integration-tests` `tests/bucket_sync_test.rs:18` — `use rand::RngExt`
+- `hf-hub-kotlin/integration-tests` `tests/bucket_xet_transfer_test.rs:21` — `use rand::RngExt`
+- `hf-hub-kotlin/integration-tests` `tests/xet_transfer_test.rs:22` — `use rand::RngExt`
+- `imageproc-kotlin/imageproc` `src/binary_descriptors/brief.rs:418` — `use rand::RngExt`
+- `imageproc-kotlin/imageproc` `src/binary_descriptors/mod.rs:1` — `use rand::RngExt`
+- `parquet-kotlin/parquet` `benches/arrow_reader.rs:48` — `use rand::RngExt`
+- `parquet-kotlin/parquet` `benches/arrow_reader_peak_memory.rs:42` — `use rand::RngExt`
+- `parquet-kotlin/parquet` `benches/arrow_reader_row_filter.rs:75` — `use rand::RngExt`
+- `parquet-kotlin/parquet` `benches/arrow_reader_string_encoding.rs:37` — `use rand::RngExt`
+- `parquet-kotlin/parquet` `benches/arrow_writer.rs:30` — `use rand::RngExt`
+- `parquet-kotlin/parquet` `benches/bloom_filter.rs:23` — `use rand::RngExt`
+- _… and 24 more site(s)._
+
+#### `rand::thread_rng` — 26 site(s) (0 codex, 26 other, 12 caller crates)
+
+- `byteorder-kotlin/byteorder` `src/lib.rs:2322` — `use rand::thread_rng`
+- `crossbeam-channel-kotlin/crossbeam-channel` `tests/array.rs:13` — `use rand::thread_rng`
+- `crossbeam-channel-kotlin/crossbeam-channel` `tests/list.rs:13` — `use rand::thread_rng`
+- `crossbeam-channel-kotlin/crossbeam-channel` `tests/zero.rs:13` — `use rand::thread_rng`
+- `crossbeam-kotlin/crossbeam` `crossbeam-channel/tests/array.rs:13` — `use rand::thread_rng`
+- `crossbeam-kotlin/crossbeam` `crossbeam-channel/tests/list.rs:13` — `use rand::thread_rng`
+- `crossbeam-kotlin/crossbeam` `crossbeam-channel/tests/zero.rs:13` — `use rand::thread_rng`
+- `crossbeam-kotlin/crossbeam` `crossbeam-queue/tests/array_queue.rs:5` — `use rand::thread_rng`
+- `crossbeam-kotlin/crossbeam` `crossbeam-queue/tests/seg_queue.rs:5` — `use rand::thread_rng`
+- `crossbeam-kotlin/crossbeam-channel` `tests/array.rs:13` — `use rand::thread_rng`
+- `crossbeam-kotlin/crossbeam-channel` `tests/list.rs:13` — `use rand::thread_rng`
+- `crossbeam-kotlin/crossbeam-channel` `tests/zero.rs:13` — `use rand::thread_rng`
+- _… and 14 more site(s)._
+
+#### `rand::distr::Distribution` — 25 site(s) (0 codex, 25 other, 18 caller crates)
+
+- `candle-kotlin/candle-examples` `examples/metavoice/main.rs:19` — `use rand::distr::Distribution`
+- `candle-kotlin/candle-examples` `examples/reinforcement-learning/policy_gradient.rs:7` — `use rand::distr::Distribution`
+- `candle-kotlin/candle-examples` `examples/whisper-microphone/main.rs:12` — `use rand::distr::Distribution`
+- `candle-kotlin/candle-examples` `examples/whisper/main.rs:21` — `use rand::distr::Distribution`
+- `candle-kotlin/candle-transformers` `src/generation/mod.rs:7` — `use rand::distr::Distribution`
+- `candle-kotlin/candle-wasm-example-whisper` `src/worker.rs:6` — `use rand::distr::Distribution`
+- `candle-transformers-kotlin/candle-transformers` `src/generation/mod.rs:7` — `use rand::distr::Distribution`
+- `candle-ug-kotlin/candle-examples` `examples/metavoice/main.rs:19` — `use rand::distr::Distribution`
+- `candle-ug-kotlin/candle-examples` `examples/reinforcement-learning/policy_gradient.rs:7` — `use rand::distr::Distribution`
+- `candle-ug-kotlin/candle-examples` `examples/whisper-microphone/main.rs:12` — `use rand::distr::Distribution`
+- `candle-ug-kotlin/candle-examples` `examples/whisper/main.rs:21` — `use rand::distr::Distribution`
+- `candle-ug-kotlin/candle-transformers` `src/generation/mod.rs:7` — `use rand::distr::Distribution`
+- _… and 13 more site(s)._
+
+#### `rand::seq::SliceRandom` — 22 site(s) (0 codex, 22 other, 13 caller crates)
+
+- `base64-kotlin/base64` `src/tests.rs:2` — `use rand::seq::SliceRandom`
+- `candle-datasets-kotlin/candle-datasets` `src/nlp/tinystories.rs:64` — `use rand::seq::SliceRandom`
+- `candle-datasets-kotlin/candle-datasets` `src/nlp/tinystories.rs:96` — `use rand::seq::SliceRandom`
+- `candle-kotlin/candle-core` `tests/tensor_tests.rs:2225` — `use rand::seq::SliceRandom`
+- `candle-kotlin/candle-core` `tests/tensor_tests.rs:2255` — `use rand::seq::SliceRandom`
+- `candle-kotlin/candle-datasets` `src/nlp/tinystories.rs:64` — `use rand::seq::SliceRandom`
+- `candle-kotlin/candle-datasets` `src/nlp/tinystories.rs:96` — `use rand::seq::SliceRandom`
+- `candle-ug-kotlin/candle-core` `tests/tensor_tests.rs:2177` — `use rand::seq::SliceRandom`
+- `candle-ug-kotlin/candle-core` `tests/tensor_tests.rs:2207` — `use rand::seq::SliceRandom`
+- `candle-ug-kotlin/candle-datasets` `src/nlp/tinystories.rs:64` — `use rand::seq::SliceRandom`
+- `candle-ug-kotlin/candle-datasets` `src/nlp/tinystories.rs:96` — `use rand::seq::SliceRandom`
+- `http-kotlin/http` `tests/header_map_fuzz.rs:6` — `use rand::seq::SliceRandom`
+- _… and 10 more site(s)._
+
+#### `rand::distributions::Uniform` — 13 site(s) (0 codex, 13 other, 5 caller crates)
+
+- `age-kotlin/age` `src/cli_common.rs:5` — `use rand::distributions::Uniform`
+- `base64-kotlin/base64` `src/chunked_encoder.rs:75` — `use rand::distributions::Uniform`
+- `base64-kotlin/base64` `src/decode.rs:163` — `use rand::distributions::Uniform`
+- `base64-kotlin/base64` `src/encode.rs:171` — `use rand::distributions::Uniform`
+- `base64-kotlin/base64` `src/tests.rs:2` — `use rand::distributions::Uniform`
+- `num-bigint-kotlin/big_rand` `src/lib.rs:14` — `use rand::distributions::Uniform`
+- `num-bigint-kotlin/big_rand` `src/lib.rs:209` — `use rand::distributions::Uniform`
+- `num-bigint-kotlin/num-bigint` `ci/big_rand/src/lib.rs:14` — `use rand::distributions::Uniform`
+- `num-bigint-kotlin/num-bigint` `ci/big_rand/src/lib.rs:209` — `use rand::distributions::Uniform`
+- `rayon-kotlin/rayon` `src/slice/mergesort.rs:717` — `use rand::distributions::Uniform`
+- `rayon-kotlin/rayon` `src/slice/quicksort.rs:861` — `use rand::distributions::Uniform`
+- `rayon-kotlin/rayon` `src/slice/test.rs:4` — `use rand::distributions::Uniform`
+- _… and 1 more site(s)._
+
+#### `rand::distr::Uniform` — 11 site(s) (0 codex, 11 other, 8 caller crates)
+
+- `candle-kotlin/candle-examples` `examples/reinforcement-learning/ddpg.rs:8` — `use rand::distr::Uniform`
+- `candle-kotlin/candle-examples` `examples/reinforcement-learning/dqn.rs:2` — `use rand::distr::Uniform`
+- `candle-ug-kotlin/candle-examples` `examples/reinforcement-learning/ddpg.rs:8` — `use rand::distr::Uniform`
+- `candle-ug-kotlin/candle-examples` `examples/reinforcement-learning/dqn.rs:2` — `use rand::distr::Uniform`
+- `rand-distr-kotlin/rand_distr` `src/lib.rs:93` — `pub_use rand::distr::Uniform`
+- `ratatui-kotlin/demo` `src/app.rs:1` — `use rand::distr::Uniform`
+- `ratatui-kotlin/inline` `src/main.rs:19` — `use rand::distr::Uniform`
+- `rust-lang-kotlin/alloctests` `benches/btree/map.rs:5` — `use rand::distr::Uniform`
+- `rust-lang-kotlin/alloctests` `tests/sort/patterns.rs:4` — `use rand::distr::Uniform`
+- `rust-lang-kotlin/coretests` `tests/num/flt2dec/random.rs:9` — `use rand::distr::Uniform`
+- `unicode-ident-kotlin/unicode-ident` `benches/xid.rs:26` — `use rand::distr::Uniform`
+
+#### `rand::distributions::Distribution` — 10 site(s) (0 codex, 10 other, 6 caller crates)
 
 - `age-kotlin/age` `src/cli_common.rs:5` — `use rand::distributions::Distribution`
 - `base64-kotlin/base64` `src/chunked_encoder.rs:75` — `use rand::distributions::Distribution`
@@ -145,17 +267,47 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - `base64-kotlin/base64` `src/encode.rs:171` — `use rand::distributions::Distribution`
 - `base64-kotlin/base64` `src/engine/tests.rs:3` — `use rand::distributions::Distribution as _`
 - `base64-kotlin/base64` `src/tests.rs:2` — `use rand::distributions::Distribution as _`
+- `bincode-kotlin/bincode` `benches/varint.rs:3` — `use rand::distributions::Distribution`
 - `itertools-kotlin/itertools` `tests/test_std.rs:17` — `use rand::distributions::Distribution`
+- `num-bigint-kotlin/big_rand` `src/lib.rs:14` — `use rand::distributions::Distribution`
+- `num-bigint-kotlin/num-bigint` `ci/big_rand/src/lib.rs:14` — `use rand::distributions::Distribution`
 
-#### `rand::thread_rng` — 7 site(s) (0 codex, 7 other, 5 caller crates)
+#### `rand::distr::Alphanumeric` — 7 site(s) (0 codex, 7 other, 5 caller crates)
 
-- `crossbeam-channel-kotlin/crossbeam-channel` `tests/array.rs:13` — `use rand::thread_rng`
-- `crossbeam-channel-kotlin/crossbeam-channel` `tests/list.rs:13` — `use rand::thread_rng`
-- `crossbeam-channel-kotlin/crossbeam-channel` `tests/zero.rs:13` — `use rand::thread_rng`
-- `ed25519-dalek-kotlin/ed25519-dalek` `benches/ed25519_benchmarks.rs:18` — `use rand::thread_rng`
-- `itertools-kotlin/itertools` `tests/test_std.rs:22` — `use rand::thread_rng`
-- `oauth2-kotlin/oauth2` `src/types.rs:2` — `use rand::thread_rng`
-- `runfiles-kotlin/rng` `src/lib.rs:1` — `use rand::thread_rng`
+- `opentelemetry-kotlin/opentelemetry` `benches/baggage.rs:3` — `use rand::distr::Alphanumeric`
+- `parquet-kotlin/parquet` `benches/arrow_writer.rs:30` — `use rand::distr::Alphanumeric`
+- `parquet-kotlin/parquet` `benches/compression.rs:21` — `use rand::distr::Alphanumeric`
+- `parquet-kotlin/parquet` `benches/parquet_round_trip.rs:31` — `use rand::distr::Alphanumeric`
+- `rand-distr-kotlin/rand_distr` `src/lib.rs:93` — `pub_use rand::distr::Alphanumeric`
+- `rust-lang-kotlin/alloctests` `benches/slice.rs:4` — `use rand::distr::Alphanumeric`
+- `tungstenite-kotlin/tungstenite` `benches/e2e.rs:4` — `use rand::distr::Alphanumeric`
+
+#### `rand::distr::StandardUniform` — 6 site(s) (0 codex, 6 other, 3 caller crates)
+
+- `parquet-kotlin/parquet` `benches/parquet_round_trip.rs:31` — `use rand::distr::StandardUniform`
+- `parquet-kotlin/parquet` `src/encodings/rle.rs:737` — `use rand::distr::StandardUniform`
+- `parquet-kotlin/parquet` `src/util/bit_util.rs:1248` — `use rand::distr::StandardUniform`
+- `parquet-kotlin/parquet` `src/util/test_common/rand_gen.rs:21` — `use rand::distr::StandardUniform`
+- `rand-distr-kotlin/rand_distr` `src/lib.rs:93` — `pub_use rand::distr::StandardUniform`
+- `rust-lang-kotlin/alloctests` `benches/slice.rs:4` — `use rand::distr::StandardUniform`
+
+#### `rand::distr::uniform::SampleUniform` — 6 site(s) (0 codex, 6 other, 2 caller crates)
+
+- `parquet-kotlin/parquet` `benches/arrow_reader.rs:47` — `use rand::distr::uniform::SampleUniform`
+- `parquet-kotlin/parquet` `src/arrow/array_reader/primitive_array.rs:466` — `use rand::distr::uniform::SampleUniform`
+- `parquet-kotlin/parquet` `src/column/reader.rs:758` — `use rand::distr::uniform::SampleUniform`
+- `parquet-kotlin/parquet` `src/column/writer/mod.rs:2115` — `use rand::distr::uniform::SampleUniform`
+- `parquet-kotlin/parquet` `src/util/test_common/rand_gen.rs:21` — `use rand::distr::uniform::SampleUniform`
+- `rand-distr-kotlin/rand_distr` `src/weighted/weighted_tree.rs:17` — `use rand::distr::uniform::SampleUniform`
+
+#### `rand::distributions::Standard` — 6 site(s) (0 codex, 6 other, 5 caller crates)
+
+- `criterion-kotlin/criterion` `src/stats/test.rs:1` — `use rand::distributions::Standard`
+- `itertools-kotlin/itertools` `tests/test_std.rs:17` — `use rand::distributions::Standard`
+- `num-bigint-kotlin/big_rand` `src/lib.rs:369` — `use rand::distributions::Standard`
+- `num-bigint-kotlin/num-bigint` `ci/big_rand/src/lib.rs:369` — `use rand::distributions::Standard`
+- `rayon-kotlin/rayon` `src/iter/test.rs:6` — `use rand::distributions::Standard`
+- `rayon-kotlin/rayon` `tests/str.rs:1` — `use rand::distributions::Standard`
 
 #### `rand::rngs` — 6 site(s) (0 codex, 6 other, 2 caller crates)
 
@@ -166,37 +318,11 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - `opentelemetry-sdk-kotlin/opentelemetry_sdk` `src/metrics/mod.rs:125` — `use rand::rngs`
 - `opentelemetry-sdk-kotlin/opentelemetry_sdk` `src/trace/id_generator/mod.rs:2` — `use rand::rngs`
 
-#### `rand::seq::SliceRandom` — 6 site(s) (0 codex, 6 other, 4 caller crates)
+#### `rand` — 3 site(s) (0 codex, 3 other, 3 caller crates)
 
-- `base64-kotlin/base64` `src/tests.rs:2` — `use rand::seq::SliceRandom`
-- `http-kotlin/http` `tests/header_map_fuzz.rs:6` — `use rand::seq::SliceRandom`
-- `itertools-kotlin/itertools` `benches/k_smallest.rs:3` — `use rand::seq::SliceRandom`
-- `itertools-kotlin/itertools` `tests/quick.rs:25` — `use rand::seq::SliceRandom`
-- `itertools-kotlin/itertools` `tests/test_std.rs:22` — `use rand::seq::SliceRandom`
-- `prost-kotlin/prost` `benches/varint.rs:6` — `use rand::seq::SliceRandom`
-
-#### `rand::RngExt` — 5 site(s) (0 codex, 5 other, 4 caller crates)
-
-- `ratatui-kotlin/demo2` `src/destroy.rs:1` — `use rand::RngExt`
-- `ratatui-kotlin/ratatui` `benches/main/barchart.rs:2` — `use rand::RngExt`
-- `ratatui-kotlin/ratatui` `benches/main/sparkline.rs:2` — `use rand::RngExt`
-- `ratatui-kotlin/volatility-surface` `src/volatility.rs:1` — `use rand::RngExt`
-- `ratatui-kotlin/weather` `src/main.rs:13` — `use rand::RngExt`
-
-#### `rand::distributions::Uniform` — 5 site(s) (0 codex, 5 other, 2 caller crates)
-
-- `age-kotlin/age` `src/cli_common.rs:5` — `use rand::distributions::Uniform`
-- `base64-kotlin/base64` `src/chunked_encoder.rs:75` — `use rand::distributions::Uniform`
-- `base64-kotlin/base64` `src/decode.rs:163` — `use rand::distributions::Uniform`
-- `base64-kotlin/base64` `src/encode.rs:171` — `use rand::distributions::Uniform`
-- `base64-kotlin/base64` `src/tests.rs:2` — `use rand::distributions::Uniform`
-
-#### `rand::distr::Distribution` — 4 site(s) (0 codex, 4 other, 4 caller crates)
-
-- `ratatui-kotlin/demo` `src/app.rs:1` — `use rand::distr::Distribution`
-- `ratatui-kotlin/inline` `src/main.rs:19` — `use rand::distr::Distribution`
-- `tungstenite-kotlin/tungstenite` `src/extensions/compression/deflate/mod.rs:386` — `use rand::distr::Distribution as _`
-- `unicode-ident-kotlin/unicode-ident` `benches/xid.rs:26` — `use rand::distr::Distribution`
+- `base64-kotlin/base64` `src/engine/tests.rs:3` — `use rand`
+- `byteorder-kotlin/byteorder` `benches/bench.rs:260` — `use rand`
+- `parquet-kotlin/parquet` `src/encodings/rle.rs:737` — `use rand`
 
 #### `rand08::Rng` — 3 site(s) (0 codex, 3 other, 1 caller crates)
 
@@ -210,11 +336,35 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - `time-kotlin/time` `src/rand09.rs:1` — `use rand09::Rng`
 - `time-kotlin/time` `tests/integration/rand.rs:2` — `use rand09::Rng as _`
 
-#### `rand::distr::Uniform` — 3 site(s) (0 codex, 3 other, 3 caller crates)
+#### `rand::distr::SampleString` — 3 site(s) (0 codex, 3 other, 3 caller crates)
 
-- `ratatui-kotlin/demo` `src/app.rs:1` — `use rand::distr::Uniform`
-- `ratatui-kotlin/inline` `src/main.rs:19` — `use rand::distr::Uniform`
-- `unicode-ident-kotlin/unicode-ident` `benches/xid.rs:26` — `use rand::distr::Uniform`
+- `opentelemetry-kotlin/opentelemetry` `benches/baggage.rs:3` — `use rand::distr::SampleString`
+- `rust-lang-kotlin/alloctests` `benches/slice.rs:4` — `use rand::distr::SampleString`
+- `tungstenite-kotlin/tungstenite` `benches/e2e.rs:4` — `use rand::distr::SampleString`
+
+#### `rand::distr::weighted::WeightedIndex` — 3 site(s) (0 codex, 3 other, 3 caller crates)
+
+- `candle-kotlin/candle-examples` `examples/whisper/main.rs:20` — `use rand::distr::weighted::WeightedIndex`
+- `candle-ug-kotlin/candle-examples` `examples/whisper/main.rs:20` — `use rand::distr::weighted::WeightedIndex`
+- `tokenizers-kotlin/tokenizers` `src/models/unigram/lattice.rs:2` — `use rand::distr::weighted::WeightedIndex`
+
+#### `rand::distributions` — 3 site(s) (0 codex, 3 other, 2 caller crates)
+
+- `base64-kotlin/base64` `src/engine/tests.rs:3` — `use rand::distributions`
+- `base64-kotlin/base64` `src/tests.rs:2` — `use rand::distributions`
+- `byteorder-kotlin/byteorder` `benches/bench.rs:259` — `use rand::distributions`
+
+#### `rand::prelude::SliceRandom` — 3 site(s) (0 codex, 3 other, 3 caller crates)
+
+- `candle-kotlin/candle-metal-kernels` `src/tests.rs:5` — `use rand::prelude::SliceRandom`
+- `candle-metal-kernels-kotlin/candle-metal-kernels` `src/tests.rs:5` — `use rand::prelude::SliceRandom`
+- `candle-ug-kotlin/candle-metal-kernels` `src/tests.rs:5` — `use rand::prelude::SliceRandom`
+
+#### `rand::rngs::ThreadRng` — 3 site(s) (0 codex, 3 other, 3 caller crates)
+
+- `candle-kotlin/candle-examples` `examples/reinforcement-learning/policy_gradient.rs:7` — `use rand::rngs::ThreadRng`
+- `candle-ug-kotlin/candle-examples` `examples/reinforcement-learning/policy_gradient.rs:7` — `use rand::rngs::ThreadRng`
+- `ratatui-kotlin/demo` `src/app.rs:2` — `use rand::rngs::ThreadRng`
 
 #### `rand08::distributions::Distribution` — 2 site(s) (0 codex, 2 other, 1 caller crates)
 
@@ -241,20 +391,15 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - `age-kotlin/age` `src/cli_common.rs:5` — `use rand::CryptoRng`
 - `ed25519-dalek-kotlin/ed25519-dalek` `src/hazmat.rs:260` — `use rand::CryptoRng`
 
-#### `rand::distr::Alphanumeric` — 2 site(s) (0 codex, 2 other, 2 caller crates)
+#### `rand::distr::Bernoulli` — 2 site(s) (0 codex, 2 other, 2 caller crates)
 
-- `opentelemetry-kotlin/opentelemetry` `benches/baggage.rs:3` — `use rand::distr::Alphanumeric`
-- `tungstenite-kotlin/tungstenite` `benches/e2e.rs:4` — `use rand::distr::Alphanumeric`
+- `rand-distr-kotlin/rand_distr` `src/lib.rs:93` — `pub_use rand::distr::Bernoulli`
+- `unicode-ident-kotlin/unicode-ident` `benches/xid.rs:26` — `use rand::distr::Bernoulli`
 
-#### `rand::distr::SampleString` — 2 site(s) (0 codex, 2 other, 2 caller crates)
+#### `rand::distr::OpenClosed01` — 2 site(s) (0 codex, 2 other, 1 caller crates)
 
-- `opentelemetry-kotlin/opentelemetry` `benches/baggage.rs:3` — `use rand::distr::SampleString`
-- `tungstenite-kotlin/tungstenite` `benches/e2e.rs:4` — `use rand::distr::SampleString`
-
-#### `rand::distributions` — 2 site(s) (0 codex, 2 other, 1 caller crates)
-
-- `base64-kotlin/base64` `src/engine/tests.rs:3` — `use rand::distributions`
-- `base64-kotlin/base64` `src/tests.rs:2` — `use rand::distributions`
+- `rand-distr-kotlin/rand_distr` `src/lib.rs:93` — `pub_use rand::distr::OpenClosed01`
+- `rand-distr-kotlin/rand_distr` `src/zeta.rs:14` — `use rand::distr::OpenClosed01`
 
 #### `rand::distributions::Alphanumeric` — 2 site(s) (0 codex, 2 other, 2 caller crates)
 
@@ -270,33 +415,81 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 
 - `time-kotlin/time` `benchmarks/main.rs:113` — `use ::rand09::prelude::*`
 
-#### `rand` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+#### `::rand::distr::Distribution` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
-- `base64-kotlin/base64` `src/engine/tests.rs:3` — `use rand`
+- `rust-lang-kotlin/coretests` `benches/num/int_bits/mod.rs:7` — `use ::rand::distr::Distribution`
+
+#### `::rand::distr::Uniform` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `rust-lang-kotlin/coretests` `benches/num/int_bits/mod.rs:7` — `use ::rand::distr::Uniform`
 
 #### `rand08::rngs::mock::StepRng` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
 - `time-kotlin/time` `benchmarks/rand08.rs:2` — `use rand08::rngs::mock::StepRng`
 
-#### `rand::distr::Bernoulli` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+#### `rand::distr::BernoulliError` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
-- `unicode-ident-kotlin/unicode-ident` `benches/xid.rs:26` — `use rand::distr::Bernoulli`
+- `rand-distr-kotlin/rand_distr` `src/lib.rs:93` — `pub_use rand::distr::BernoulliError`
+
+#### `rand::distr::Iter` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `rand-distr-kotlin/rand_distr` `src/lib.rs:93` — `pub_use rand::distr::Iter`
+
+#### `rand::distr::Open01` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `rand-distr-kotlin/rand_distr` `src/lib.rs:93` — `pub_use rand::distr::Open01`
+
+#### `rand::distr::hidden_export::IntoFloat` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `rand-distr-kotlin/rand_distr` `src/utils.rs:14` — `use rand::distr::hidden_export::IntoFloat`
+
+#### `rand::distr::uniform` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `rand-distr-kotlin/rand_distr` `src/lib.rs:93` — `pub_use rand::distr::uniform`
+
+#### `rand::distr::uniform::SampleBorrow` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `rand-distr-kotlin/rand_distr` `src/weighted/weighted_tree.rs:17` — `use rand::distr::uniform::SampleBorrow`
+
+#### `rand::distr::uniform::Uniform` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `rand-distr-kotlin/rand_distr` `src/hypergeometric.rs:7` — `use rand::distr::uniform::Uniform`
+
+#### `rand::distr::weighted::*` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `rand-distr-kotlin/rand_distr` `src/weighted/mod.rs:25` — `pub_use rand::distr::weighted::*`
 
 #### `rand::distributions::DistString` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
 - `age-kotlin/age` `src/scrypt.rs:13` — `use rand::distributions::DistString`
 
-#### `rand::distributions::Standard` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+#### `rand::distributions::uniform::SampleBorrow` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
-- `itertools-kotlin/itertools` `tests/test_std.rs:17` — `use rand::distributions::Standard`
+- `num-bigint-kotlin/num-bigint` `src/bigrand.rs:4` — `use rand::distributions::uniform::SampleBorrow`
+
+#### `rand::distributions::uniform::SampleUniform` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `num-bigint-kotlin/num-bigint` `src/bigrand.rs:4` — `use rand::distributions::uniform::SampleUniform`
+
+#### `rand::distributions::uniform::UniformSampler` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `num-bigint-kotlin/num-bigint` `src/bigrand.rs:4` — `use rand::distributions::uniform::UniformSampler`
+
+#### `rand::prelude::StdRng` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `parquet-kotlin/parquet` `benches/parquet_round_trip.rs:31` — `use rand::prelude::StdRng`
 
 #### `rand::prelude::ThreadRng` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
 - `ed25519-dalek-kotlin/ed25519-dalek` `benches/ed25519_benchmarks.rs:17` — `use rand::prelude::ThreadRng`
 
-#### `rand::rngs::ThreadRng` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+#### `rand::rngs::mock` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
-- `ratatui-kotlin/demo` `src/app.rs:2` — `use rand::rngs::ThreadRng`
+- `rand-distr-kotlin/rand_distr` `src/triangular.rs:116` — `use rand::rngs::mock`
+
+#### `rand::seq::IndexedRandom` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `rust-lang-kotlin/coretests` `tests/slice.rs:1688` — `use rand::seq::IndexedRandom`
 
 #### `rand::seq::IteratorRandom` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 

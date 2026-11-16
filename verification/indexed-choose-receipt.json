@@ -1,0 +1,263 @@
+{
+  "baseline": "ae32485",
+  "initialDirtyFiles": [],
+  "priorWorkCheckpointNotAuthoredThisStep": "a57f0cd",
+  "upstream": "rand 0.9.3, unchanged tmp/rand/src; std+alloc without unbiased feature",
+  "translator": {
+    "exitCode": 0,
+    "command": "../rust-kotlin/build/bin/macosArm64/debugExecutable/rust-kotlin.kexe translate --quiet --gradle-properties gradle.properties --package io.github.kotlinmania.rand.seq --source-root tmp/rand/src tmp/rand/src/seq/slice.rs build/rust-kotlin-indexed-choose/SliceReview.kt",
+    "binarySha256": "8ab46197f27813a1f27563d8af5c186ba5f3e0b359c9eee227c8bee977855fc5",
+    "provenance": "Manual adaptation of generated IndexedRandom.choose randomRange call, using existing canonical UniformUsize.sampleSingle; generated output not installed."
+  },
+  "redCommand": "./gradlew jvmTest --tests '*IndexedChooseParityTest*' --console=plain",
+  "red": [
+    {
+      "name": "correctionWithoutOverflow[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: list expected:<11> but was:<39>"
+    },
+    {
+      "name": "singletonDrawsU32[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: list expected:<1> but was:<0>"
+    },
+    {
+      "name": "selectedNullIsAValue[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: actual value is not null expected null, but was:<2>"
+    },
+    {
+      "name": "highBitsSelectTheIndex[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: list expected:<2> but was:<0>"
+    },
+    {
+      "name": "correctionWithOverflow[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: list expected:<12> but was:<39>"
+    },
+    {
+      "name": "maximalWord[jvm]",
+      "failed": true,
+      "message": "java.lang.AssertionError: list expected:<2> but was:<0>"
+    },
+    {
+      "name": "emptyDoesNotDraw[jvm]",
+      "failed": false,
+      "message": ""
+    }
+  ],
+  "redCoverageLimit": "Multi-adapter tests stop at first failed List assertion before reaching other adapters. Final green tests execute all eight adapters; no claim of eight independent red runs.",
+  "finalCommand": "./gradlew jvmTest macosArm64Test detekt ktlintCheck --continue --console=plain",
+  "final": {
+    "jvmTest": {
+      "tests": 154,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failureCases": [],
+      "newSuite": [
+        {
+          "name": "IndexedChooseParityTest[jvm]",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:06.995Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.024"
+        }
+      ],
+      "preservedWeightedSuite": [
+        {
+          "name": "WeightedSamplingParityTest[jvm]",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:07.084Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.002"
+        }
+      ],
+      "preservedOpen01Suite": [
+        {
+          "name": "Open01ParityTest[jvm]",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:07.051Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.003"
+        }
+      ],
+      "preservedSliceSuite": [
+        {
+          "name": "SliceChooseParityTest[jvm]",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:07.079Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.004"
+        }
+      ],
+      "preservedPublicOpen01Suite": [
+        {
+          "name": "PublicOpen01ParityTest[jvm]",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:07.055Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.001"
+        }
+      ],
+      "preservedAlphabeticSuite": [
+        {
+          "name": "AlphabeticParityTest[jvm]",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:07.020Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.002"
+        }
+      ]
+    },
+    "macosArm64Test": {
+      "tests": 154,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failureCases": [],
+      "newSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.IndexedChooseParityTest",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:13.097Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.001"
+        }
+      ],
+      "preservedWeightedSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.WeightedSamplingParityTest",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:13.110Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.001"
+        }
+      ],
+      "preservedOpen01Suite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.Open01ParityTest",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:13.104Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.0"
+        }
+      ],
+      "preservedSliceSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.SliceChooseParityTest",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:13.110Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.0"
+        }
+      ],
+      "preservedPublicOpen01Suite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.PublicOpen01ParityTest",
+          "tests": "6",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:13.105Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.0"
+        }
+      ],
+      "preservedAlphabeticSuite": [
+        {
+          "name": "macosArm64Test.io.github.kotlinmania.rand.AlphabeticParityTest",
+          "tests": "7",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-02T18:51:13.094Z",
+          "hostname": "EmberHarmony.local",
+          "time": "0.003"
+        }
+      ]
+    },
+    "ktlintCommonMainSourceSetCheck": 5,
+    "ktlintCommonTestSourceSetCheck": 0,
+    "ktlintJsMainSourceSetCheck": 0,
+    "ktlintJvmMainSourceSetCheck": 0,
+    "ktlintKotlinScriptCheck": 0,
+    "authoredKtlint": [],
+    "externalKtlint": [],
+    "detektFindings": 0,
+    "authoredDetekt": []
+  },
+  "rustCommand": "bash verification/run-indexed-choose-oracle.sh",
+  "rustOracleLog": "\nrunning 7 tests\ntest empty_does_not_draw ... ok\ntest selected_none_is_present ... ok\ntest high_bits_select_the_index ... ok\ntest correction_without_overflow ... ok\ntest correction_with_overflow ... ok\ntest maximal_word ... ok\ntest singleton_draws_u32 ... ok\n\ntest result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+  "sha256": {
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/Other.kt": "eb81c7f084c1238ed2d6646005365dea66bb819e06ece52121dc5b1fa7bf100f",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/Float.kt": "4e5c9b3a865aafae9b285759b010b051f877dd21882d2e83d3c531803a2ac8f3",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/Slice.kt": "b20a44c88fb273d88447577ea5dc27241446d1b0cd11a766878546b3a9346aef",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndex.kt": "373d67c4ae56bfc3fd184037e213cb7615a1d2f45d030c40d441eb06bb0bcc5f",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/PublicOpen01ParityTest.kt": "433ad9fdb0abebc008f4572e1be23ea308f88b8a800c76b6a6586a3aabf91d5e",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/Open01ParityTest.kt": "f54edf36312e1fbd1df5711fb1460e38b48d0f288f46513c1b3cf2508a139e1c",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/SliceChooseParityTest.kt": "a18b561ce7c32ec3263b3bdcc81598202bee566eaa5b1fad69663e863af306c6",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedSamplingParityTest.kt": "ec62d02ec05a9ccb7f055778cd61ce5fbec0fac912dc3d8c06554e5796e5ef6f",
+    "tmp/rand/src/distr/float.rs": "486f2c8ead197d283593689e7b9026626ca83ab3fe7ebf9a89c8e701a4767c2e",
+    "tmp/rand/src/distr/other.rs": "b98748667af9415d65c8eaa6e51aee2d42a1d31c7970c22be7491adcb18a45a7",
+    "verification/open01-oracle.rs": "729fc8c853c129603fcfa9a38051a93b1a00b3ba688639664955546369826454",
+    "verification/run-public-open01-oracle.sh": "25087ba2616bcee98922322eb256d82ecf01af55059e0a1737b9a2bf6879e327",
+    "build/rust-kotlin-public-open01/OtherReview.kt": "d98bc0b9a4a79e72753033ba222ca91262b1694c838a2a5e387f7cd1eef8745c",
+    "build/rust-kotlin-open01/FloatReview.kt": "35cce781104e318ed4ed9b8ea872d99fb637db4d52858896b14fd36b1c65728f",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/AlphabeticParityTest.kt": "eac59cf785b7b798f1888b247fc01bc7013738aa45eda5faeb2c5d198d7c3d44",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/distr/OtherTest.kt": "d74cd1d4a686f39c57446a944a498784c84c2898c0ecd8636eb7cd539644fa7c",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/UniformInt.kt": "8370975ff568d04b13b584d5ec43788b902e3347d23cddb3c51eb4e7067144a6",
+    "tmp/rand/src/distr/uniform_int.rs": "1fb3ade156995a45b33853c04eb28c4031d7b0f73e731145182adb69de0c5880",
+    "verification/alphabetic-oracle.rs": "a293aa6ef94981fca2fdd6df7ba9f20608367cf0afb22a758499f56deafc85cc",
+    "verification/run-alphabetic-oracle.sh": "809e69d6cfdb7e150c10a6879992b7f01f73bf367eeb7235a234ac8b843439a0",
+    "src/commonMain/kotlin/io/github/kotlinmania/rand/seq/Slice.kt": "d257c836015ab92b5e61d572351df74939498d41a22a941b68a5c796e27520e9",
+    "src/commonTest/kotlin/io/github/kotlinmania/rand/IndexedChooseParityTest.kt": "1d3d2bfb70f0064b1ccaf3d657e56fd4a3b86793920c9c0597e22c12c09ff394",
+    "tmp/rand/src/seq/slice.rs": "8212a23bbc284b74b981ef8d5fc177c460926415f9d747a5a127453b7fa0f9e2",
+    "verification/indexed-choose-oracle.rs": "9aa5ba4cd8c992bb84bcad082cabee1da3e5b1015bc22ea212536b37276e6eaf",
+    "verification/run-indexed-choose-oracle.sh": "3db361f4029036eb20391eaab2b58a2ed6ee8c26c98dc877bc18e6a81ace1fc7",
+    "build/rust-kotlin-indexed-choose/SliceReview.kt": "abb744cc69fec8a06feee6dbcc2165a27af10fcd28985f592778f45729843280"
+  },
+  "scopeBlocker": {
+    "action": "Scratch translation of serde-json-kotlin tmp/serde_json/src/value/mod.rs",
+    "result": "Automatic approval review rejected the command before execution, stating active delegated authorization covers Rand only. No retry, workaround or JSON edits."
+  },
+  "staticAttribution": {
+    "baseline": "ae32485",
+    "method": "Current Check XML only, excluding old Format reports; equal-line mapping and EOF positions for byte-identical source",
+    "unchangedFiles": [
+      "src/commonMain/kotlin/io/github/kotlinmania/rand/distr/UniformOther.kt",
+      "src/commonMain/kotlin/io/github/kotlinmania/rand/rngs/Os.kt"
+    ]
+  }
+}

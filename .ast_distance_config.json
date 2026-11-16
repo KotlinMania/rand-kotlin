@@ -6,7 +6,7 @@
     "lang": "rust"
   },
   "target": {
-    "path": "src/commonMain/kotlin/io/github/kotlinmania/rand",
+    "path": "src/common/commonMain/kotlin/io/github/kotlinmania/rand",
     "lang": "kotlin"
   },
   "checks": {

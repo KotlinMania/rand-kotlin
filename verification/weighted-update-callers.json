@@ -1,0 +1,47 @@
+{
+  "languages": [
+    "Kotlin",
+    "Java",
+    "Swift"
+  ],
+  "query": "updateWeights(?:Result)?\\s*\\(",
+  "scope": "workspace source, respecting ignore rules; excludes build, tmp, .gradle, automation-artifacts and node_modules; no downstream compilation or binary scan",
+  "preChangeKotlinHits": [
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndexTest.kt:29:        dist.updateWeights(listOf(WeightUpdate(1, 100.0), WeightUpdate(2, 4.0)))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:39:        val result = assertIs<Result.Err<WeightError>>(dist.updateWeights(updates))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:42:        val wrapped = assertIs<Result.Err<WeightError>>(WeightedIndex.updateWeightsResult(dist, updates))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:50:        assertIs<Result.Ok<Unit>>(dist.updateWeights(emptyList()))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:57:        assertIs<Result.Ok<Unit>>(dist.updateWeights(listOf(WeightUpdate(0, 3.0))))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:91:        assertFailsWith<IllegalStateException> { dist.updateWeights(listOf(WeightUpdate(0, Double.POSITIVE_INFINITY))) }",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:97:        assertFailsWith<IllegalStateException> { dist.updateWeights(listOf(WeightUpdate(0, Double.POSITIVE_INFINITY))) }",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:98:        assertFailsWith<IllegalStateException> { dist.updateWeights(listOf(WeightUpdate(0, 1.0))) }",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedSamplingParityTest.kt:51:        dist.updateWeights(listOf(WeightUpdate(0, 3.0)))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedSamplingParityTest.kt:61:        assertFailsWith<WeightError.InvalidWeight> { dist.updateWeights(listOf(WeightUpdate(0, -1.0))) }",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndex.kt:80:    public fun updateWeights(newWeights: List<WeightUpdate>) {",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndex.kt:254:        public fun updateWeightsResult(",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndex.kt:259:                index.updateWeights(newWeights)"
+  ],
+  "finalHits": [
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndexTest.kt:31:        assertIs<Result.Ok<Unit>>(dist.updateWeights(listOf(WeightUpdate(1, 100.0), WeightUpdate(2, 4.0))))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:39:        val result = assertIs<Result.Err<WeightError>>(dist.updateWeights(updates))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:42:        val wrapped = assertIs<Result.Err<WeightError>>(WeightedIndex.updateWeightsResult(dist, updates))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:50:        assertIs<Result.Ok<Unit>>(dist.updateWeights(emptyList()))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:57:        assertIs<Result.Ok<Unit>>(dist.updateWeights(listOf(WeightUpdate(0, 3.0))))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:91:        assertFailsWith<IllegalStateException> { dist.updateWeights(listOf(WeightUpdate(0, Double.POSITIVE_INFINITY))) }",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:97:        assertFailsWith<IllegalStateException> { dist.updateWeights(listOf(WeightUpdate(0, Double.POSITIVE_INFINITY))) }",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedUpdateResultParityTest.kt:98:        assertFailsWith<IllegalStateException> { dist.updateWeights(listOf(WeightUpdate(0, 1.0))) }",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedSamplingParityTest.kt:52:        assertIs<Result.Ok<Unit>>(dist.updateWeights(listOf(WeightUpdate(0, 3.0))))",
+    "./rand-kotlin/src/commonTest/kotlin/io/github/kotlinmania/rand/WeightedSamplingParityTest.kt:62:        val failure = assertIs<Result.Err<WeightError>>(dist.updateWeights(listOf(WeightUpdate(0, -1.0))))",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndex.kt:85:    public fun updateWeights(newWeights: List<WeightUpdate>): Result<Unit, WeightError> {",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndex.kt:258:        public fun updateWeightsResult(",
+    "./rand-kotlin/src/commonMain/kotlin/io/github/kotlinmania/rand/distr/weighted/WeightedIndex.kt:261:        ): Result<Unit, WeightError> = index.updateWeights(newWeights)"
+  ],
+  "externalHits": [],
+  "existingLocalCallersAdapted": [
+    "WeightedSamplingParityTest.kt: successful and rejected updates",
+    "distr/weighted/WeightedIndexTest.kt: successful update",
+    "WeightedIndex.kt: existing updateWeightsResult wrapper forwards canonical result"
+  ],
+  "assertionAudit": "All pre-existing assertEquals/assertTrue lines in adapted tests match baseline f6d4511. InvalidWeight exception assertion becomes the identical concrete InvalidWeight assertion inside Err; success result assertions added. Constructor assertFailsWith checks remain intact.",
+  "compatibility": "Unit-to-Result is a public return type and JVM descriptor change. Compiled consumers require a rebuild; source/binary downstream compatibility is not established."
+}
